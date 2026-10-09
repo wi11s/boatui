@@ -1,0 +1,29 @@
+.turtle {
+  transform: translate(200px, 320px);
+  animation: cruise var(--duration) linear infinite;
+  animation-delay: calc(var(--duration) * -0.25);
+}
+.glide  { animation: glide 4s ease-in-out infinite alternate; }
+.paddle { animation: paddle 2.4s ease-in-out infinite alternate; }
+.school { transform: translate(260px, 470px); animation: school 24s linear infinite; animation-delay: -6s; }
+.ray    { animation: ray ease-in-out infinite alternate; }
+.sway   { animation: sway ease-in-out infinite alternate; }
+.rise   { animation: rise linear infinite; }
+.wobble { animation: wobble 1.6s ease-in-out infinite alternate; }
+
+@keyframes cruise {
+  from { transform: translate(-90px, 340px); }
+  to   { transform: translate(490px, 300px); }
+}
+@keyframes glide  { from { transform: translateY(-5px) rotate(-2deg); } to { transform: translateY(5px) rotate(2deg); } }
+@keyframes paddle { from { transform: rotate(-20deg); } to { transform: rotate(24deg); } }
+@keyframes school { from { transform: translate(470px, 480px); } to { transform: translate(-130px, 455px); } }
+@keyframes ray    { from { opacity: 0.3; } to { opacity: 1; } }
+@keyframes sway   { from { transform: rotate(-5deg); } to { transform: rotate(5deg); } }
+@keyframes rise {
+  0%   { transform: translateY(0); opacity: 0; }
+  10%  { opacity: 0.8; }
+  85%  { opacity: 0.6; }
+  100% { transform: translateY(-680px); opacity: 0; }
+}
+@keyframes wobble { from { transform: translateX(-3px); } to { transform: translateX(3px); } }

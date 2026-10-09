@@ -1,0 +1,49 @@
+.block {
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--code-bg);
+  color: var(--code-ink);
+  border: 1px solid var(--line);
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 10px 8px 16px;
+  border-bottom: 1px solid rgb(255 255 255 / 0.08);
+  font-size: 0.82rem;
+}
+
+.title {
+  font-family: var(--mono);
+  opacity: 0.75;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.copy {
+  flex: none;
+  font: inherit;
+  font-family: var(--font);
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: 1px solid rgb(255 255 255 / 0.18);
+  background: rgb(255 255 255 / 0.06);
+  color: inherit;
+  cursor: pointer;
+}
+
+.copy:hover { background: rgb(255 255 255 / 0.14); }
+
+.pre {
+  margin: 0;
+  padding: 16px;
+  overflow-x: auto;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  max-height: 520px;
+}

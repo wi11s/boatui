@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Boat Crossing</title>
+  <style>
+    html, body { margin: 0; height: 100%; overflow: hidden; background: #cfe3ee; }
+    canvas { display: block; }
+  </style>
+  <script type="importmap">
+    { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js" } }
+  </script>
+</head>
+<body>
+<script type="module">
+import * as THREE from 'three';
+
+// ---------- Renderer / scene / camera ----------
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(innerWidth, innerHeight);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+document.body.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+const skyColor = new THREE.Color(0xcfe3ee);
+scene.background = skyColor;
+scene.fog = new THREE.Fog(skyColor, 35, 120);
+
+const camera = new THREE.PerspectiveCamera(45, innerWidth / innerHeight, 0.1, 500);
+camera.position.set(0, 8, 30);
+camera.lookAt(0, 0, 0);
+
+scene.add(new THREE.HemisphereLight(0xe6f4ff, 0x1d4a5c, 1.4));
+const sun = new THREE.DirectionalLight(0xfff0d8, 2.2);
+sun.position.set(-20, 30, 15);
+scene.add(sun);
+
+// ---------- Waves (sum of sines, deep-water dispersion) ----------
+const WAVES = [
+  { dir: [1.0, 0.3],  amp: 0.20, len: 10 },
+  { dir: [-0.4, 1.0], amp: 0.12, len: 6.5 },
+  { dir: [0.7, -0.7], amp: 0.07, len: 3.5 },
+  { dir: [0.2, 1.0],  amp: 0.04, len: 2.0 },
+].map(w => {
+  const n = Math.hypot(w.dir[0], w.dir[1]);
+  const k = (2 * Math.PI) / w.len;
+  return { dx: w.dir[0] / n, dz: w.dir[1] / n, amp: w.amp, k, omega: Math.sqrt(9.8 * k) * 0.6 };
+});
+
+function waveHeight(x, z, t) {
+  let h = 0;
+  for (const w of WAVES) h += w.amp * Math.sin(w.k * (w.dx * x + w.dz * z) - w.omega * t);
+  return h;
+}
+
+// ---------- Water mesh ----------
+const waterGeo = new THREE.PlaneGeometry(160, 160, 200, 200);
+waterGeo.rotateX(-Math.PI / 2);
+const waterPos = waterGeo.attributes.position;
+const water = new THREE.Mesh(
+  waterGeo,
+  new THREE.MeshStandardMaterial({ color: 0x1f6f8f, roughness: 0.35, metalness: 0.1, flatShading: true })
+);
+scene.add(water);
+
+function updateWater(t) {
+  for (let i = 0; i < waterPos.count; i++) {
+    waterPos.setY(i, waveHeight(waterPos.getX(i), waterPos.getZ(i), t));
+  }
+  waterPos.needsUpdate = true;
+}
+
+// ---------- Boat ----------
+function buildBoat() {
+  const boat = new THREE.Group();
+
+  // Hull: extrude a top-down outline downward, then taper the bottom into a V.
+  const outline = new THREE.Shape();
+  outline.moveTo(-2, -0.7);
+  outline.lineTo(0.6, -0.75);
+  outline.quadraticCurveTo(1.6, -0.6, 2.2, 0);
+  outline.quadraticCurveTo(1.6, 0.6, 0.6, 0.75);
+  outline.lineTo(-2, 0.7);
+  outline.closePath();
+
+  const hullGeo = new THREE.ExtrudeGeometry(outline, { depth: 1, bevelEnabled: false, curveSegments: 12 });
+  hullGeo.rotateX(Math.PI / 2); // deck at y=0, keel at y=-1
+  const p = hullGeo.attributes.position;
+  for (let i = 0; i < p.count; i++) {
+    const depth = -p.getY(i); // 0 at deck, 1 at keel
+    p.setZ(i, p.getZ(i) * (1 - 0.65 * depth));
+    p.setX(i, p.getX(i) * (1 - 0.12 * depth));
+  }
+  hullGeo.translate(0, 0.55, 0);
+  hullGeo.computeVertexNormals();
+  boat.add(new THREE.Mesh(hullGeo, new THREE.MeshStandardMaterial({ color: 0xb8322a, roughness: 0.6 })));
+
+  const deckGeo = new THREE.ShapeGeometry(outline, 12);
+  deckGeo.rotateX(-Math.PI / 2);
+  deckGeo.translate(0, 0.56, 0);
+  boat.add(new THREE.Mesh(deckGeo, new THREE.MeshStandardMaterial({ color: 0xc9a46a, roughness: 0.8 })));
+
+  const white = new THREE.MeshStandardMaterial({ color: 0xf4f1ea, roughness: 0.7 });
+  const cabin = new THREE.Mesh(new THREE.BoxGeometry(1.3, 0.55, 0.9), white);
+  cabin.position.set(-0.6, 0.83, 0);
+  boat.add(cabin);
+
+  const mast = new THREE.Mesh(
+    new THREE.CylinderGeometry(0.05, 0.06, 3.6, 8),
+    new THREE.MeshStandardMaterial({ color: 0x5a3e2b })
+  );
+  mast.position.set(0.45, 2.35, 0);
+  boat.add(mast);
+
+  const sailGeo = new THREE.BufferGeometry();
+  sailGeo.setAttribute('position', new THREE.Float32BufferAttribute([
+    0.4, 0.75, 0,   0.4, 4.0, 0,   -1.7, 0.75, 0,
+  ], 3));
+  sailGeo.computeVertexNormals();
+  boat.add(new THREE.Mesh(sailGeo, new THREE.MeshStandardMaterial({ color: 0xfaf7f0, side: THREE.DoubleSide, roughness: 0.9 })));
+
+  const flag = new THREE.Mesh(
+    new THREE.PlaneGeometry(0.45, 0.25),
+    new THREE.MeshStandardMaterial({ color: 0xe8b33a, side: THREE.DoubleSide })
+  );
+  flag.position.set(0.2, 4.05, 0);
+  boat.add(flag);
+
+  return boat;
+}
+
+const boat = buildBoat();
+boat.scale.setScalar(1.4);
+scene.add(boat);
+
+const BOAT_Z = 2;
+const START_X = -34, END_X = 34;
+const CROSSING_SECONDS = 50;
+const HALF_LEN = 2.0 * 1.4, HALF_BEAM = 0.7 * 1.4;
+
+// ---------- Wake foam ----------
+const foamGeo = new THREE.CircleGeometry(0.35, 12);
+foamGeo.rotateX(-Math.PI / 2);
+const foam = [];
+for (let i = 0; i < 70; i++) {
+  const m = new THREE.Mesh(foamGeo, new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0, depthWrite: false }));
+  m.userData.age = Infinity;
+  scene.add(m);
+  foam.push(m);
+}
+let foamIndex = 0, foamTimer = 0;
+const FOAM_LIFE = 4;
+
+function spawnFoam(x, z) {
+  const m = foam[foamIndex];
+  foamIndex = (foamIndex + 1) % foam.length;
+  m.position.set(x, 0, z + (Math.random() - 0.5) * 0.8);
+  m.userData.age = 0;
+  m.userData.drift = (Math.random() < 0.5 ? -1 : 1) * (0.2 + Math.random() * 0.2);
+}
+
+function updateFoam(dt, t) {
+  for (const m of foam) {
+    const d = m.userData;
+    if (d.age > FOAM_LIFE) { m.visible = false; continue; }
+    d.age += dt;
+    const f = d.age / FOAM_LIFE;
+    m.visible = true;
+    m.position.z += d.drift * dt;
+    m.position.y = waveHeight(m.position.x, m.position.z, t) + 0.03;
+    m.scale.setScalar(0.6 + f * 2.2);
+    m.material.opacity = 0.55 * (1 - f);
+  }
+}
+
+// ---------- Animate ----------
+const clock = new THREE.Clock();
+let elapsed = 0;
+let pitch = 0, roll = 0, bob = 0;
+
+function animate() {
+  const dt = Math.min(clock.getDelta(), 0.05);
+  elapsed += dt;
+  const t = elapsed;
+
+  updateWater(t);
+
+  // Boat travels left to right, looping.
+  const progress = (t % CROSSING_SECONDS) / CROSSING_SECONDS;
+  const x = START_X + (END_X - START_X) * progress;
+  const z = BOAT_Z;
+
+  // Sample the water around the hull to float it.
+  const hCenter = waveHeight(x, z, t);
+  const hBow = waveHeight(x + HALF_LEN, z, t);
+  const hStern = waveHeight(x - HALF_LEN, z, t);
+  const hStarboard = waveHeight(x, z + HALF_BEAM, t);
+  const hPort = waveHeight(x, z - HALF_BEAM, t);
+
+  const k = 1 - Math.exp(-dt * 4); // smoothing for a heavier feel
+  bob += ((hCenter + hBow + hStern + hPort + hStarboard) / 5 - bob) * k;
+  pitch += (Math.atan2(hBow - hStern, HALF_LEN * 2) - pitch) * k;
+  roll += (-Math.atan2(hStarboard - hPort, HALF_BEAM * 2) - roll) * k;
+
+  boat.position.set(x, bob - 0.15, z);
+  boat.rotation.set(roll, 0, pitch);
+
+  foamTimer += dt;
+  if (foamTimer > 0.12) {
+    foamTimer = 0;
+    spawnFoam(x - HALF_LEN, z);
+  }
+  updateFoam(dt, t);
+
+  renderer.render(scene, camera);
+  requestAnimationFrame(animate);
+}
+requestAnimationFrame(animate);
+
+addEventListener('resize', () => {
+  camera.aspect = innerWidth / innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+});
+</script>
+</body>
+</html>
