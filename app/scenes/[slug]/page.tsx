@@ -1,11 +1,13 @@
-import { readFile } from 'node:fs/promises';
-import path from 'node:path';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { CodeBlock } from '@/components/site/code-block';
+import { JsonLd } from '@/components/site/json-ld';
 import { Playground } from '@/components/site/playground';
-import { SHARED_FILES, getScene, scenes, tokenToVar } from '@/lib/registry';
+import { TrackedLink } from '@/components/site/tracked-link';
+import { SHARED_FILES, getScene, sceneProps, scenes, tokenToVar } from '@/lib/registry';
+import { REPO_URL, SITE_NAME, SITE_URL, repoFile } from '@/lib/site';
+import { readSceneSource, sceneFiles } from '@/lib/source-stats';
 import styles from './page.module.css';
 
 type Params = { params: Promise<{ slug: string }> };
@@ -16,117 +18,114 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const scene = getScene((await params).slug);
-  return scene ? { title: scene.title, description: scene.description } : {};
+  if (!scene) return {};
+  return {
+    title: scene.name,
+    description: `<${scene.name} />: ${scene.description}`,
+    alternates: { canonical: `/scenes/${scene.slug}`, types: { 'text/markdown': `/scenes/${scene.slug}.md` } },
+  };
 }
-
-const SCENES_DIR = path.join(process.cwd(), 'components/scenes');
-const readSource = (file: string) => readFile(path.join(SCENES_DIR, file), 'utf8');
 
 export default async function ScenePage({ params }: Params) {
   const scene = getScene((await params).slug);
   if (!scene) notFound();
 
-  const ownFiles = [`${scene.file}.tsx`, `${scene.file}.module.css`];
   const [own, shared] = await Promise.all([
-    Promise.all(ownFiles.map(async name => ({ name, code: await readSource(name) }))),
-    Promise.all(SHARED_FILES.map(async name => ({ name, code: await readSource(name) }))),
+    Promise.all(sceneFiles(scene).map(async name => ({ name, code: await readSceneSource(name) }))),
+    Promise.all(SHARED_FILES.map(async name => ({ name, code: await readSceneSource(name) }))),
   ]);
-
-  const PROPS = [
-    ['duration', 'number', `${scene.defaultDuration}`, `Seconds for ${scene.durationLabel}.`],
-    ['theme', `Partial<${scene.name.replace('Scene', 'Theme')}>`, '—', 'Override any colour token below.'],
-    ['paused', 'boolean', 'false', 'Freeze the animation. It also pauses on its own while off-screen.'],
-    ['className', 'string', '—', 'Added to the outer element.'],
-    ['style', 'CSSProperties', '—', 'Merged onto the outer element.'],
-    ['children', 'ReactNode', '—', 'Rendered on top of the scene, filling it.'],
-  ];
 
   return (
     <div className="container">
-      <Link href="/#scenes" className={styles.back}>← All scenes</Link>
+      <JsonLd
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'SoftwareSourceCode',
+          name: scene.name,
+          description: scene.description,
+          url: `${SITE_URL}/scenes/${scene.slug}`,
+          codeRepository: REPO_URL,
+          license: 'https://opensource.org/licenses/MIT',
+          programmingLanguage: ['TypeScript', 'CSS'],
+          runtimePlatform: 'React',
+          isPartOf: { '@type': 'SoftwareSourceCode', name: SITE_NAME, url: SITE_URL },
+        }}
+      />
+
+      <Link href="/" className={styles.back}>← Scenes</Link>
 
       <header className={styles.header}>
-        <p className={styles.eyebrow}>{scene.title}</p>
-        <h1 className={styles.title}>{`<${scene.name} />`}</h1>
-        <p className={styles.lede}>{scene.description}</p>
+        <h1 className={styles.title}>{scene.title}</h1>
+        <p className={styles.lede}>
+          <code className={styles.name}>{`<${scene.name} />`}</code> {scene.blurb}
+        </p>
+        <p className={styles.meta}>
+          <TrackedLink
+            href={repoFile(`components/scenes/${scene.file}.tsx`)}
+            event="github_click"
+            eventProps={{ target: 'source_file', location: 'scene_header', scene: scene.slug }}
+          >
+            Source
+          </TrackedLink>{' '}
+          · <a href={`/scenes/${scene.slug}.md`}>Markdown</a>
+        </p>
       </header>
 
       <Playground slug={scene.slug} />
 
-      <section className={styles.section}>
-        <h2>Props</h2>
-        <div className={styles.tableWrap}>
-          <table className={styles.table}>
-            <thead>
-              <tr><th>Prop</th><th>Type</th><th>Default</th><th>Description</th></tr>
-            </thead>
-            <tbody>
-              {PROPS.map(([prop, type, def, desc]) => (
-                <tr key={prop}>
-                  <td><code>{prop}</code></td>
-                  <td><code>{type}</code></td>
-                  <td><code>{def}</code></td>
-                  <td>{desc}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+      <details className={styles.details}>
+        <summary>Props and theme tokens</summary>
+        <div className={styles.detailsBody}>
+          <div className={styles.tableWrap}>
+            <table className={styles.table}>
+              <thead>
+                <tr><th>Prop</th><th>Type</th><th>Default</th><th>Description</th></tr>
+              </thead>
+              <tbody>
+                {sceneProps(scene).map(([prop, type, def, desc]) => (
+                  <tr key={prop}>
+                    <td><code>{prop}</code></td>
+                    <td><code>{type}</code></td>
+                    <td>{def}</td>
+                    <td>{desc}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className={styles.tableWrap}>
+            <table className={styles.table}>
+              <thead>
+                <tr><th>Theme key</th><th>CSS variable</th><th>Default</th></tr>
+              </thead>
+              <tbody>
+                {Object.entries(scene.theme).map(([key, value]) => (
+                  <tr key={key}>
+                    <td><code>{key}</code></td>
+                    <td><code>{tokenToVar(key)}</code></td>
+                    <td>
+                      <span className={styles.swatch} style={{ background: value }} aria-hidden="true" />
+                      <code>{value}</code>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
-      </section>
+      </details>
 
-      <section className={styles.section}>
-        <h2>Theme tokens</h2>
-        <p className={styles.note}>
-          Pass these through <code>theme</code>, or set the CSS variables on a parent with <code>style</code>.
-        </p>
-        <div className={styles.tableWrap}>
-          <table className={styles.table}>
-            <thead>
-              <tr><th>Token</th><th>CSS variable</th><th>Default</th></tr>
-            </thead>
-            <tbody>
-              {Object.entries(scene.theme).map(([key, value]) => (
-                <tr key={key}>
-                  <td><code>{key}</code></td>
-                  <td><code>{tokenToVar(key)}</code></td>
-                  <td>
-                    <span className={styles.swatch} style={{ background: value }} aria-hidden="true" />
-                    <code>{value}</code>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <section className={styles.section}>
-        <h2>Add it to your project</h2>
-        <ol className={styles.steps}>
-          <li>
-            Copy the shared files into <code>components/scenes/</code>. You only need these once, whichever scenes you use.
-          </li>
-          <li>Copy this scene&apos;s two files next to them.</li>
-          <li>
-            Import <code>{scene.name}</code> and render it. No packages to install beyond React.
-          </li>
-        </ol>
-
-        <h3 className={styles.subhead}>{scene.name}</h3>
-        <div className={styles.files}>
-          {own.map(f => <CodeBlock key={f.name} title={`components/scenes/${f.name}`} code={f.code} />)}
-        </div>
-
-        <h3 className={styles.subhead}>Shared files</h3>
-        <div className={styles.files}>
-          {shared.map(f => (
-            <details key={f.name} className={styles.details}>
-              <summary>components/scenes/{f.name}</summary>
-              <CodeBlock title={`components/scenes/${f.name}`} code={f.code} />
-            </details>
+      <details className={styles.details}>
+        <summary>Source files</summary>
+        <div className={styles.detailsBody}>
+          <p className={styles.note}>
+            Copy into <code>components/scenes/</code>. The shared files are needed once for all scenes.
+          </p>
+          {[...own, ...shared].map(f => (
+            <CodeBlock key={f.name} title={`components/scenes/${f.name}`} code={f.code} scene={scene.slug} />
           ))}
         </div>
-      </section>
+      </details>
     </div>
   );
 }

@@ -1,55 +1,44 @@
 .card {
   display: block;
+  text-decoration: none;
+}
+
+.art {
   border-radius: var(--radius);
   overflow: hidden;
   box-shadow: var(--shadow);
-  text-decoration: none;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 26px 56px rgb(31 51 64 / 0.24);
+.card:hover .art {
+  transform: translateY(-3px);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.05), 0 16px 36px rgb(0 0 0 / 0.1);
 }
 
 .card:focus-visible {
-  outline: 3px solid var(--accent);
-  outline-offset: 3px;
+  outline: 2px solid var(--ink);
+  outline-offset: 4px;
+  border-radius: var(--radius);
 }
 
-.copy {
-  padding: 26px 22px;
-  color: #183b4e;
+.caption {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 14px;
 }
 
-.copy.light { color: #eef3ff; }
+.title { font-weight: 600; }
 
-.copy h3 {
-  margin: 0 0 4px;
-  font-size: 1.35rem;
-  line-height: 1.15;
-}
-
-.copy p {
-  margin: 0;
-  font-size: 0.95rem;
-  opacity: 0.82;
-}
-
-.tag {
-  position: absolute;
-  left: 16px;
-  bottom: 16px;
-  padding: 4px 10px;
-  border-radius: 999px;
-  font-family: var(--mono);
+.name {
   font-size: 0.78rem;
-  color: #fff;
-  background: rgb(10 20 30 / 0.45);
-  backdrop-filter: blur(4px);
+  color: var(--faint);
+  background: none !important;
+  padding: 0 !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .card { transition: none; }
-  .card:hover { transform: none; }
+  .art { transition: none; }
+  .card:hover .art { transform: none; }
 }

@@ -1,20 +1,24 @@
 'use client';
 
 import { useState } from 'react';
+import { trackEvent } from '@/lib/analytics';
 import styles from './code-block.module.css';
 
 type Props = {
   code: string;
   /** Shown in the header bar, e.g. a filename. */
   title?: string;
+  /** Scene slug, when the block belongs to a scene page (for analytics). */
+  scene?: string;
 };
 
-export function CodeBlock({ code, title }: Props) {
+export function CodeBlock({ code, title, scene }: Props) {
   const [copied, setCopied] = useState(false);
 
   async function copy() {
     try {
       await navigator.clipboard.writeText(code);
+      trackEvent('code_copy', { title: title ?? 'untitled', scene });
       setCopied(true);
       setTimeout(() => setCopied(false), 1600);
     } catch {

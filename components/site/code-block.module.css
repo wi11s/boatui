@@ -1,5 +1,5 @@
 .block {
-  border-radius: 14px;
+  border-radius: var(--radius-sm);
   overflow: hidden;
   background: var(--code-bg);
   color: var(--code-ink);
@@ -12,13 +12,13 @@
   justify-content: space-between;
   gap: 12px;
   padding: 8px 10px 8px 16px;
-  border-bottom: 1px solid rgb(255 255 255 / 0.08);
-  font-size: 0.82rem;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.8rem;
 }
 
 .title {
   font-family: var(--mono);
-  opacity: 0.75;
+  color: var(--faint);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -27,17 +27,16 @@
 .copy {
   flex: none;
   font: inherit;
-  font-family: var(--font);
-  font-weight: 600;
-  padding: 4px 12px;
-  border-radius: 999px;
-  border: 1px solid rgb(255 255 255 / 0.18);
-  background: rgb(255 255 255 / 0.06);
-  color: inherit;
+  font-size: 0.8rem;
+  padding: 3px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--muted);
   cursor: pointer;
 }
 
-.copy:hover { background: rgb(255 255 255 / 0.14); }
+.copy:hover { color: var(--ink); }
 
 .pre {
   margin: 0;
