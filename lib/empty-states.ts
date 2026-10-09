@@ -1,7 +1,13 @@
 import type { ComponentType } from 'react';
 import {
+  EmptyFishing,
+  EmptyMailbox,
   EmptyNap,
+  EmptyOffline,
+  emptyFishingTheme,
+  emptyMailboxTheme,
   emptyNapTheme,
+  emptyOfflineTheme,
   type EmptyStateProps,
 } from '@/components/empty-states';
 
@@ -26,11 +32,47 @@ export const emptyStates: EmptyStateEntry[] = [
     title: 'Nap',
     blurb: 'A cat asleep on a cushion. For "nothing here yet".',
     description:
-      'A cat curled up asleep on a cushion: its body rises and falls as it breathes, its tail swishes, an ear twitches now and then, and Zs drift up and fade. For empty lists and "nothing here yet" screens.',
+      'A tabby cat curled up asleep on a tufted cushion, chin on its paws, tail wrapped round its front, a ball of yarn on the floor beside it. Its body rises and falls as it breathes, the tail tip flicks, an ear twitches now and then, and Zs drift up and fade. For empty lists and "nothing here yet" screens.',
     animated: true,
     theme: emptyNapTheme,
     file: 'empty-nap',
     Component: EmptyNap as EmptyStateEntry['Component'],
+  },
+  {
+    slug: 'fishing',
+    name: 'EmptyFishing',
+    title: 'Fishing',
+    blurb: 'A bobber in a quiet pond, fish swimming past. For "no results".',
+    description:
+      'A fishing line dropped into a quiet pond: the bobber bobs and sends out rings while two fish glide right past it under the surface. Reeds and cattails sway at the edge and a lily flowers on its pad. For "no results" and empty search screens.',
+    animated: true,
+    theme: emptyFishingTheme,
+    file: 'empty-fishing',
+    Component: EmptyFishing as EmptyStateEntry['Component'],
+  },
+  {
+    slug: 'mailbox',
+    name: 'EmptyMailbox',
+    title: 'Mailbox',
+    blurb: 'An open, empty mailbox with a bird on top. For inbox zero.',
+    description:
+      'A mailbox on a post with its door hanging open on an empty inside and the flag down. A small bird perched on the roof pecks, hops and chirps; the door sways a little and the grass stirs. For inbox zero, "no messages" and "no notifications" screens.',
+    animated: true,
+    theme: emptyMailboxTheme,
+    file: 'empty-mailbox',
+    Component: EmptyMailbox as EmptyStateEntry['Component'],
+  },
+  {
+    slug: 'offline',
+    name: 'EmptyOffline',
+    title: 'Offline',
+    blurb: 'A tin-can telephone with a slack string. For offline screens.',
+    description:
+      'Two tin cans joined by a string that has gone slack and sags to the ground. Dots leave one can and fade before they reach the other, and a question mark tilts over the far can. For offline, "can\'t connect" and lost-connection screens.',
+    animated: true,
+    theme: emptyOfflineTheme,
+    file: 'empty-offline',
+    Component: EmptyOffline as EmptyStateEntry['Component'],
   },
 ];
 

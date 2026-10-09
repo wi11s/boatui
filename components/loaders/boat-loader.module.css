@@ -1,15 +1,72 @@
-/* The waves scroll by exactly one wavelength per loop, so the seam never shows. */
-.waves { animation: scroll 1.4s linear infinite; }
-.wavesBack { animation: scroll 2.2s linear infinite reverse; }
+/* One 2.4s loop. The front sea scrolls left by exactly one 50-unit wavelength, and the boat's
+   keyframes are its height and slope sampled at x = 50 (rotation softened and lagging slightly,
+   as a hull would), so the boat really rides the wave it sits on. */
+.front { animation: scroll 2.4s linear infinite; }
+.back  { animation: scroll 3.6s linear infinite; }
+.cloud { animation: cloud 9s linear infinite; }
 
-.boat {
+.boat { animation: ride 2.4s linear infinite; }
+
+.pennant {
   transform-box: fill-box;
-  transform-origin: 50% 90%;
-  animation: rock 1.4s ease-in-out infinite;
+  transform-origin: 0% 50%;
+  animation: flutter 0.5s ease-in-out infinite alternate;
 }
 
-@keyframes scroll { to { transform: translateX(-40px); } }
-@keyframes rock {
-  0%, 100% { transform: translateY(0) rotate(-7deg); }
-  50% { transform: translateY(-3px) rotate(7deg); }
+/* Foam peels off the stern and drifts back with the water. */
+.wake {
+  transform-box: fill-box;
+  transform-origin: 100% 50%;
+  animation: wake 1.2s ease-out infinite;
+}
+
+/* Spray kicks up as the bow dips into the trough (around 55% of the loop). */
+.spray {
+  opacity: 0;
+  animation: spray 2.4s ease-out infinite;
+}
+.spray2 { animation-name: spray2; }
+
+@keyframes scroll { to { transform: translateX(-50px); } }
+@keyframes cloud {
+  from { transform: translateX(-20px); }
+  to   { transform: translateX(120px); }
+}
+@keyframes ride {
+  0%      { transform: translate(50px, 64px) rotate(-12.4deg); }
+  8.33%   { transform: translate(50px, 62.4px) rotate(-13deg); }
+  16.67%  { transform: translate(50px, 61.23px) rotate(-10.3deg); }
+  25%     { transform: translate(50px, 60.8px) rotate(-4.7deg); }
+  33.33%  { transform: translate(50px, 61.23px) rotate(2.4deg); }
+  41.67%  { transform: translate(50px, 62.4px) rotate(8.7deg); }
+  50%     { transform: translate(50px, 64px) rotate(12.4deg); }
+  58.33%  { transform: translate(50px, 65.6px) rotate(13deg); }
+  66.67%  { transform: translate(50px, 66.77px) rotate(10.3deg); }
+  75%     { transform: translate(50px, 67.2px) rotate(4.7deg); }
+  83.33%  { transform: translate(50px, 66.77px) rotate(-2.4deg); }
+  91.67%  { transform: translate(50px, 65.6px) rotate(-8.7deg); }
+  100%    { transform: translate(50px, 64px) rotate(-12.4deg); }
+}
+@keyframes flutter {
+  from { transform: scaleX(1) skewY(0deg); }
+  to   { transform: scaleX(0.8) skewY(-8deg); }
+}
+@keyframes wake {
+  0%   { transform: translateX(0) scaleX(0.5); opacity: 0; }
+  20%  { opacity: 0.9; }
+  100% { transform: translateX(-22px) scaleX(1.2); opacity: 0; }
+}
+@keyframes spray {
+  0%, 48% { transform: translate(0, 0); opacity: 0; }
+  52%     { opacity: 1; }
+  70%     { transform: translate(7px, -9px); opacity: 0.9; }
+  84%     { transform: translate(10px, -3px); opacity: 0; }
+  100%    { transform: translate(10px, -3px); opacity: 0; }
+}
+@keyframes spray2 {
+  0%, 50% { transform: translate(0, 0); opacity: 0; }
+  54%     { opacity: 1; }
+  72%     { transform: translate(3px, -11px); opacity: 0.9; }
+  88%     { transform: translate(5px, -4px); opacity: 0; }
+  100%    { transform: translate(5px, -4px); opacity: 0; }
 }

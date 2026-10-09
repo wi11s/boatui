@@ -1,17 +1,17 @@
-/* The cat breathes from its belly, its tail swishes, and Zs drift up and fade. */
+/* The cat breathes from its belly, its tail tip flicks, an ear twitches, and Zs drift up and fade. */
 .breathe {
   transform-box: fill-box;
   transform-origin: 50% 100%;
   animation: breathe 2.6s ease-in-out infinite;
 }
-.tail {
+.tip {
   transform-box: fill-box;
-  transform-origin: 0% 50%;
-  animation: swish 3.2s ease-in-out infinite;
+  transform-origin: 100% 100%;
+  animation: flick 4.2s ease-in-out infinite;
 }
 .ear {
   transform-box: fill-box;
-  transform-origin: 50% 100%;
+  transform-origin: 70% 100%;
   animation: twitch 7s ease-in-out infinite;
 }
 .z {
@@ -24,9 +24,11 @@
   0%, 100% { transform: scaleY(1); }
   50% { transform: scaleY(1.05); }
 }
-@keyframes swish {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(-12deg); }
+@keyframes flick {
+  0%, 55%, 100% { transform: rotate(0deg); }
+  65% { transform: rotate(22deg); }
+  72% { transform: rotate(6deg); }
+  80% { transform: rotate(18deg); }
 }
 @keyframes twitch {
   0%, 92%, 100% { transform: rotate(0deg); }

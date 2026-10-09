@@ -1,4 +1,5 @@
-// <ToastLoader>: a toaster that crouches, then pops two slices of toast up and catches them.
+// <ToastLoader>: a toaster that crouches, squeezes its eyes shut, then pops two slices of toast up.
+// One slice flips head over heels before both drop back in.
 
 import { LoaderFrame, type LoaderProps } from './loader';
 import styles from './toast-loader.module.css';
@@ -9,6 +10,7 @@ export const toastLoaderTheme = {
   bread: '#e9b96e',
   crust: '#b8713a',
   spark: '#f2c14e',
+  face: '#3d4a57',
 };
 export type ToastLoaderTheme = typeof toastLoaderTheme;
 
@@ -21,7 +23,7 @@ function Slice({ x, className }: { x: number; className: string }) {
   );
 }
 
-/** A toaster that crouches, then pops two slices of toast up and catches them. */
+/** A toaster that crouches, then pops two slices of toast up; one flips before they drop back in. */
 export function ToastLoader(props: LoaderProps<ToastLoaderTheme>) {
   return (
     <LoaderFrame
@@ -39,7 +41,13 @@ export function ToastLoader(props: LoaderProps<ToastLoaderTheme>) {
             <rect x="20" y="78" width="60" height="8" rx="4" fill="var(--toaster-shade)" />
             <rect x="30" y="48" width="18" height="5" rx="2.5" fill="var(--toaster-shade)" />
             <rect x="52" y="48" width="18" height="5" rx="2.5" fill="var(--toaster-shade)" />
-            <circle cx="30" cy="66" r="2" fill="#ffffff" opacity="0.7" />
+            <g className={styles.eyes} fill="var(--face)">
+              <ellipse cx="41" cy="66" rx="2.2" ry="2.6" />
+              <ellipse cx="59" cy="66" rx="2.2" ry="2.6" />
+            </g>
+            <path d="M47 71 Q50 73.5 53 71" fill="none" stroke="var(--face)" strokeWidth="1.6" strokeLinecap="round" />
+            <ellipse cx="35" cy="70.5" rx="3" ry="1.8" fill="var(--spark)" opacity="0.45" />
+            <ellipse cx="65" cy="70.5" rx="3" ry="1.8" fill="var(--spark)" opacity="0.45" />
           </g>
           <g className={styles.lever}>
             <rect x="80" y="58" width="9" height="4" rx="2" fill="var(--toaster-shade)" />

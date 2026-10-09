@@ -1,11 +1,15 @@
 import type { ComponentType } from 'react';
 import {
+  AuroraScene,
   BalloonScene,
   BoatScene,
+  KiteScene,
   LighthouseScene,
   ReefScene,
+  auroraTheme,
   balloonTheme,
   boatTheme,
+  kiteTheme,
   lighthouseTheme,
   reefTheme,
   TrainScene,
@@ -52,7 +56,7 @@ export const scenes: SceneEntry[] = [
     title: 'Lighthouse',
     blurb: 'Rotating beam over a night sea. Ship on the horizon.',
     description:
-      'Lighthouse on a headland with a sweeping beam that flashes when facing the viewer. A steamer crosses the horizon. Ambient motion: twinkling stars, moon glints, drifting waves.',
+      'Lighthouse on a headland with a sweeping beam (a soft wide cone under a bright core) that flashes when facing the viewer. A steamer crosses the horizon. Ambient motion: twinkling stars, a glittering moon path down the water, drifting waves.',
     durationLabel: 'the steamer\'s crossing',
     defaultDuration: 80,
     theme: lighthouseTheme,
@@ -66,7 +70,7 @@ export const scenes: SceneEntry[] = [
     title: 'Balloon',
     blurb: 'Hot-air balloon rising over hills. Dawn.',
     description:
-      'Hot-air balloon ascending diagonally over four hill layers at sunrise. Ambient motion: swaying basket, burner flicker, drifting mist, a distant second balloon, birds.',
+      'Hot-air balloon ascending diagonally over four hill layers at sunrise, with soft mist lying in the valleys. Ambient motion: swaying basket, a glowing burner flicker, drifting mist puffs, a distant second balloon, birds.',
     durationLabel: 'the balloon\'s ascent',
     defaultDuration: 45,
     theme: balloonTheme,
@@ -94,13 +98,41 @@ export const scenes: SceneEntry[] = [
     title: 'Train',
     blurb: 'Steam train crossing a viaduct. Dusk.',
     description:
-      'Steam train crossing a stone viaduct at dusk with mountains and a setting sun behind. Ambient motion: steam puffs, twinkling stars, drifting valley mist.',
+      'Steam train with its headlamp lit crossing a five-arched stone viaduct at dusk, mountains and a setting sun behind and a hazy valley seen through the arches. Ambient motion: steam puffs, twinkling stars, drifting valley mist.',
     durationLabel: 'the train crossing the frame',
     defaultDuration: 30,
     theme: trainTheme,
     file: 'train-scene',
     tone: 'light',
     Component: TrainScene as SceneEntry['Component'],
+  },
+  {
+    slug: 'aurora',
+    name: 'AuroraScene',
+    title: 'Aurora',
+    blurb: 'Northern lights over a cabin by a frozen lake. Night.',
+    description:
+      'Three curtains of northern lights drift, breathe and lean over snow-capped mountains, mirrored faintly in a frozen lake. A cabin with a lit window and smoking chimney sits among pines on the snowy shore. Ambient motion: twinkling stars, an occasional shooting star, chimney smoke, a glowing window.',
+    durationLabel: 'the main curtain of light to drift once across the sky',
+    defaultDuration: 60,
+    theme: auroraTheme,
+    file: 'aurora-scene',
+    tone: 'light',
+    Component: AuroraScene as SceneEntry['Component'],
+  },
+  {
+    slug: 'kite',
+    name: 'KiteScene',
+    title: 'Kite',
+    blurb: 'A child flying a kite from a grassy hill. Breezy afternoon.',
+    description:
+      'A child on a grassy hill flies a diamond kite that wanders a slow loop in the sky, its ribbon tail waving bow by bow. The string stays pinned to the child\'s hand, turning and stretching with the kite. Ambient motion: gusts that tilt the kite, a fluttering scarf, a windmill turning on the far hill, grass blowing, three layers of drifting clouds.',
+    durationLabel: 'one loop of the kite\'s wander',
+    defaultDuration: 16,
+    theme: kiteTheme,
+    file: 'kite-scene',
+    tone: 'dark',
+    Component: KiteScene as SceneEntry['Component'],
   },
 ];
 

@@ -1,7 +1,8 @@
 'use client';
 
-// <TinyPlanet3D>: a small low-poly planet turning slowly, with trees, cottages,
-// a windmill, orbiting clouds, a moon and a starfield. three.js.
+// <TinyPlanet3D>: a small low-poly planet turning slowly, with trees, cottages with smoking
+// chimneys, a windmill, a pond, grazing sheep, orbiting clouds, a moon and a starfield,
+// all wrapped in a soft atmospheric glow. three.js.
 
 import * as THREE from 'three';
 import { ThreeFrame, seeded, type SceneSetup, type ThreeSceneProps } from './three-frame';
@@ -17,6 +18,8 @@ export const tinyPlanetTheme = {
   cloud: '#ffffff',
   moon: '#e3ddd0',
   stars: '#ffffff',
+  water: '#5fb4d9',
+  glow: '#8fb8ff',
 };
 export type TinyPlanetTheme = typeof tinyPlanetTheme;
 
@@ -54,7 +57,12 @@ const setup: SceneSetup<TinyPlanetTheme> = ({ scene, camera, theme }) => {
     moon: flat(theme.moon),
     door: flat('#5a3e2b'),
     window: new THREE.MeshStandardMaterial({ color: '#ffd98a', emissive: '#ffb84d', emissiveIntensity: 0.9 }),
+    water: flat(theme.water, { roughness: 0.2, metalness: 0.1 }),
+    wool: flat('#f6f2ea'),
+    face: flat('#3b3330'),
+    stone: flat('#9a9aa6'),
   };
+  const smokeMats: THREE.MeshStandardMaterial[] = [];
 
   const hemi = new THREE.HemisphereLight('#dfe8ff', theme.skyBottom, 1.3);
   const sun = new THREE.DirectionalLight('#fff1d6', 2.4);
@@ -83,6 +91,7 @@ const setup: SceneSetup<TinyPlanetTheme> = ({ scene, camera, theme }) => {
 
   // Cottages first, so trees can keep their distance.
   const taken: THREE.Vector3[] = [];
+  const smoke: THREE.Mesh[] = [];
   const house = (dir: THREE.Vector3) => {
     const g = new THREE.Group();
     const walls = new THREE.Mesh(new THREE.BoxGeometry(0.32, 0.26, 0.3), mats.walls);
@@ -94,7 +103,18 @@ const setup: SceneSetup<TinyPlanetTheme> = ({ scene, camera, theme }) => {
     door.position.set(0, 0.06, 0.155);
     const window = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.06, 0.02), mats.window);
     window.position.set(0.09, 0.15, 0.155);
-    g.add(walls, roof, door, window);
+    const chimney = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.14, 0.06), mats.walls);
+    chimney.position.set(-0.08, 0.4, -0.05);
+    g.add(walls, roof, door, window, chimney);
+    // Smoke: puffs that rise from the chimney, swell and fade on a loop.
+    for (let k = 0; k < 4; k++) {
+      const mat = flat('#f4f1fa', { transparent: true, depthWrite: false, roughness: 1, emissive: '#b9b4cc', emissiveIntensity: 0.5 });
+      smokeMats.push(mat);
+      const puff = new THREE.Mesh(new THREE.IcosahedronGeometry(0.045, 1), mat);
+      puff.userData.offset = k / 4;
+      smoke.push(puff);
+      g.add(puff);
+    }
     g.rotateY(rand() * Math.PI * 2);
     taken.push(dir);
     world.add(plant(g, dir));
@@ -124,6 +144,63 @@ const setup: SceneSetup<TinyPlanetTheme> = ({ scene, camera, theme }) => {
     }
     g.add(tower, cap, blades);
     world.add(plant(g, dir));
+  }
+
+  // A pond: a flat disc pressed into the surface, ringed with stones.
+  {
+    const dir = new THREE.Vector3(0.75, 0.35, 0.55).normalize();
+    taken.push(dir);
+    const g = new THREE.Group();
+    const pond = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.3, 0.03, 9), mats.water);
+    pond.position.y = 0.015;
+    g.add(pond);
+    for (let i = 0; i < 9; i++) {
+      const a = (i / 9) * Math.PI * 2 + rand() * 0.3;
+      const stone = new THREE.Mesh(new THREE.DodecahedronGeometry(0.04 + rand() * 0.02, 0), mats.stone);
+      stone.position.set(Math.cos(a) * 0.32, 0.02, Math.sin(a) * 0.32);
+      g.add(stone);
+    }
+    world.add(plant(g, dir));
+  }
+
+  // Sheep graze in a little flock, nodding their heads.
+  const sheepHeads: THREE.Object3D[] = [];
+  {
+    const centre = new THREE.Vector3(-0.35, 0.55, 0.75).normalize();
+    taken.push(centre);
+    for (let i = 0; i < 4; i++) {
+      const dir = centre.clone().add(new THREE.Vector3((rand() - 0.5) * 0.35, (rand() - 0.5) * 0.35, (rand() - 0.5) * 0.35)).normalize();
+      const g = new THREE.Group();
+      const body = new THREE.Mesh(new THREE.IcosahedronGeometry(0.075, 0), mats.wool);
+      body.scale.set(1.3, 0.9, 1);
+      body.position.y = 0.09;
+      const head = new THREE.Group();
+      head.position.set(0.1, 0.1, 0);
+      const face = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.05, 0.045), mats.face);
+      face.position.x = 0.025;
+      head.add(face);
+      for (const x of [-0.04, 0.04]) {
+        for (const z of [-0.03, 0.03]) {
+          const leg = new THREE.Mesh(new THREE.BoxGeometry(0.018, 0.06, 0.018), mats.face);
+          leg.position.set(x, 0.03, z);
+          g.add(leg);
+        }
+      }
+      g.add(body, head);
+      g.rotateY(rand() * Math.PI * 2);
+      sheepHeads.push(head);
+      world.add(plant(g, dir));
+    }
+  }
+
+  // Flowers scattered in the grass.
+  const petals = ['#ffd166', '#f78fb3', '#ffffff'].map(c => flat(c));
+  for (let i = 0; i < 26; i++) {
+    const dir = randomDir(rand);
+    if (taken.some(t => t.angleTo(dir) < 0.2)) continue;
+    const flower = new THREE.Mesh(new THREE.IcosahedronGeometry(0.03, 0), petals[i % 3]);
+    flower.position.y = 0.03;
+    world.add(plant(new THREE.Group().add(flower), dir));
   }
 
   // Trees: a mix of cones and round tops, kept away from buildings.
@@ -166,6 +243,31 @@ const setup: SceneSetup<TinyPlanetTheme> = ({ scene, camera, theme }) => {
     orbits.push({ pivot, speed: 0.12 + rand() * 0.12 });
   }
 
+  // Atmosphere: only the far side of a slightly larger shell is drawn, so it reads as a halo
+  // behind the planet: brightest at the planet's edge, fading to nothing at the shell's edge.
+  const glowMat = new THREE.ShaderMaterial({
+    uniforms: { color: { value: new THREE.Color(theme.glow) } },
+    vertexShader: `varying vec3 vNormal; varying vec3 vView;
+      void main() {
+        vec4 mv = modelViewMatrix * vec4(position, 1.0);
+        vNormal = normalize(normalMatrix * normal);
+        vView = normalize(-mv.xyz);
+        gl_Position = projectionMatrix * mv;
+      }`,
+    fragmentShader: `uniform vec3 color; varying vec3 vNormal; varying vec3 vView;
+      void main() {
+        float facing = max(-dot(vNormal, vView), 0.0);
+        float halo = smoothstep(0.0, 0.6, facing);
+        gl_FragColor = vec4(color, halo * halo * 0.32);
+      }`,
+    side: THREE.BackSide,
+    transparent: true,
+    depthWrite: false,
+    blending: THREE.AdditiveBlending,
+  });
+  const atmosphere = new THREE.Mesh(new THREE.SphereGeometry(RADIUS * 1.25, 48, 32), glowMat);
+  scene.add(atmosphere);
+
   // Moon.
   const moonPivot = new THREE.Object3D();
   moonPivot.rotation.x = 0.35;
@@ -195,6 +297,18 @@ const setup: SceneSetup<TinyPlanetTheme> = ({ scene, camera, theme }) => {
       moonPivot.rotation.y = time * 0.08;
       moon.rotation.y = time * 0.2;
       stars.rotation.y = time * 0.004;
+      atmosphere.position.y = world.position.y;
+      smoke.forEach((puff, i) => {
+        const phase = (time * 0.35 + puff.userData.offset) % 1;
+        puff.position.set(-0.08 + phase * 0.12, 0.5 + phase * 0.42, -0.05);
+        puff.scale.setScalar(0.5 + phase * 1.4);
+        smokeMats[i].opacity = 0.85 * Math.sin(phase * Math.PI) ** 0.7;
+      });
+      sheepHeads.forEach((head, i) => {
+        // Graze: dip the head for a while, then look up.
+        const nod = Math.max(0, Math.sin(time * 0.6 + i * 1.7));
+        head.rotation.z = -0.7 * nod;
+      });
     },
     setTheme(t) {
       mats.ground.color.set(t.ground);
@@ -206,6 +320,8 @@ const setup: SceneSetup<TinyPlanetTheme> = ({ scene, camera, theme }) => {
       mats.moon.color.set(t.moon);
       starMat.color.set(t.stars);
       hemi.groundColor.set(t.skyBottom);
+      mats.water.color.set(t.water);
+      glowMat.uniforms.color.value.set(t.glow);
     },
   };
 };

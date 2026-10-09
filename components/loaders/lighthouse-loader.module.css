@@ -1,0 +1,22 @@
+/* The beam swings 1 → -1 → 1 in 2.4s (ease-in-out alternate approximates a cosine), so it
+   passes through zero width — facing you — every 1.2s. The lamp flares at those moments. */
+.beam { animation: sweep 1.2s ease-in-out infinite alternate; }
+
+.flare {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: flare 1.2s ease-in-out infinite;
+}
+
+/* The water line laps sideways by one 24-unit wavelength. */
+.water { animation: lap 2.4s linear infinite; }
+
+@keyframes sweep {
+  from { transform: scaleX(1); }
+  to   { transform: scaleX(-1); }
+}
+@keyframes flare {
+  0%, 100% { transform: scale(0.4); opacity: 0.15; }
+  50%      { transform: scale(1.3); opacity: 0.9; }
+}
+@keyframes lap { to { transform: translateX(-24px); } }

@@ -1,0 +1,54 @@
+/* The bobber bobs, rings spread from it, reeds sway, and fish swim right past. */
+.bob {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: bob 2.2s ease-in-out infinite alternate;
+}
+
+.ring {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  animation: ring 3.3s ease-out infinite;
+}
+
+.fish { animation: swim 11s linear infinite; }
+.fishBack { animation-name: swimBack; animation-duration: 15s; animation-delay: -6s; }
+.wag {
+  transform-box: fill-box;
+  transform-origin: 30% 50%;
+  animation: wag 0.6s ease-in-out infinite alternate;
+}
+
+.reeds {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: sway 4s ease-in-out infinite alternate;
+}
+
+@keyframes bob {
+  from { transform: translateY(-1.5px) rotate(-3deg); }
+  to   { transform: translateY(1.5px) rotate(3deg); }
+}
+@keyframes ring {
+  0%   { transform: scale(0.4); opacity: 0; }
+  15%  { opacity: 0.8; }
+  100% { transform: scale(2.6); opacity: 0; }
+}
+/* Positions are absolute: the fish path sits at the origin. */
+@keyframes swim {
+  from { transform: translate(10px, 140px); }
+  to   { transform: translate(250px, 146px); }
+}
+@keyframes swimBack {
+  from { transform: translate(240px, 152px) scaleX(-1); }
+  to   { transform: translate(0px, 148px) scaleX(-1); }
+}
+@keyframes wag {
+  from { transform: skewY(-6deg); }
+  to   { transform: skewY(6deg); }
+}
+@keyframes sway {
+  from { transform: rotate(-2deg); }
+  to   { transform: rotate(2.5deg); }
+}

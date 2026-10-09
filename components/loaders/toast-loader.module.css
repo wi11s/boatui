@@ -1,4 +1,5 @@
-/* One 1.6s loop: the toaster crouches, the slices pop up, hang, and drop back in. */
+/* One 1.6s loop: the toaster crouches (eyes squeezed shut), the slices pop up, one flips
+   head over heels, and both drop back in. */
 .toaster {
   transform-box: fill-box;
   transform-origin: 50% 100%;
@@ -7,7 +8,17 @@
 .slice {
   animation: pop 1.6s cubic-bezier(0.3, 0, 0.3, 1) infinite;
 }
-.slice2 { animation-delay: 0.06s; }
+.slice2 {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation-name: flip;
+  animation-delay: 0.06s;
+}
+.eyes {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: squint 1.6s ease-in-out infinite;
+}
 .lever { animation: lever 1.6s ease-in-out infinite; }
 .spark {
   transform-box: fill-box;
@@ -26,6 +37,16 @@
   32% { transform: translateY(-26px); }
   52% { transform: translateY(-20px); }
   72%, 100% { transform: translateY(0); }
+}
+@keyframes flip {
+  0%, 14%   { transform: translateY(0) rotate(0deg); }
+  32%       { transform: translateY(-30px) rotate(200deg); }
+  50%       { transform: translateY(-22px) rotate(360deg); }
+  72%, 100% { transform: translateY(0) rotate(360deg); }
+}
+@keyframes squint {
+  0%, 4%, 22%, 100% { transform: scaleY(1); }
+  10%, 16%          { transform: scaleY(0.2); }
 }
 @keyframes lever {
   0%, 10% { transform: translateY(8px); }

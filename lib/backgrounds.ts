@@ -8,6 +8,12 @@ import {
   firefliesTheme,
   CloudsBackground,
   cloudsTheme,
+  RainBackground,
+  rainTheme,
+  NightSkyBackground,
+  nightSkyTheme,
+  WavesBackground,
+  wavesTheme,
   type BackgroundProps,
 } from '@/components/backgrounds';
 
@@ -71,6 +77,42 @@ export const backgrounds: BackgroundEntry[] = [
     theme: cloudsTheme,
     file: 'clouds-background',
     Component: CloudsBackground as BackgroundEntry['Component'],
+  },
+  {
+    slug: 'rain',
+    name: 'RainBackground',
+    title: 'Rain',
+    blurb: 'Soft rain on a slant, rippling the puddles below.',
+    description:
+      'Soft rain falling on an 11° slant at two depths (72 streaks, short and faint far away, longer and brighter up close) over a grey-blue sky, with ripples spreading in the puddles along the bottom edge. CSS keyframes and container units, sized to any box.',
+    animated: true,
+    theme: rainTheme,
+    file: 'rain-background',
+    Component: RainBackground as BackgroundEntry['Component'],
+  },
+  {
+    slug: 'night-sky',
+    name: 'NightSkyBackground',
+    title: 'Night sky',
+    blurb: 'Twinkling stars, the Milky Way and shooting stars.',
+    description:
+      'A deep night sky: 110 stars twinkling at three sizes (some warm-tinted, the brightest with a soft glow), a faint diagonal band of the Milky Way, and three shooting stars that each flash once in a long cycle. CSS keyframes only.',
+    animated: true,
+    theme: nightSkyTheme,
+    file: 'night-sky-background',
+    Component: NightSkyBackground as BackgroundEntry['Component'],
+  },
+  {
+    slug: 'waves',
+    name: 'WavesBackground',
+    title: 'Waves',
+    blurb: 'A calm sea rolling along the bottom edge.',
+    description:
+      'A calm sea along the bottom edge under an open sky: four wave layers scroll at different speeds and directions and swell gently, with foam glints on the near crests. The rest of the box is clear sky, so it suits footers, heroes and sign-in pages. CSS keyframes and SVG strips that loop seamlessly.',
+    animated: true,
+    theme: wavesTheme,
+    file: 'waves-background',
+    Component: WavesBackground as BackgroundEntry['Component'],
   },
 ];
 

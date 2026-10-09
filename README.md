@@ -15,6 +15,8 @@ npx degit wi11s/boatui/components/scenes components/scenes
 | `<BalloonScene />` | A hot-air balloon rising over rolling hills at dawn |
 | `<ReefScene />` | A sea turtle gliding across a sunlit reef |
 | `<TrainScene />` | A steam train crossing a stone viaduct at dusk |
+| `<AuroraScene />` | Northern lights over a cabin by a frozen lake |
+| `<KiteScene />` | A child flying a kite from a grassy hill on a breezy afternoon |
 
 ### Backgrounds
 
@@ -38,6 +40,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 | `<PetalsBackground />` | Cherry-blossom petals drifting on a breeze, with a swaying branch (animated) |
 | `<FirefliesBackground />` | Fireflies drifting and pulsing over dusky hills (animated) |
 | `<CloudsBackground />` | Soft clouds drifting across the sky in parallax, under a glowing sun (animated) |
+| `<RainBackground />` | Soft rain on a slant, rippling the puddles below (animated) |
+| `<NightSkyBackground />` | Twinkling stars, the Milky Way and shooting stars (animated) |
+| `<WavesBackground />` | A calm sea rolling along the bottom edge (animated) |
 
 ### Empty states
 
@@ -57,6 +62,9 @@ npx degit wi11s/boatui/components/empty-states components/empty-states
 | Component | Empty state |
 | --- | --- |
 | `<EmptyNap />` | A cat asleep on a cushion, for "nothing here yet" |
+| `<EmptyFishing />` | A bobber in a quiet pond, fish swimming past, for "no results" |
+| `<EmptyMailbox />` | An open, empty mailbox with a bird on top, for inbox zero |
+| `<EmptyOffline />` | A tin-can telephone with a slack string, for offline screens |
 
 ### Loaders
 
@@ -72,9 +80,12 @@ npx degit wi11s/boatui/components/loaders components/loaders
 
 | Component | Loader |
 | --- | --- |
-| `<BoatLoader />` | A little boat rocking over scrolling waves |
-| `<TeaLoader />` | A cup of tea with steam curling up |
-| `<ToastLoader />` | A toaster popping two slices up, over and over |
+| `<BoatLoader />` | A sailboat riding the swell in a round porthole |
+| `<TeaLoader />` | A teabag dunking into a cup of tea |
+| `<ToastLoader />` | A toaster popping two slices up; one does a flip |
+| `<PlaneLoader />` | A paper plane looping the loop |
+| `<LighthouseLoader />` | A lighthouse beam sweeping round |
+| `<BeeLoader />` | A bumblebee flying figure-eights over a flower |
 
 ### 3D
 
@@ -87,8 +98,9 @@ npm i three
 
 | Component | 3D scene |
 | --- | --- |
-| `<TinyPlanet3D />` | Low-poly planet with cottages, a windmill and orbiting clouds |
+| `<TinyPlanet3D />` | Low-poly planet with cottages, sheep, a windmill and orbiting clouds |
 | `<Lagoon3D />` | Sailboat circling a palm-tree island on a low-poly sea |
+| `<Campfire3D />` | A campfire in a night clearing, with a tent, pines and fireflies |
 
 ## Run the site
 
