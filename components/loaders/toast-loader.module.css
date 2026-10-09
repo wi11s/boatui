@@ -1,0 +1,39 @@
+/* One 1.6s loop: the toaster crouches, the slices pop up, hang, and drop back in. */
+.toaster {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: squash 1.6s ease-in-out infinite;
+}
+.slice {
+  animation: pop 1.6s cubic-bezier(0.3, 0, 0.3, 1) infinite;
+}
+.slice2 { animation-delay: 0.06s; }
+.lever { animation: lever 1.6s ease-in-out infinite; }
+.spark {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  animation: spark 1.6s ease-out infinite;
+}
+
+@keyframes squash {
+  0%, 18%, 100% { transform: scale(1, 1); }
+  10% { transform: scale(1.05, 0.93); }
+  24% { transform: scale(0.97, 1.04); }
+}
+@keyframes pop {
+  0%, 14% { transform: translateY(0); }
+  32% { transform: translateY(-26px); }
+  52% { transform: translateY(-20px); }
+  72%, 100% { transform: translateY(0); }
+}
+@keyframes lever {
+  0%, 10% { transform: translateY(8px); }
+  18%, 70% { transform: translateY(0); }
+  90%, 100% { transform: translateY(8px); }
+}
+@keyframes spark {
+  0%, 24% { opacity: 0; transform: scale(0.6); }
+  34% { opacity: 1; transform: scale(1); }
+  50%, 100% { opacity: 0; transform: scale(1.2); }
+}

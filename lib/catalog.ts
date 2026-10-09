@@ -6,7 +6,14 @@ import type { ItemKind } from './analytics';
 import { BACKGROUND_SHARED_FILES, backgroundProps, backgrounds } from './backgrounds';
 import { SHARED_FILES, sceneProps, scenes } from './registry';
 import { EMPTY_STATE_SHARED_FILES, emptyStateProps, emptyStates } from './empty-states';
-import { BACKGROUNDS_INSTALL_COMMAND, EMPTY_STATES_INSTALL_COMMAND, INSTALL_COMMAND, THREE_INSTALL_COMMAND } from './site';
+import { LOADER_SHARED_FILES, loaderProps, loaders } from './loaders';
+import {
+  BACKGROUNDS_INSTALL_COMMAND,
+  EMPTY_STATES_INSTALL_COMMAND,
+  INSTALL_COMMAND,
+  LOADERS_INSTALL_COMMAND,
+  THREE_INSTALL_COMMAND,
+} from './site';
 import { THREE_SHARED_FILES, threeProps, threeScenes } from './three';
 
 /** [prop, type, default, description] */
@@ -104,6 +111,22 @@ export const categories: Category[] = [
     files: tsxAndCss,
     usage: item =>
       `import { ${item.name} } from '@/components/empty-states/${item.file}';\n\nexport function NoProjects() {\n  return (\n    <${item.name}>\n      <h2>No projects yet</h2>\n      <p>Create one to get started.</p>\n    </${item.name}>\n  );\n}`,
+  },
+  {
+    kind: 'loader',
+    label: 'Loaders',
+    path: 'loaders',
+    dir: 'components/loaders',
+    sharedFiles: LOADER_SHARED_FILES,
+    install: LOADERS_INSTALL_COMMAND,
+    about:
+      'Loaders are small animated loading indicators with a bit of character, drawn in a 100×100 box. Each renders `role="status"` with a visually hidden label for screen readers. Under prefers-reduced-motion the choreography is replaced by a slow fade, so the loader still reads as working. Pure server components with CSS animation. Props: `theme`, `size` (pixels, default 64), `label` (default "Loading…"), `paused`, `className`, `style`.',
+    card: 'wide',
+    items: loaders,
+    props: item => loaderProps(loaders.find(l => l.slug === item.slug)!),
+    files: tsxAndCss,
+    usage: item =>
+      `import { ${item.name} } from '@/components/loaders/${item.file}';\n\nexport function Saving() {\n  return <${item.name} size={48} label="Saving your changes…" />;\n}`,
   },
   {
     kind: 'three',

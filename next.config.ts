@@ -4,6 +4,7 @@ const COMPONENT_SOURCES = [
   './components/scenes/**/*',
   './components/backgrounds/**/*',
   './components/empty-states/**/*',
+  './components/loaders/**/*',
   './components/three/**/*',
 ];
 

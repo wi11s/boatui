@@ -1,0 +1,35 @@
+.root {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
+
+.art {
+  display: block;
+  overflow: visible;
+}
+
+/* Visible to screen readers only. */
+.label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.paused * { animation-play-state: paused !important; }
+
+/* A loader that stops moving looks broken, so reduced motion swaps the
+   choreography for a slow fade that still reads as "working". */
+@media (prefers-reduced-motion: reduce) {
+  .art * { animation: none !important; }
+  .art { animation: breathe 2.4s ease-in-out infinite; }
+}
+
+@keyframes breathe {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}

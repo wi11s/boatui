@@ -58,6 +58,24 @@ npx degit wi11s/boatui/components/empty-states components/empty-states
 | --- | --- |
 | `<EmptyNap />` | A cat asleep on a cushion, for "nothing here yet" |
 
+### Loaders
+
+Small loading indicators with a bit of character. Each is a `role="status"` with a screen-reader label, and fades gently instead of moving under reduced motion.
+
+```bash
+npx degit wi11s/boatui/components/loaders components/loaders
+```
+
+```tsx
+<TeaLoader size={48} label="Saving your changes…" />
+```
+
+| Component | Loader |
+| --- | --- |
+| `<BoatLoader />` | A little boat rocking over scrolling waves |
+| `<TeaLoader />` | A cup of tea with steam curling up |
+| `<ToastLoader />` | A toaster popping two slices up, over and over |
+
 ### 3D
 
 three.js scenes in a shared frame that sizes, pauses off-screen, respects reduced motion and cleans up after itself.
@@ -133,6 +151,8 @@ components/backgrounds/   backgrounds: copy from here
   *-background.tsx / .css one background each
 components/empty-states/  empty-state illustrations: copy from here
   empty-state.tsx         shared frame: theming, illustration box, message slot
+components/loaders/       loaders: copy from here
+  loader.tsx              shared frame: theming, size, accessible status label
 components/three/         3D scenes (three.js): copy from here
   three-frame.tsx         shared client frame: canvas, render loop, pausing, cleanup
   *-3d.tsx                one scene each
@@ -142,6 +162,7 @@ lib/registry.ts           scene metadata: names, descriptions, props, themes
 lib/backgrounds.ts        background metadata
 lib/three.ts              3D scene metadata
 lib/empty-states.ts       empty-state metadata
+lib/loaders.ts            loader metadata
 lib/llms.ts               generates /llms.txt, /llms-full.txt and /<category>/<name>.md
 lib/analytics.ts          Vercel Analytics custom events
 prototypes/               the original Three.js and web-component experiments

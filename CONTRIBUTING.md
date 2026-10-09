@@ -37,6 +37,10 @@ A background is two files in `components/backgrounds/`: `<name>-background.tsx` 
 
 An empty state is two files in `components/empty-states/`: `empty-<name>.tsx` and `empty-<name>.module.css`. Draw into the 240×180 box through `EmptyStateFrame`, following `empty-nap.tsx`. Keep the motion gentle and looping, and leave room for the message underneath. Export it from `components/empty-states/index.ts` and add an entry to `lib/empty-states.ts`.
 
+## Adding a loader
+
+A loader is two files in `components/loaders/`: `<name>-loader.tsx` and `<name>-loader.module.css`. Draw into the 100×100 box through `LoaderFrame`, following `tea-loader.tsx`. Make one short, seamless loop (about 1.5–2.5 seconds), keep everything inside the box, and set `transform-box: fill-box` on anything you scale or rotate. Export it from `components/loaders/index.ts` and add an entry to `lib/loaders.ts`.
+
 ## Adding a 3D scene
 
 A 3D scene is one file in `components/three/`: `<name>-3d.tsx`. Write a module-level `setup` that builds the scene and returns `update(time)` and `setTheme(theme)`, and render it through `ThreeFrame`, following `tiny-planet-3d.tsx`. Keep geometry low-poly, update materials in `setTheme` rather than rebuilding, and let the frame handle sizing, pausing and disposal. Export it from `components/three/index.ts` and add an entry to `lib/three.ts`.

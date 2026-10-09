@@ -1,7 +1,7 @@
 import { track } from '@vercel/analytics';
 
 /** The component categories in the library. */
-export type ItemKind = 'scene' | 'background' | 'three' | 'empty';
+export type ItemKind = 'scene' | 'background' | 'three' | 'empty' | 'loader';
 
 /**
  * Every custom event the site sends to Vercel Analytics, with its properties.
