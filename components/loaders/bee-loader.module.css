@@ -1,0 +1,48 @@
+/* A 2.4s figure eight. ease-in-out alternate approximates a sine, so x (1.2s each way) and
+   y (0.6s each way, delayed a quarter of its cycle) trace a Lissajous curve at 1:2. */
+.x { animation: x 1.2s ease-in-out infinite alternate; }
+.y { animation: y 0.6s ease-in-out infinite alternate; animation-delay: -0.3s; }
+
+/* Faces right on the way right, left on the way back; the turn happens at the ends of the sway. */
+.face { animation: face 2.4s linear infinite; }
+
+.bob { animation: bob 0.3s ease-in-out infinite alternate; }
+
+.wing {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: flap 0.08s linear infinite alternate;
+}
+.wingBack { animation-delay: -0.04s; }
+
+.flower {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: sway 2.4s ease-in-out infinite alternate;
+}
+
+@keyframes x {
+  from { transform: translateX(-26px); }
+  to   { transform: translateX(26px); }
+}
+@keyframes y {
+  from { transform: translateY(-9px); }
+  to   { transform: translateY(9px); }
+}
+@keyframes face {
+  0%, 48%   { transform: scaleX(1); }
+  52%, 98%  { transform: scaleX(-1); }
+  100%      { transform: scaleX(1); }
+}
+@keyframes bob {
+  from { transform: rotate(-4deg); }
+  to   { transform: rotate(4deg); }
+}
+@keyframes flap {
+  from { transform: scaleY(1); }
+  to   { transform: scaleY(0.35); }
+}
+@keyframes sway {
+  from { transform: rotate(-4deg); }
+  to   { transform: rotate(4deg); }
+}

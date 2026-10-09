@@ -1,0 +1,24 @@
+/* One 1.8s loop around the centre. ease-in-out on a full turn that starts at the top makes the
+   plane hang at the top of the loop and swoop through the bottom. */
+.loop {
+  transform-origin: 50px 50px;
+  animation: loop 1.8s ease-in-out infinite;
+}
+
+/* A little roll, faked by squashing the plane's height. */
+.plane { animation: roll 0.9s ease-in-out infinite alternate; }
+
+.cloud { animation: drift 3.6s linear infinite; }
+.cloudSlow { animation-duration: 5.4s; animation-delay: -2s; }
+
+@keyframes loop { to { transform: rotate(360deg); } }
+@keyframes roll {
+  from { transform: scaleY(1); }
+  to   { transform: scaleY(0.7); }
+}
+@keyframes drift {
+  0%   { transform: translateX(40px); opacity: 0; }
+  20%  { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { transform: translateX(-40px); opacity: 0; }
+}

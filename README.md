@@ -75,6 +75,9 @@ npx degit wi11s/boatui/components/loaders components/loaders
 | `<BoatLoader />` | A sailboat riding the swell in a round porthole |
 | `<TeaLoader />` | A teabag dunking into a cup of tea |
 | `<ToastLoader />` | A toaster popping two slices up; one does a flip |
+| `<PlaneLoader />` | A paper plane looping the loop |
+| `<LighthouseLoader />` | A lighthouse beam sweeping round |
+| `<BeeLoader />` | A bumblebee flying figure-eights over a flower |
 
 ### 3D
 

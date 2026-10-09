@@ -1,9 +1,15 @@
 import type { ComponentType } from 'react';
 import {
+  BeeLoader,
   BoatLoader,
+  LighthouseLoader,
+  PlaneLoader,
   TeaLoader,
   ToastLoader,
+  beeLoaderTheme,
   boatLoaderTheme,
+  lighthouseLoaderTheme,
+  planeLoaderTheme,
   teaLoaderTheme,
   toastLoaderTheme,
   type LoaderProps,
@@ -59,6 +65,42 @@ export const loaders: LoaderEntry[] = [
     theme: toastLoaderTheme,
     file: 'toast-loader',
     Component: ToastLoader as LoaderEntry['Component'],
+  },
+  {
+    slug: 'plane',
+    name: 'PlaneLoader',
+    title: 'Paper plane',
+    blurb: 'A paper plane looping the loop.',
+    description:
+      'A paper plane flying a vertical loop with a dashed trail that fades behind it, while two small clouds drift past. The loop eases over 1.8s, so the plane hangs at the top and swoops through the bottom, rolling slightly as it goes. Reads as a spinner with character.',
+    animated: true,
+    theme: planeLoaderTheme,
+    file: 'plane-loader',
+    Component: PlaneLoader as LoaderEntry['Component'],
+  },
+  {
+    slug: 'lighthouse',
+    name: 'LighthouseLoader',
+    title: 'Lighthouse',
+    blurb: 'A lighthouse beam sweeping round.',
+    description:
+      'A striped lighthouse on a rock whose beam sweeps round: the beam is squashed through zero width like a turning light seen side-on, and the lamp flares each time it swings past the viewer. A water line laps at the rock. 2.4s loop.',
+    animated: true,
+    theme: lighthouseLoaderTheme,
+    file: 'lighthouse-loader',
+    Component: LighthouseLoader as LoaderEntry['Component'],
+  },
+  {
+    slug: 'bee',
+    name: 'BeeLoader',
+    title: 'Bee',
+    blurb: 'A bumblebee flying figure-eights over a flower.',
+    description:
+      'A bumblebee flying figure-eights over a swaying flower, wings a blur, turning to face the way it is going. The path is two eased sways at a 1:2 ratio (a Lissajous curve), so it loops smoothly every 2.4s.',
+    animated: true,
+    theme: beeLoaderTheme,
+    file: 'bee-loader',
+    Component: BeeLoader as LoaderEntry['Component'],
   },
 ];
 
