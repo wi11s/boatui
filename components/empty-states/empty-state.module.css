@@ -1,0 +1,24 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 24px;
+  text-align: center;
+}
+
+.art {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.content { max-width: 360px; }
+
+.paused * { animation-play-state: paused !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  .art * { animation: none !important; }
+}

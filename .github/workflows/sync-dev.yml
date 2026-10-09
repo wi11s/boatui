@@ -5,7 +5,8 @@
 # files, so the next dev -> main PR conflicts. This job records such a commit as
 # merged into dev without changing any files. Anything else on main (e.g. a
 # Dependabot fix merged directly) is merged into dev normally; a real conflict
-# fails the job instead of guessing.
+# fails the job instead of guessing. If dev was deleted (for example by GitHub's
+# "automatically delete head branches" setting), it is recreated from main.
 name: Sync dev with main
 
 on:
@@ -25,14 +26,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: dev
+          ref: main
           fetch-depth: 0
 
       - name: Merge main into dev
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
-          git fetch origin main
+
+          if ! git ls-remote --exit-code --heads origin dev > /dev/null; then
+            echo "dev does not exist; recreating it from main."
+            git push origin HEAD:refs/heads/dev
+            exit 0
+          fi
+          git fetch origin dev
+          git checkout -B dev origin/dev
 
           if git merge-base --is-ancestor origin/main HEAD; then
             echo "dev already contains main; nothing to do."

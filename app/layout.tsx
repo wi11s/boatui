@@ -2,7 +2,6 @@ import { Analytics } from '@vercel/analytics/next';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import Link from 'next/link';
-import { Logo } from '@/components/site/logo';
 import { TrackedLink } from '@/components/site/tracked-link';
 import { categories } from '@/lib/catalog';
 import { REPO_URL, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/lib/site';
@@ -28,7 +27,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <header className={styles.header}>
           <div className={`container ${styles.headerInner}`}>
             <Link href="/" className={styles.logo}>
-              <Logo size={24} />
               {SITE_NAME}
             </Link>
             <nav className={styles.nav}>
