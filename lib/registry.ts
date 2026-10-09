@@ -1,9 +1,11 @@
 import type { ComponentType } from 'react';
 import {
+  AuroraScene,
   BalloonScene,
   BoatScene,
   LighthouseScene,
   ReefScene,
+  auroraTheme,
   balloonTheme,
   boatTheme,
   lighthouseTheme,
@@ -101,6 +103,20 @@ export const scenes: SceneEntry[] = [
     file: 'train-scene',
     tone: 'light',
     Component: TrainScene as SceneEntry['Component'],
+  },
+  {
+    slug: 'aurora',
+    name: 'AuroraScene',
+    title: 'Aurora',
+    blurb: 'Northern lights over a cabin by a frozen lake. Night.',
+    description:
+      'Three curtains of northern lights drift, breathe and lean over snow-capped mountains, mirrored faintly in a frozen lake. A cabin with a lit window and smoking chimney sits among pines on the snowy shore. Ambient motion: twinkling stars, an occasional shooting star, chimney smoke, a glowing window.',
+    durationLabel: 'the main curtain of light to drift once across the sky',
+    defaultDuration: 60,
+    theme: auroraTheme,
+    file: 'aurora-scene',
+    tone: 'light',
+    Component: AuroraScene as SceneEntry['Component'],
   },
 ];
 

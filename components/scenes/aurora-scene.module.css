@@ -1,0 +1,45 @@
+/* Curtains drift sideways by one 400-unit loop per (--duration × --k), breathe in brightness,
+   and lean gently from their lower edge, so the light seems to ripple. */
+.drift { animation: drift calc(var(--duration) * var(--k, 1)) linear infinite; }
+.reverse { animation-direction: reverse; }
+
+.pulse { animation: pulse 7s ease-in-out infinite alternate; }
+
+.lean {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: lean 11s ease-in-out infinite alternate;
+}
+
+.star { animation: twinkle ease-in-out infinite alternate; }
+
+/* A shooting star, once every 13s, gone in a moment. */
+.meteor {
+  opacity: 0;
+  animation: meteor 13s ease-out infinite;
+  animation-delay: -4s;
+}
+
+.smoke {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: smoke 4.8s ease-out infinite;
+}
+.shimmer { animation: pulse 5s ease-in-out infinite alternate; }
+.glow  { animation: glow 3.2s ease-in-out infinite alternate; }
+
+@keyframes drift   { to { transform: translateX(-400px); } }
+@keyframes pulse   { from { opacity: 0.55; } to { opacity: 1; } }
+@keyframes lean    { from { transform: skewX(-7deg); } to { transform: skewX(5deg); } }
+@keyframes twinkle { from { opacity: 0.2; } to { opacity: 1; } }
+@keyframes meteor {
+  0%, 90% { transform: translate(250px, 60px) scale(0.6); opacity: 0; }
+  91%     { opacity: 0.9; }
+  96%     { transform: translate(330px, 92px) scale(1); opacity: 0; }
+  100%    { transform: translate(330px, 92px) scale(1); opacity: 0; }
+}
+@keyframes smoke {
+  0%   { transform: translate(0, 0) scale(0.6); opacity: 0.7; }
+  100% { transform: translate(-18px, -40px) scale(2.2); opacity: 0; }
+}
+@keyframes glow { from { opacity: 0.7; } to { opacity: 1; } }

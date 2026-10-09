@@ -3,4 +3,5 @@ export { LighthouseScene, lighthouseTheme, type LighthouseTheme } from './lighth
 export { BalloonScene, balloonTheme, type BalloonTheme } from './balloon-scene';
 export { ReefScene, reefTheme, type ReefTheme } from './reef-scene';
 export { TrainScene, trainTheme, type TrainTheme } from './train-scene';
+export { AuroraScene, auroraTheme, type AuroraTheme } from './aurora-scene';
 export type { SceneProps } from './scene';
