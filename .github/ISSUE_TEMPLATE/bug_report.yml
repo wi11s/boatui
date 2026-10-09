@@ -11,6 +11,7 @@ body:
         - LighthouseScene
         - BalloonScene
         - ReefScene
+        - TrainScene
         - Shared scene files
         - Documentation site
         - llms.txt / markdown docs

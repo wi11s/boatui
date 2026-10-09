@@ -14,6 +14,7 @@ npx degit wi11s/boatui/components/scenes components/scenes
 | `<LighthouseScene />` | A lighthouse beam sweeping a moonlit sea as a steamer passes |
 | `<BalloonScene />` | A hot-air balloon rising over rolling hills at dawn |
 | `<ReefScene />` | A sea turtle gliding across a sunlit reef |
+| `<TrainScene />` | A steam train crossing a stone viaduct at dusk |
 
 ## Run the site
 

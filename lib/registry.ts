@@ -8,6 +8,8 @@ import {
   boatTheme,
   lighthouseTheme,
   reefTheme,
+  TrainScene,
+  trainTheme,
   type SceneProps,
 } from '@/components/scenes';
 
@@ -85,6 +87,20 @@ export const scenes: SceneEntry[] = [
     file: 'reef-scene',
     tone: 'light',
     Component: ReefScene as SceneEntry['Component'],
+  },
+  {
+    slug: "train",
+    name: "TrainScene",
+    title: "Train",
+    blurb: "Steam train crossing a viaduct. Dusk.",
+    description:
+      "Steam train crossing a stone viaduct at dusk with mountains and a setting sun behind. Ambient motion: steam puffs, twinkling stars, drifting valley mist.",
+    durationLabel: "the train crossing the frame",
+    defaultDuration: 30,
+    theme: trainTheme,
+    file: "train-scene",
+    tone: "light",
+    Component: TrainScene as SceneEntry['Component'],
   },
 ];
 
