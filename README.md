@@ -40,6 +40,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 | `<PetalsBackground />` | Cherry-blossom petals drifting on a breeze, with a swaying branch (animated) |
 | `<FirefliesBackground />` | Fireflies drifting and pulsing over dusky hills (animated) |
 | `<CloudsBackground />` | Soft clouds drifting across the sky in parallax, under a glowing sun (animated) |
+| `<RainBackground />` | Soft rain on a slant, rippling the puddles below (animated) |
+| `<NightSkyBackground />` | Twinkling stars, the Milky Way and shooting stars (animated) |
+| `<WavesBackground />` | A calm sea rolling along the bottom edge (animated) |
 
 ### Empty states
 
