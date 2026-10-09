@@ -72,9 +72,9 @@ npx degit wi11s/boatui/components/loaders components/loaders
 
 | Component | Loader |
 | --- | --- |
-| `<BoatLoader />` | A little boat rocking over scrolling waves |
-| `<TeaLoader />` | A cup of tea with steam curling up |
-| `<ToastLoader />` | A toaster popping two slices up, over and over |
+| `<BoatLoader />` | A sailboat riding the swell in a round porthole |
+| `<TeaLoader />` | A teabag dunking into a cup of tea |
+| `<ToastLoader />` | A toaster popping two slices up; one does a flip |
 
 ### 3D
 
@@ -87,7 +87,7 @@ npm i three
 
 | Component | 3D scene |
 | --- | --- |
-| `<TinyPlanet3D />` | Low-poly planet with cottages, a windmill and orbiting clouds |
+| `<TinyPlanet3D />` | Low-poly planet with cottages, sheep, a windmill and orbiting clouds |
 | `<Lagoon3D />` | Sailboat circling a palm-tree island on a low-poly sea |
 
 ## Run the site
