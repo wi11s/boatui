@@ -150,7 +150,8 @@ const setup: SceneSetup<TinyPlanetTheme> = ({ scene, camera, theme }) => {
   const orbits: { pivot: THREE.Object3D; speed: number }[] = [];
   for (let i = 0; i < 5; i++) {
     const pivot = new THREE.Object3D();
-    pivot.rotation.set((rand() - 0.5) * 1.6, rand() * Math.PI * 2, (rand() - 0.5) * 1.2);
+    // Gentle tilts keep clouds near the equator, so they read as clouds from the camera.
+    pivot.rotation.set((rand() - 0.5) * 0.6, rand() * Math.PI * 2, (rand() - 0.5) * 0.5);
     const cloud = new THREE.Group();
     const puffs = 3 + Math.floor(rand() * 2);
     for (let p = 0; p < puffs; p++) {
@@ -158,6 +159,7 @@ const setup: SceneSetup<TinyPlanetTheme> = ({ scene, camera, theme }) => {
       puff.position.set((p - puffs / 2) * 0.16, rand() * 0.06, (rand() - 0.5) * 0.08);
       cloud.add(puff);
     }
+    cloud.scale.set(1, 0.7, 1);
     cloud.position.set(0, 0, RADIUS + 0.75);
     pivot.add(cloud);
     scene.add(pivot);

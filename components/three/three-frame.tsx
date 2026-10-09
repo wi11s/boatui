@@ -38,6 +38,18 @@ export type SceneController<T> = {
 /** Build the scene once. Must be defined at module level so its identity is stable. */
 export type SceneSetup<T> = (ctx: SceneContext<T>) => SceneController<T>;
 
+/** True when the browser can create a WebGL context. The probe context is released immediately. */
+function webglAvailable() {
+  try {
+    const canvas = document.createElement('canvas');
+    const gl = canvas.getContext('webgl2') ?? canvas.getContext('webgl');
+    gl?.getExtension('WEBGL_lose_context')?.loseContext();
+    return Boolean(gl);
+  } catch {
+    return false;
+  }
+}
+
 /** Deterministic PRNG so scenes look the same on every load. */
 export function seeded(seed: number): () => number {
   return () => {
@@ -81,6 +93,8 @@ export function ThreeFrame<T extends Record<string, string>>({
     const host = hostRef.current;
     if (!host) return;
 
+    // Without WebGL, leave the CSS background and children visible (and skip three.js's console errors).
+    if (!webglAvailable()) return;
     let renderer: THREE.WebGLRenderer;
     try {
       renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'low-power' });
