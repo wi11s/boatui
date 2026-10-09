@@ -1,0 +1,49 @@
+/* One 3.6s loop: the left can tips forward as three dots rise from it and fade halfway across;
+   a question mark tilts over the right can; the slack string sways from its two fixed ends. */
+.dot {
+  opacity: 0;
+  animation: dot 3.6s ease-out infinite;
+}
+
+.question {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: wonder 3.6s ease-in-out infinite;
+}
+
+/* The left can tips toward the other as it "speaks". */
+.speaker {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: speak 3.6s ease-in-out infinite;
+}
+
+/* Scaling about the line between the two ends keeps them pinned to the cans. */
+.string {
+  transform-origin: 120px 140px;
+  animation: slack 3.6s ease-in-out infinite alternate;
+}
+
+@keyframes dot {
+  0%   { transform: translate(0, 6px); opacity: 0; }
+  12%  { opacity: 1; }
+  45%  { transform: translate(44px, -18px); opacity: 0.8; }
+  65%  { transform: translate(60px, -14px); opacity: 0; }
+  100% { transform: translate(60px, -14px); opacity: 0; }
+}
+@keyframes wonder {
+  0%, 40%  { transform: rotate(0deg) translateY(4px); opacity: 0; }
+  55%      { transform: rotate(-8deg) translateY(0); opacity: 1; }
+  75%      { transform: rotate(6deg) translateY(0); opacity: 1; }
+  92%, 100% { transform: rotate(0deg) translateY(-2px); opacity: 0; }
+}
+@keyframes speak {
+  0%, 40%, 100% { transform: rotate(0deg); }
+  8%  { transform: rotate(4deg); }
+  16% { transform: rotate(1deg); }
+  24% { transform: rotate(4deg); }
+}
+@keyframes slack {
+  from { transform: scaleY(0.82); }
+  to   { transform: scaleY(1.08); }
+}

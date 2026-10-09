@@ -1,0 +1,47 @@
+/* One 4s loop: the bird bobs its head, gives a little hop and chirps twice; the door sways. */
+.hop { animation: hop 4s ease-in-out infinite; }
+
+.head {
+  transform-box: fill-box;
+  transform-origin: 30% 90%;
+  animation: peck 4s ease-in-out infinite;
+}
+
+.note {
+  opacity: 0;
+  animation: note 4s ease-out infinite;
+}
+.note2 { animation-delay: 0.35s; }
+
+.door {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: door 3s ease-in-out infinite alternate;
+}
+
+.tufts { animation: sway 3.4s ease-in-out infinite alternate; }
+
+@keyframes hop {
+  0%, 40%, 52%, 100% { transform: translateY(0); }
+  46% { transform: translateY(-6px); }
+}
+@keyframes peck {
+  0%, 12%, 30%, 100% { transform: rotate(0deg); }
+  16%, 24% { transform: rotate(-14deg); }
+  60%, 66% { transform: rotate(10deg); }
+  70% { transform: rotate(0deg); }
+}
+@keyframes note {
+  0%, 52% { transform: translate(0, 6px); opacity: 0; }
+  58% { opacity: 1; }
+  80% { transform: translate(6px, -6px); opacity: 0; }
+  100% { transform: translate(6px, -6px); opacity: 0; }
+}
+@keyframes door {
+  from { transform: rotate(-3deg); }
+  to   { transform: rotate(4deg); }
+}
+@keyframes sway {
+  from { transform: translateX(-0.5px); }
+  to   { transform: translateX(1px); }
+}

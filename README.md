@@ -57,6 +57,9 @@ npx degit wi11s/boatui/components/empty-states components/empty-states
 | Component | Empty state |
 | --- | --- |
 | `<EmptyNap />` | A cat asleep on a cushion, for "nothing here yet" |
+| `<EmptyFishing />` | A bobber in a quiet pond, fish swimming past, for "no results" |
+| `<EmptyMailbox />` | An open, empty mailbox with a bird on top, for inbox zero |
+| `<EmptyOffline />` | A tin-can telephone with a slack string, for offline screens |
 
 ### Loaders
 
