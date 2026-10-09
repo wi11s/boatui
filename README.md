@@ -17,6 +17,8 @@ npx degit wi11s/boatui/components/scenes components/scenes
 | `<TrainScene />` | A steam train crossing a stone viaduct at dusk |
 | `<AuroraScene />` | Northern lights over a cabin by a frozen lake |
 | `<KiteScene />` | A child flying a kite from a grassy hill on a breezy afternoon |
+| `<SnowfallScene />` | A fox trotting through falling snow in a winter valley |
+| `<BlossomScene />` | Cherry petals drifting over a river as a duck family swims by |
 
 ### Backgrounds
 
