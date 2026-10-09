@@ -100,6 +100,7 @@ npm i three
 | --- | --- |
 | `<TinyPlanet3D />` | Low-poly planet with cottages, sheep, a windmill and orbiting clouds |
 | `<Lagoon3D />` | Sailboat circling a palm-tree island on a low-poly sea |
+| `<Campfire3D />` | A campfire in a night clearing, with a tent, pines and fireflies |
 
 ## Run the site
 

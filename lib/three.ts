@@ -4,6 +4,8 @@ import {
   tinyPlanetTheme,
   Lagoon3D,
   lagoonTheme,
+  Campfire3D,
+  campfireTheme,
   type ThreeSceneProps,
 } from '@/components/three';
 
@@ -45,6 +47,18 @@ export const threeScenes: ThreeEntry[] = [
     theme: lagoonTheme,
     file: 'lagoon-3d',
     Component: Lagoon3D as ThreeEntry['Component'],
+  },
+  {
+    slug: 'campfire',
+    name: 'Campfire3D',
+    title: 'Campfire',
+    blurb: 'A campfire in a night clearing, with a tent, pines and fireflies.',
+    description:
+      'A campfire in a low-poly night clearing. Three nested flame cones flicker on their own beats and a warm point light pulses with them, lighting a ring of stones, a tent, a log bench and 18 pines. Embers spiral up and burn out, smoke rises and fades, fireflies blink at the tree line, and the camera drifts in a slow arc under a starry sky and a moon. three.js.',
+    animated: true,
+    theme: campfireTheme,
+    file: 'campfire-3d',
+    Component: Campfire3D as ThreeEntry['Component'],
   },
 ];
 
