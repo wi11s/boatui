@@ -45,6 +45,8 @@ A CSS `transform` replaces an element's `transform` attribute, so put animated c
 
 ## Pull requests
 
+- Open pull requests against `dev`, not `main`. `main` only receives `dev` through a merge-commit PR.
+
 - Keep each PR to one scene or one fix.
 - Include a screenshot or short recording of the scene.
 - By contributing, you agree that your work is released under the [MIT license](./LICENSE).

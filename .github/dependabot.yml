@@ -2,6 +2,8 @@ version: 2
 updates:
   - package-ecosystem: npm
     directory: /
+    # Updates go through dev like every other change, then reach main via the dev -> main PR.
+    target-branch: dev
     schedule:
       interval: weekly
     groups:
