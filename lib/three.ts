@@ -39,8 +39,8 @@ export const threeScenes: ThreeEntry[] = [
     name: 'Lagoon3D',
     title: 'Lagoon',
     blurb: 'Sailboat circling a palm-tree island on a low-poly sea.',
-    description: 
-      'A sailboat circling a small palm-tree island on a flat-shaded low-poly sea. The boat samples the same wave function as the water, so it pitches and rolls with the swell, and distance fog blends the sea into a soft hazy horizon. three.js.',
+    description:
+      'A sailboat circling a small island on a flat-shaded low-poly sea. The boat steers along its circle and samples the same wave function as the water, so it pitches and rolls with the swell and leaves a fading V-shaped wake. The island has two palms, rocks, bushes and a little jetty; ragged foam rides the swell around the shore, gulls wheel overhead, and distance fog blends the sea into a hazy horizon. three.js.',
     animated: true,
     theme: lagoonTheme,
     file: 'lagoon-3d',
