@@ -1,11 +1,11 @@
 import type { ComponentType } from 'react';
 import {
-  GrainBackground,
   MeshBackground,
-  grainTheme,
   meshTheme,
   SnowfallBackground,
   snowfallTheme,
+  PetalsBackground,
+  petalsTheme,
   type BackgroundProps,
 } from '@/components/backgrounds';
 
@@ -25,17 +25,6 @@ export type BackgroundEntry = {
 };
 
 export const backgrounds: BackgroundEntry[] = [
-  {
-    slug: 'grain',
-    name: 'GrainBackground',
-    title: 'Grain',
-    blurb: 'Two-colour gradient with film grain.',
-    description: 'A diagonal two-colour gradient with tiled film grain from an inline SVG turbulence filter, blended with multiply. Static, pure CSS.',
-    animated: false,
-    theme: grainTheme,
-    file: 'grain-background',
-    Component: GrainBackground as BackgroundEntry['Component'],
-  },
   {
     slug: 'mesh',
     name: 'MeshBackground',
@@ -57,6 +46,17 @@ export const backgrounds: BackgroundEntry[] = [
     theme: snowfallTheme,
     file: 'snowfall-background',
     Component: SnowfallBackground as BackgroundEntry['Component'],
+  },
+  {
+    slug: 'petals',
+    name: 'PetalsBackground',
+    title: 'Petals',
+    blurb: 'Cherry-blossom petals drifting on a breeze.',
+    description: 'Cherry-blossom petals drifting down and left on a breeze, each spinning and fluttering (a 3D flip faked with scaleX), over soft bokeh light and a blossoming branch that sways from the top-right corner. 36 petals, CSS keyframes only.',
+    animated: true,
+    theme: petalsTheme,
+    file: 'petals-background',
+    Component: PetalsBackground as BackgroundEntry['Component'],
   },
 ];
 
