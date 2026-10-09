@@ -26,7 +26,7 @@ export const emptyStates: EmptyStateEntry[] = [
     title: 'Nap',
     blurb: 'A cat asleep on a cushion. For "nothing here yet".',
     description:
-      'A cat curled up asleep on a cushion: its body rises and falls as it breathes, its tail swishes, an ear twitches now and then, and Zs drift up and fade. For empty lists and "nothing here yet" screens.',
+      'A tabby cat curled up asleep on a tufted cushion, chin on its paws, tail wrapped round its front, a ball of yarn on the floor beside it. Its body rises and falls as it breathes, the tail tip flicks, an ear twitches now and then, and Zs drift up and fade. For empty lists and "nothing here yet" screens.',
     animated: true,
     theme: emptyNapTheme,
     file: 'empty-nap',
