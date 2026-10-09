@@ -26,9 +26,9 @@ export const threeScenes: ThreeEntry[] = [
     slug: 'tiny-planet',
     name: 'TinyPlanet3D',
     title: 'Tiny planet',
-    blurb: 'Low-poly planet with cottages, a windmill and orbiting clouds.',
+    blurb: 'Low-poly planet with cottages, sheep, a windmill and orbiting clouds.',
     description:
-      'A small, slightly lumpy low-poly planet turning slowly: 22 trees, three cottages with lit windows, a windmill with spinning blades, five clouds on tilted orbits, a moon and a 300-star field. Flat-shaded three.js with hemisphere, key and rim lights.',
+      'A small, slightly lumpy low-poly planet turning slowly: 22 trees, three cottages with lit windows and smoking chimneys, a windmill with spinning blades, a stone-ringed pond, four sheep that dip their heads to graze, scattered flowers, five clouds on tilted orbits, a moon and a 300-star field. A soft atmospheric halo glows behind the rim. Flat-shaded three.js with hemisphere, key and rim lights.',
     animated: true,
     theme: tinyPlanetTheme,
     file: 'tiny-planet-3d',
