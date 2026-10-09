@@ -20,6 +20,10 @@ body:
         - Shared background files
         - EmptyNap
         - Shared empty-state files
+        - BoatLoader
+        - TeaLoader
+        - ToastLoader
+        - Shared loader files
         - TinyPlanet3D
         - Lagoon3D
         - Shared 3D files

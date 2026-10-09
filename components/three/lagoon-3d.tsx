@@ -4,7 +4,7 @@
 // the same wave function as the water, so it pitches and rolls with the swell. three.js.
 
 import * as THREE from 'three';
-import { ThreeFrame, seeded, type SceneSetup, type ThreeSceneProps } from './three-frame';
+import { ThreeFrame, type SceneSetup, type ThreeSceneProps } from './three-frame';
 
 export const lagoonTheme = {
   skyTop: '#7fb6e0',
@@ -16,7 +16,6 @@ export const lagoonTheme = {
   trunk: '#9a6b45',
   hull: '#e4573d',
   sail: '#fbf8f1',
-  cloud: '#ffffff',
 };
 export type LagoonTheme = typeof lagoonTheme;
 
@@ -58,23 +57,7 @@ function makeBoat(mats: Record<string, THREE.Material>) {
   return boat;
 }
 
-function makeGull(mat: THREE.Material) {
-  const gull = new THREE.Group();
-  // Each wing is a swept triangle hinged at the body.
-  const wing = new THREE.BufferGeometry();
-  wing.setAttribute('position', new THREE.Float32BufferAttribute([0, 0, 0.07, 0, 0, -0.06, 0.26, 0, -0.1], 3));
-  wing.computeVertexNormals();
-  const left = new THREE.Mesh(wing, mat);
-  const right = new THREE.Mesh(wing, mat);
-  right.scale.x = -1;
-  const body = new THREE.Mesh(new THREE.ConeGeometry(0.03, 0.18, 4), mat);
-  body.rotation.x = Math.PI / 2;
-  gull.add(left, right, body);
-  return { gull, left, right };
-}
-
 const setup: SceneSetup<LagoonTheme> = ({ scene, camera, theme }) => {
-  const rand = seeded(19);
   camera.position.set(0, 6, 13.5);
   camera.lookAt(0, 0.4, 0);
   scene.fog = new THREE.Fog(theme.horizon, 16, 34);
@@ -88,9 +71,8 @@ const setup: SceneSetup<LagoonTheme> = ({ scene, camera, theme }) => {
     palm: flat(theme.palm, { side: THREE.DoubleSide }),
     trunk: flat(theme.trunk),
     hull: flat(theme.hull),
-    sail: flat(theme.sail, { side: THREE.DoubleSide }),
-    cloud: flat(theme.cloud, { roughness: 1 }),
-    gull: flat('#ffffff', { side: THREE.DoubleSide }),
+    // A little self-light so the back of the sail never turns grey.
+    sail: flat(theme.sail, { side: THREE.DoubleSide, emissive: theme.sail, emissiveIntensity: 0.35 }),
   };
 
   const hemi = new THREE.HemisphereLight('#ffffff', theme.water, 1.4);
@@ -99,7 +81,8 @@ const setup: SceneSetup<LagoonTheme> = ({ scene, camera, theme }) => {
   scene.add(hemi, sun);
 
   // Sea: a flat-shaded grid whose heights are rewritten each frame.
-  const waterGeo = new THREE.PlaneGeometry(60, 60, 72, 72);
+  // Large enough that its edge is always lost in the fog.
+  const waterGeo = new THREE.PlaneGeometry(110, 110, 90, 90);
   waterGeo.rotateX(-Math.PI / 2);
   const waterPos = waterGeo.attributes.position;
   scene.add(new THREE.Mesh(waterGeo, mats.water));
@@ -144,24 +127,7 @@ const setup: SceneSetup<LagoonTheme> = ({ scene, camera, theme }) => {
   const boat = makeBoat(mats);
   scene.add(boat);
 
-  const gulls = Array.from({ length: 3 }, (_, i) => {
-    const g = makeGull(mats.gull);
-    scene.add(g.gull);
-    return { ...g, radius: 2.5 + i * 0.9, height: 3.6 + i * 0.5, speed: 0.35 + rand() * 0.2, phase: rand() * 6 };
-  });
 
-  const clouds = Array.from({ length: 5 }, () => {
-    const cloud = new THREE.Group();
-    const puffs = 3 + Math.floor(rand() * 3);
-    for (let p = 0; p < puffs; p++) {
-      const puff = new THREE.Mesh(new THREE.IcosahedronGeometry(0.5 + rand() * 0.4, 1), mats.cloud);
-      puff.position.set((p - puffs / 2) * 0.6, rand() * 0.25, (rand() - 0.5) * 0.4);
-      cloud.add(puff);
-    }
-    cloud.position.set((rand() - 0.5) * 30, 3.6 + rand() * 1.6, -10 - rand() * 6);
-    scene.add(cloud);
-    return { cloud, speed: 0.25 + rand() * 0.25, start: cloud.position.x };
-  });
 
   let pitch = 0;
   let roll = 0;
@@ -195,18 +161,6 @@ const setup: SceneSetup<LagoonTheme> = ({ scene, camera, theme }) => {
 
       fronds.rotation.z = Math.sin(t * 1.3) * 0.05;
 
-      gulls.forEach(g => {
-        const a = t * g.speed + g.phase;
-        g.gull.position.set(Math.cos(a) * g.radius, g.height + Math.sin(t * 0.9 + g.phase) * 0.2, Math.sin(a) * g.radius);
-        g.gull.rotation.y = -a;
-        const flap = 0.25 + Math.sin(t * 7 + g.phase) * 0.5; // V-shaped glide with flaps
-        g.left.rotation.z = flap;
-        g.right.rotation.z = -flap;
-      });
-
-      clouds.forEach(c => {
-        c.cloud.position.x = ((c.start + t * c.speed + 20) % 40) - 20;
-      });
     },
     setTheme(th) {
       mats.water.color.set(th.water);
@@ -216,7 +170,7 @@ const setup: SceneSetup<LagoonTheme> = ({ scene, camera, theme }) => {
       mats.trunk.color.set(th.trunk);
       mats.hull.color.set(th.hull);
       mats.sail.color.set(th.sail);
-      mats.cloud.color.set(th.cloud);
+      mats.sail.emissive.set(th.sail);
       hemi.groundColor.set(th.water);
       (scene.fog as THREE.Fog).color.set(th.horizon);
     },
@@ -230,7 +184,7 @@ export function Lagoon3D(props: ThreeSceneProps<LagoonTheme>) {
       {...props}
       defaultTheme={lagoonTheme}
       setup={setup}
-      background={t => `linear-gradient(${t.skyTop}, ${t.horizon} 62%)`}
+      background={t => `linear-gradient(${t.skyTop}, ${t.horizon} 24%)`}
     />
   );
 }

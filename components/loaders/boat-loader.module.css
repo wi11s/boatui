@@ -1,0 +1,15 @@
+/* The waves scroll by exactly one wavelength per loop, so the seam never shows. */
+.waves { animation: scroll 1.4s linear infinite; }
+.wavesBack { animation: scroll 2.2s linear infinite reverse; }
+
+.boat {
+  transform-box: fill-box;
+  transform-origin: 50% 90%;
+  animation: rock 1.4s ease-in-out infinite;
+}
+
+@keyframes scroll { to { transform: translateX(-40px); } }
+@keyframes rock {
+  0%, 100% { transform: translateY(0) rotate(-7deg); }
+  50% { transform: translateY(-3px) rotate(7deg); }
+}
