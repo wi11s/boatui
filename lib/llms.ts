@@ -56,7 +56,7 @@ const ABOUT = [
   `Requirements: React 18+ and CSS Modules (Next.js, Vite and most React setups support them). Zero other dependencies.`,
 ];
 
-const BACKGROUNDS_ABOUT = `Backgrounds are textures that paint behind your content: wrap content in the component, e.g. \`<GrainBackground><App /></GrainBackground>\`. They are pure server components with no client JavaScript. Every background has the same props: \`theme\` (partial colour overrides), \`paused\` (animated backgrounds only), \`className\`, \`style\` and \`children\`. The root is a block element with \`position: relative\`; size it like any div (for a full-page background, give it \`min-height: 100vh\`).`;
+const BACKGROUNDS_ABOUT = `Backgrounds are textures that paint behind your content: wrap content in the component, e.g. \`<PetalsBackground><App /></PetalsBackground>\`. They are pure server components with no client JavaScript. Every background has the same props: \`theme\` (partial colour overrides), \`paused\` (animated backgrounds only), \`className\`, \`style\` and \`children\`. The root is a block element with \`position: relative\`; size it like any div (for a full-page background, give it \`min-height: 100vh\`).`;
 
 const COMMON_API = `Every scene has the same props: \`duration\` (seconds for the main crossing), \`theme\` (partial colour overrides), \`paused\`, \`className\`, \`style\`, and \`children\` (rendered above the art, filling it). A scene fills its container width at a 4:7 aspect ratio; override with \`className\` or \`style\`. Theme keys map to CSS variables (\`skyTop\` → \`--sky-top\`, \`water1\` → \`--water-1\`). Set variables through the scene's own \`style\` prop; variables on a parent element are overridden by the scene's defaults.`;
 

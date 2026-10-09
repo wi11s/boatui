@@ -25,18 +25,18 @@ npx degit wi11s/boatui/components/backgrounds components/backgrounds
 ```
 
 ```tsx
-import { GrainBackground } from '@/components/backgrounds';
+import { PetalsBackground } from '@/components/backgrounds';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  return <GrainBackground style={{ minHeight: '100vh' }}>{children}</GrainBackground>;
+  return <PetalsBackground style={{ minHeight: '100vh' }}>{children}</PetalsBackground>;
 }
 ```
 
 | Component | Background |
 | --- | --- |
-| `<DotGridBackground />` | Fine dot grid fading toward the edges (static) |
-| `<GrainBackground />` | Two-colour gradient with film grain (static) |
 | `<MeshBackground />` | Blurred colour blobs drifting slowly (animated) |
+| `<SnowfallBackground />` | Snow falling at three depths onto soft drifts (animated) |
+| `<PetalsBackground />` | Cherry-blossom petals drifting on a breeze, with a swaying branch (animated) |
 
 ## Run the site
 

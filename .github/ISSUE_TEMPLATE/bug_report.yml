@@ -13,9 +13,9 @@ body:
         - ReefScene
         - TrainScene
         - Shared scene files
-        - DotGridBackground
-        - GrainBackground
         - MeshBackground
+        - SnowfallBackground
+        - PetalsBackground
         - Shared background files
         - Documentation site
         - llms.txt / markdown docs

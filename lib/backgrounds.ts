@@ -1,11 +1,11 @@
 import type { ComponentType } from 'react';
 import {
-  DotGridBackground,
-  GrainBackground,
   MeshBackground,
-  dotGridTheme,
-  grainTheme,
   meshTheme,
+  SnowfallBackground,
+  snowfallTheme,
+  PetalsBackground,
+  petalsTheme,
   type BackgroundProps,
 } from '@/components/backgrounds';
 
@@ -26,28 +26,6 @@ export type BackgroundEntry = {
 
 export const backgrounds: BackgroundEntry[] = [
   {
-    slug: 'dot-grid',
-    name: 'DotGridBackground',
-    title: 'Dot grid',
-    blurb: 'Fine dot grid fading toward the edges.',
-    description: 'A 22px dot grid on a flat base colour, masked with a radial fade so it disappears toward the edges. Static, pure CSS.',
-    animated: false,
-    theme: dotGridTheme,
-    file: 'dot-grid-background',
-    Component: DotGridBackground as BackgroundEntry['Component'],
-  },
-  {
-    slug: 'grain',
-    name: 'GrainBackground',
-    title: 'Grain',
-    blurb: 'Two-colour gradient with film grain.',
-    description: 'A diagonal two-colour gradient with tiled film grain from an inline SVG turbulence filter, blended with multiply. Static, pure CSS.',
-    animated: false,
-    theme: grainTheme,
-    file: 'grain-background',
-    Component: GrainBackground as BackgroundEntry['Component'],
-  },
-  {
     slug: 'mesh',
     name: 'MeshBackground',
     title: 'Mesh gradient',
@@ -57,6 +35,28 @@ export const backgrounds: BackgroundEntry[] = [
     theme: meshTheme,
     file: 'mesh-background',
     Component: MeshBackground as BackgroundEntry['Component'],
+  },
+  {
+    slug: 'snowfall',
+    name: 'SnowfallBackground',
+    title: 'Snowfall',
+    blurb: 'Snow falling at three depths onto soft drifts.',
+    description: 'Snow falling at three depths over a pale winter sky: small slow flakes far away, six-armed spinning flakes up close, all swaying as they fall onto soft drifts at the bottom. About 75 flakes, CSS keyframes only, sized to any box with container units.',
+    animated: true,
+    theme: snowfallTheme,
+    file: 'snowfall-background',
+    Component: SnowfallBackground as BackgroundEntry['Component'],
+  },
+  {
+    slug: 'petals',
+    name: 'PetalsBackground',
+    title: 'Petals',
+    blurb: 'Cherry-blossom petals drifting on a breeze.',
+    description: 'Cherry-blossom petals drifting down and left on a breeze, each spinning and fluttering (a 3D flip faked with scaleX), over soft bokeh light and a blossoming branch that sways from the top-right corner. 36 petals, CSS keyframes only.',
+    animated: true,
+    theme: petalsTheme,
+    file: 'petals-background',
+    Component: PetalsBackground as BackgroundEntry['Component'],
   },
 ];
 

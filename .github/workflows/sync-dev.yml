@@ -1,0 +1,59 @@
+# Keeps dev in sync with main so dev -> main pull requests never conflict.
+#
+# After a dev -> main PR is squash-merged, main holds a new commit whose files are
+# identical to a commit already on dev. Git sees two unrelated changes to the same
+# files, so the next dev -> main PR conflicts. This job records such a commit as
+# merged into dev without changing any files. Anything else on main (e.g. a
+# Dependabot fix merged directly) is merged into dev normally; a real conflict
+# fails the job instead of guessing.
+name: Sync dev with main
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-dev
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: dev
+          fetch-depth: 0
+
+      - name: Merge main into dev
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git fetch origin main
+
+          if git merge-base --is-ancestor origin/main HEAD; then
+            echo "dev already contains main; nothing to do."
+            exit 0
+          fi
+
+          main_tree=$(git rev-parse 'origin/main^{tree}')
+          already_on_dev=false
+          for commit in $(git rev-list HEAD); do
+            if [ "$(git rev-parse "$commit^{tree}")" = "$main_tree" ]; then
+              already_on_dev=true
+              break
+            fi
+          done
+
+          if [ "$already_on_dev" = true ]; then
+            echo "main's files match a commit already on dev (squash merge). Recording it as merged."
+            git merge -s ours --no-edit origin/main -m "Sync dev with main after squash merge (no file changes)"
+          else
+            echo "main has changes dev lacks. Merging normally."
+            git merge --no-edit origin/main -m "Sync dev with main"
+          fi
+
+          git push origin HEAD:dev

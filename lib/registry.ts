@@ -53,7 +53,7 @@ export const scenes: SceneEntry[] = [
     blurb: 'Rotating beam over a night sea. Ship on the horizon.',
     description:
       'Lighthouse on a headland with a sweeping beam that flashes when facing the viewer. A steamer crosses the horizon. Ambient motion: twinkling stars, moon glints, drifting waves.',
-    durationLabel: "the steamer's crossing",
+    durationLabel: 'the steamer\'s crossing',
     defaultDuration: 80,
     theme: lighthouseTheme,
     file: 'lighthouse-scene',
@@ -67,7 +67,7 @@ export const scenes: SceneEntry[] = [
     blurb: 'Hot-air balloon rising over hills. Dawn.',
     description:
       'Hot-air balloon ascending diagonally over four hill layers at sunrise. Ambient motion: swaying basket, burner flicker, drifting mist, a distant second balloon, birds.',
-    durationLabel: "the balloon's ascent",
+    durationLabel: 'the balloon\'s ascent',
     defaultDuration: 45,
     theme: balloonTheme,
     file: 'balloon-scene',
@@ -81,7 +81,7 @@ export const scenes: SceneEntry[] = [
     blurb: 'Sea turtle crossing a reef. Underwater.',
     description:
       'Sea turtle swimming across a shallow reef. A fish school crosses the other way. Ambient motion: surface ripples, light rays, swaying kelp, rising bubbles.',
-    durationLabel: "the turtle's crossing",
+    durationLabel: 'the turtle\'s crossing',
     defaultDuration: 50,
     theme: reefTheme,
     file: 'reef-scene',
@@ -89,17 +89,17 @@ export const scenes: SceneEntry[] = [
     Component: ReefScene as SceneEntry['Component'],
   },
   {
-    slug: "train",
-    name: "TrainScene",
-    title: "Train",
-    blurb: "Steam train crossing a viaduct. Dusk.",
+    slug: 'train',
+    name: 'TrainScene',
+    title: 'Train',
+    blurb: 'Steam train crossing a viaduct. Dusk.',
     description:
-      "Steam train crossing a stone viaduct at dusk with mountains and a setting sun behind. Ambient motion: steam puffs, twinkling stars, drifting valley mist.",
-    durationLabel: "the train crossing the frame",
+      'Steam train crossing a stone viaduct at dusk with mountains and a setting sun behind. Ambient motion: steam puffs, twinkling stars, drifting valley mist.',
+    durationLabel: 'the train crossing the frame',
     defaultDuration: 30,
     theme: trainTheme,
-    file: "train-scene",
-    tone: "light",
+    file: 'train-scene',
+    tone: 'light',
     Component: TrainScene as SceneEntry['Component'],
   },
 ];

@@ -11,6 +11,14 @@
   z-index: -1;
   overflow: hidden;
   pointer-events: none;
+  /* Lets particles move by the layer's own size: 100cqh is its full height, 100cqw its width. */
+  container-type: size;
+}
+
+/* A particle starts just above the layer at a random horizontal position. */
+.particle {
+  position: absolute;
+  top: 0;
 }
 
 .paused,
@@ -19,4 +27,6 @@
 @media (prefers-reduced-motion: reduce) {
   .layer,
   .layer * { animation: none !important; }
+  /* Without motion, particles rest at a scattered position instead of the top edge. */
+  .particle { top: var(--y, 0); }
 }

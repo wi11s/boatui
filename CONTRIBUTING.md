@@ -31,7 +31,7 @@ A scene is two files in `components/scenes/`: `<name>-scene.tsx` and `<name>-sce
 
 ## Adding a background
 
-A background is two files in `components/backgrounds/`: `<name>-background.tsx` and `<name>-background.module.css`. Render through `BackgroundFrame` with a `defaultTheme` and a `layer`, following `dot-grid-background.tsx`. Keep it CSS-only with no client JavaScript, and subtle enough to sit behind text. Export it from `components/backgrounds/index.ts` and add an entry to `lib/backgrounds.ts`.
+A background is two files in `components/backgrounds/`: `<name>-background.tsx` and `<name>-background.module.css`. Render through `BackgroundFrame` with a `defaultTheme` and a `layer`, following `snowfall-background.tsx`. Keep it CSS-only with no client JavaScript, and subtle enough to sit behind text. Export it from `components/backgrounds/index.ts` and add an entry to `lib/backgrounds.ts`.
 
 ### What makes a good Quiet Scene
 
@@ -44,6 +44,8 @@ A background is two files in `components/backgrounds/`: `<name>-background.tsx` 
 A CSS `transform` replaces an element's `transform` attribute, so put animated classes on an inner `<g>` when the element is also positioned with `transform`.
 
 ## Pull requests
+
+- Open pull requests against `dev`, not `main`. `main` only receives `dev` through a merge-commit PR.
 
 - Keep each PR to one scene or one fix.
 - Include a screenshot or short recording of the scene.
