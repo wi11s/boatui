@@ -30,10 +30,7 @@ export default function Home() {
       />
 
       <section className={styles.hero}>
-        <h1 className={styles.title}>{SITE_NAME}</h1>
-        <p className={styles.lede}>
-          Animated scenes, backgrounds and 3D for React. Copy-paste components you own.
-        </p>
+        <h1 className={styles.lede}>Animated scenes, backgrounds and 3D for React. Copy-paste components you own.</h1>
         <p className={styles.meta}>
           MIT ·{' '}
           <TrackedLink href={REPO_URL} event="github_click" eventProps={{ target: 'repo', location: 'hero' }}>
