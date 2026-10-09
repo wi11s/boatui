@@ -4,7 +4,19 @@
   background: linear-gradient(var(--sky-top), var(--sky-bottom));
 }
 
-/* Clouds and birds travel the full width, from just off the left edge to just off the right. */
+/* A soft sun: a pale disc inside a wide glow that breathes slowly. */
+.sun {
+  position: absolute;
+  top: -60px;
+  right: -40px;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--sun) 0 18%, color-mix(in srgb, var(--sun) 45%, transparent) 30%, transparent 68%);
+  animation: glow 6s ease-in-out infinite alternate;
+}
+
+/* Clouds travel the full width, from just off the left edge to just off the right. */
 .drift {
   position: absolute;
   left: 0;
@@ -12,27 +24,11 @@
   will-change: transform;
 }
 
-.bob { display: block; animation: bob ease-in-out infinite alternate; }
-
-.sun {
-  position: absolute;
-  top: 24px;
-  right: 28px;
-  width: 120px;
-  height: 120px;
-}
-
-.rays {
-  transform-origin: 60px 60px;
-  animation: spin 60s linear infinite;
-}
-
-.flap { transform-box: fill-box; transform-origin: center; animation: flap 0.45s ease-in-out infinite alternate; }
-
 @keyframes drift {
-  from { transform: translateX(-260px); }
-  to   { transform: translateX(calc(100cqw + 60px)); }
+  from { transform: translateX(-280px); }
+  to   { transform: translateX(calc(100cqw + 40px)); }
 }
-@keyframes bob  { from { transform: translateY(-4px); } to { transform: translateY(4px); } }
-@keyframes spin { to { transform: rotate(360deg); } }
-@keyframes flap { from { transform: scaleY(1); } to { transform: scaleY(-0.5); } }
+@keyframes glow {
+  from { opacity: 0.85; transform: scale(1); }
+  to   { opacity: 1; transform: scale(1.06); }
+}

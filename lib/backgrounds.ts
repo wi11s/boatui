@@ -64,9 +64,9 @@ export const backgrounds: BackgroundEntry[] = [
     slug: 'clouds',
     name: 'CloudsBackground',
     title: 'Clouds',
-    blurb: 'Puffy clouds drifting across the sky in parallax.',
+    blurb: 'Soft clouds drifting across the sky in parallax.',
     description: 
-      'Fourteen puffy cartoon clouds in three parallax layers drift across a sky gradient: far clouds are small, pale and slow, near ones large and quicker, each bobbing gently. A sun with slowly turning rays and two small flocks of flapping birds. CSS keyframes and container units.',
+      'Twelve soft clouds in three parallax layers drift across a sky gradient: far clouds are small, faint and slow, near ones larger and quicker, each shaded toward its base. A pale sun glows gently in the corner. CSS keyframes and container units.',
     animated: true,
     theme: cloudsTheme,
     file: 'clouds-background',
