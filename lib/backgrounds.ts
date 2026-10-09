@@ -6,6 +6,8 @@ import {
   petalsTheme,
   FirefliesBackground,
   firefliesTheme,
+  CloudsBackground,
+  cloudsTheme,
   type BackgroundProps,
 } from '@/components/backgrounds';
 
@@ -57,6 +59,18 @@ export const backgrounds: BackgroundEntry[] = [
     theme: firefliesTheme,
     file: 'fireflies-background',
     Component: FirefliesBackground as BackgroundEntry['Component'],
+  },
+  {
+    slug: 'clouds',
+    name: 'CloudsBackground',
+    title: 'Clouds',
+    blurb: 'Puffy clouds drifting across the sky in parallax.',
+    description: 
+      'Fourteen puffy cartoon clouds in three parallax layers drift across a sky gradient: far clouds are small, pale and slow, near ones large and quicker, each bobbing gently. A sun with slowly turning rays and two small flocks of flapping birds. CSS keyframes and container units.',
+    animated: true,
+    theme: cloudsTheme,
+    file: 'clouds-background',
+    Component: CloudsBackground as BackgroundEntry['Component'],
   },
 ];
 
