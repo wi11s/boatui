@@ -46,7 +46,7 @@ export const scenes: SceneEntry[] = [
     title: 'Boat',
     blurb: 'Sailboat crossing layered waves. Daytime.',
     description:
-      'Sailboat crossing five drifting wave layers under a low sun. Front layers occlude the hull so it reads as floating. Ambient motion: bobbing, wake, clouds, sun glints.',
+      'Sailboat crossing five drifting wave layers under a low sun, a small island with a lighthouse on the horizon. Front layers occlude the hull so it reads as floating. Ambient motion: bobbing, wake, clouds, sun glints, two gulls gliding past, and a dolphin that leaps from the swell every 14 seconds.',
     durationLabel: 'one left-to-right crossing',
     defaultDuration: 40,
     theme: boatTheme,
