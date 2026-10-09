@@ -88,7 +88,7 @@ export const scenes: SceneEntry[] = [
     title: 'Reef',
     blurb: 'Sea turtle crossing a reef. Underwater.',
     description:
-      'Sea turtle swimming across a shallow reef. A fish school crosses the other way. Ambient motion: surface ripples, light rays, swaying kelp, rising bubbles.',
+      'Sea turtle swimming across a shallow reef of staghorn, brain and fan coral. A fish school crosses the other way, two clownfish dart around an anemone and a jellyfish pulses upward. Ambient motion: surface ripples, light rays, light rippling on the sand, swaying kelp and tentacles, rising bubbles.',
     durationLabel: 'the turtle\'s crossing',
     defaultDuration: 50,
     theme: reefTheme,

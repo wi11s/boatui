@@ -11,6 +11,28 @@
 .rise   { animation: rise linear infinite; }
 .wobble { animation: wobble 1.6s ease-in-out infinite alternate; }
 
+.caustic { animation: caustic ease-in-out infinite alternate; }
+.fan {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: rock 5s ease-in-out infinite alternate;
+}
+.tentacles {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: tentacles 3s ease-in-out infinite alternate;
+}
+/* Clownfish dart out from the anemone and back on a 6s loop, out of step with each other. */
+.clown { animation: clown 6s ease-in-out infinite; }
+.clown2 { animation-delay: -2.4s; animation-direction: reverse; }
+
+.jellyDrift { animation: jellyDrift 20s ease-in-out infinite alternate; }
+.jellyPulse {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: jellyPulse 2.2s ease-in-out infinite;
+}
+
 @keyframes cruise {
   from { transform: translate(-90px, 340px); }
   to   { transform: translate(490px, 300px); }
@@ -27,3 +49,21 @@
   100% { transform: translateY(-680px); opacity: 0; }
 }
 @keyframes wobble { from { transform: translateX(-3px); } to { transform: translateX(3px); } }
+@keyframes caustic { from { opacity: 0; } to { opacity: 0.55; } }
+@keyframes rock { from { transform: skewX(-6deg); } to { transform: skewX(5deg); } }
+@keyframes tentacles { from { transform: skewX(-10deg); } to { transform: skewX(10deg); } }
+@keyframes clown {
+  0%, 100% { transform: translate(0, 0); }
+  30%      { transform: translate(-16px, -8px); }
+  55%      { transform: translate(-4px, -14px); }
+  75%      { transform: translate(6px, -4px); }
+}
+@keyframes jellyDrift {
+  from { transform: translate(0, 30px); }
+  to   { transform: translate(14px, -40px); }
+}
+@keyframes jellyPulse {
+  0%, 100% { transform: scale(1, 1); }
+  40%      { transform: scale(1.12, 0.85); }
+  60%      { transform: scale(0.94, 1.08); }
+}
