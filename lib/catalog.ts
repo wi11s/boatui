@@ -5,7 +5,8 @@ import type { ComponentType, ReactNode } from 'react';
 import type { ItemKind } from './analytics';
 import { BACKGROUND_SHARED_FILES, backgroundProps, backgrounds } from './backgrounds';
 import { SHARED_FILES, sceneProps, scenes } from './registry';
-import { BACKGROUNDS_INSTALL_COMMAND, INSTALL_COMMAND, THREE_INSTALL_COMMAND } from './site';
+import { EMPTY_STATE_SHARED_FILES, emptyStateProps, emptyStates } from './empty-states';
+import { BACKGROUNDS_INSTALL_COMMAND, EMPTY_STATES_INSTALL_COMMAND, INSTALL_COMMAND, THREE_INSTALL_COMMAND } from './site';
 import { THREE_SHARED_FILES, threeProps, threeScenes } from './three';
 
 /** [prop, type, default, description] */
@@ -87,6 +88,22 @@ export const categories: Category[] = [
     files: tsxAndCss,
     usage: item =>
       `import { ${item.name} } from '@/components/backgrounds/${item.file}';\n\nexport default function Layout({ children }: { children: React.ReactNode }) {\n  return <${item.name} style={{ minHeight: '100vh' }}>{children}</${item.name}>;\n}`,
+  },
+  {
+    kind: 'empty',
+    label: 'Empty states',
+    path: 'empty-states',
+    dir: 'components/empty-states',
+    sharedFiles: EMPTY_STATE_SHARED_FILES,
+    install: EMPTY_STATES_INSTALL_COMMAND,
+    about:
+      'Empty states are small animated illustrations for screens with nothing to show yet: empty lists, no search results, inbox zero, offline. Pass your message and actions as children and they appear centred under the illustration. Pure server components with CSS animation, drawn in a 240×180 box. Props: `theme`, `size` (illustration width, default 240), `paused`, `className`, `style`, `children`.',
+    card: 'wide',
+    items: emptyStates,
+    props: item => emptyStateProps(emptyStates.find(e => e.slug === item.slug)!),
+    files: tsxAndCss,
+    usage: item =>
+      `import { ${item.name} } from '@/components/empty-states/${item.file}';\n\nexport function NoProjects() {\n  return (\n    <${item.name}>\n      <h2>No projects yet</h2>\n      <p>Create one to get started.</p>\n    </${item.name}>\n  );\n}`,
   },
   {
     kind: 'three',

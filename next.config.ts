@@ -1,6 +1,11 @@
 import type { NextConfig } from 'next';
 
-const COMPONENT_SOURCES = ['./components/scenes/**/*', './components/backgrounds/**/*', './components/three/**/*'];
+const COMPONENT_SOURCES = [
+  './components/scenes/**/*',
+  './components/backgrounds/**/*',
+  './components/empty-states/**/*',
+  './components/three/**/*',
+];
 
 const nextConfig: NextConfig = {
   // These routes read component source files from disk.

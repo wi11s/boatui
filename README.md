@@ -39,6 +39,25 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 | `<FirefliesBackground />` | Fireflies wandering and blinking over a dusky meadow (animated) |
 | `<CloudsBackground />` | Puffy clouds drifting across the sky in parallax, with a sun and birds (animated) |
 
+### Empty states
+
+Small animated illustrations for screens with nothing to show. Your message goes underneath as children.
+
+```bash
+npx degit wi11s/boatui/components/empty-states components/empty-states
+```
+
+```tsx
+<EmptyNap>
+  <h2>No projects yet</h2>
+  <p>Create one to get started.</p>
+</EmptyNap>
+```
+
+| Component | Empty state |
+| --- | --- |
+| `<EmptyNap />` | A cat asleep on a cushion, for "nothing here yet" |
+
 ### 3D
 
 three.js scenes in a shared frame that sizes, pauses off-screen, respects reduced motion and cleans up after itself.
@@ -112,6 +131,8 @@ components/scenes/        the library: copy from here
 components/backgrounds/   backgrounds: copy from here
   background.tsx          shared frame: theming, layering, pausing
   *-background.tsx / .css one background each
+components/empty-states/  empty-state illustrations: copy from here
+  empty-state.tsx         shared frame: theming, illustration box, message slot
 components/three/         3D scenes (three.js): copy from here
   three-frame.tsx         shared client frame: canvas, render loop, pausing, cleanup
   *-3d.tsx                one scene each
@@ -120,6 +141,7 @@ lib/catalog.ts            every category: folder, install command, props, usage;
 lib/registry.ts           scene metadata: names, descriptions, props, themes
 lib/backgrounds.ts        background metadata
 lib/three.ts              3D scene metadata
+lib/empty-states.ts       empty-state metadata
 lib/llms.ts               generates /llms.txt, /llms-full.txt and /<category>/<name>.md
 lib/analytics.ts          Vercel Analytics custom events
 prototypes/               the original Three.js and web-component experiments

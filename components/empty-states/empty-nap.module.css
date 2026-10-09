@@ -1,0 +1,40 @@
+/* The cat breathes from its belly, its tail swishes, and Zs drift up and fade. */
+.breathe {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: breathe 2.6s ease-in-out infinite;
+}
+.tail {
+  transform-box: fill-box;
+  transform-origin: 0% 50%;
+  animation: swish 3.2s ease-in-out infinite;
+}
+.ear {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: twitch 7s ease-in-out infinite;
+}
+.z {
+  animation: float 3.6s ease-out infinite;
+  opacity: 0;
+}
+.star { animation: twinkle 2.4s ease-in-out infinite alternate; }
+
+@keyframes breathe {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(1.05); }
+}
+@keyframes swish {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-12deg); }
+}
+@keyframes twitch {
+  0%, 92%, 100% { transform: rotate(0deg); }
+  95% { transform: rotate(-14deg); }
+}
+@keyframes float {
+  0% { transform: translate(0, 0) scale(0.6); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translate(18px, -46px) scale(1.15); opacity: 0; }
+}
+@keyframes twinkle { from { opacity: 0.25; } to { opacity: 1; } }

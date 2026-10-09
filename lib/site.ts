@@ -27,5 +27,8 @@ export const INSTALL_COMMAND = 'npx degit wi11s/boatui/components/scenes compone
 /** Copies the whole 3D folder into a project (also needs `npm i three`). */
 export const THREE_INSTALL_COMMAND = 'npx degit wi11s/boatui/components/three components/three';
 
+/** Copies the whole empty-states folder into a project. */
+export const EMPTY_STATES_INSTALL_COMMAND = 'npx degit wi11s/boatui/components/empty-states components/empty-states';
+
 /** Copies the whole backgrounds folder into a project. */
 export const BACKGROUNDS_INSTALL_COMMAND = 'npx degit wi11s/boatui/components/backgrounds components/backgrounds';
