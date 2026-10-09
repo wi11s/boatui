@@ -11,7 +11,6 @@ export const beeLoaderTheme = {
   petals: '#f49ab5',
   centre: '#f2c14e',
   stem: '#6cbf6a',
-  trail: '#c9b8d6',
 };
 export type BeeLoaderTheme = typeof beeLoaderTheme;
 
