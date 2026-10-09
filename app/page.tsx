@@ -1,18 +1,9 @@
-import { BackgroundCard } from '@/components/site/background-card';
 import { Command } from '@/components/site/command';
+import { ItemCard } from '@/components/site/item-card';
 import { JsonLd } from '@/components/site/json-ld';
-import { SceneCard } from '@/components/site/scene-card';
 import { TrackedLink } from '@/components/site/tracked-link';
-import { backgrounds } from '@/lib/backgrounds';
-import { scenes } from '@/lib/registry';
-import {
-  BACKGROUNDS_INSTALL_COMMAND,
-  INSTALL_COMMAND,
-  REPO_URL,
-  SITE_DESCRIPTION,
-  SITE_NAME,
-  SITE_URL,
-} from '@/lib/site';
+import { allItems, categories } from '@/lib/catalog';
+import { REPO_URL, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/lib/site';
 import styles from './page.module.css';
 
 export default function Home() {
@@ -29,17 +20,19 @@ export default function Home() {
           license: 'https://opensource.org/licenses/MIT',
           programmingLanguage: ['TypeScript', 'CSS'],
           runtimePlatform: 'React',
-          hasPart: [
-            ...scenes.map(s => ({ name: s.name, description: s.description, url: `${SITE_URL}/scenes/${s.slug}` })),
-            ...backgrounds.map(b => ({ name: b.name, description: b.description, url: `${SITE_URL}/backgrounds/${b.slug}` })),
-          ].map(part => ({ '@type': 'SoftwareSourceCode', ...part })),
+          hasPart: allItems().map(({ category, item }) => ({
+            '@type': 'SoftwareSourceCode',
+            name: item.name,
+            description: item.description,
+            url: `${SITE_URL}/${category.path}/${item.slug}`,
+          })),
         }}
       />
 
       <section className={styles.hero}>
-        <h1 className={styles.title}>Quiet Scenes</h1>
+        <h1 className={styles.title}>{SITE_NAME}</h1>
         <p className={styles.lede}>
-          Animated scenes and textured backgrounds for React. Copy-paste, CSS-only, no dependencies.
+          Animated scenes, backgrounds and 3D for React. Copy-paste components you own.
         </p>
         <p className={styles.meta}>
           MIT ·{' '}
@@ -49,29 +42,24 @@ export default function Home() {
         </p>
       </section>
 
-      <section id="scenes" className={styles.section}>
-        <div className={styles.sectionHead}>
-          <h2>Scenes</h2>
-          <Command command={INSTALL_COMMAND} location="scenes" />
-        </div>
-        <div className={styles.grid}>
-          {scenes.map(scene => (
-            <SceneCard key={scene.slug} scene={scene} />
-          ))}
-        </div>
-      </section>
-
-      <section id="backgrounds" className={styles.section}>
-        <div className={styles.sectionHead}>
-          <h2>Backgrounds</h2>
-          <Command command={BACKGROUNDS_INSTALL_COMMAND} location="backgrounds" />
-        </div>
-        <div className={styles.bgGrid}>
-          {backgrounds.map(bg => (
-            <BackgroundCard key={bg.slug} background={bg} />
-          ))}
-        </div>
-      </section>
+      {categories.map(category => (
+        <section key={category.path} id={category.path} className={styles.section}>
+          <div className={styles.sectionHead}>
+            <h2>{category.label}</h2>
+            <Command command={category.install} location={category.path} />
+          </div>
+          {category.requires && (
+            <p className={styles.requires}>
+              Requires <code>{category.requires}</code>
+            </p>
+          )}
+          <div className={category.card === 'wide' ? styles.wideGrid : styles.grid}>
+            {category.items.map(item => (
+              <ItemCard key={item.slug} category={category} item={item} />
+            ))}
+          </div>
+        </section>
+      ))}
     </div>
   );
 }

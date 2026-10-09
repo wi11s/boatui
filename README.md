@@ -34,9 +34,22 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
 | Component | Background |
 | --- | --- |
-| `<MeshBackground />` | Blurred colour blobs drifting slowly (animated) |
 | `<SnowfallBackground />` | Snow falling at three depths onto soft drifts (animated) |
 | `<PetalsBackground />` | Cherry-blossom petals drifting on a breeze, with a swaying branch (animated) |
+| `<FirefliesBackground />` | Fireflies wandering and blinking over a dusky meadow (animated) |
+
+### 3D
+
+three.js scenes in a shared frame that sizes, pauses off-screen, respects reduced motion and cleans up after itself.
+
+```bash
+npx degit wi11s/boatui/components/three components/three
+npm i three
+```
+
+| Component | 3D scene |
+| --- | --- |
+| `<TinyPlanet3D />` | Low-poly planet with cottages, a windmill and orbiting clouds |
 
 ## Run the site
 
@@ -97,10 +110,15 @@ components/scenes/        the library: copy from here
 components/backgrounds/   backgrounds: copy from here
   background.tsx          shared frame: theming, layering, pausing
   *-background.tsx / .css one background each
+components/three/         3D scenes (three.js): copy from here
+  three-frame.tsx         shared client frame: canvas, render loop, pausing, cleanup
+  *-3d.tsx                one scene each
 components/site/          playground, code blocks, cards (site only)
+lib/catalog.ts            every category: folder, install command, props, usage; drives all pages and docs
 lib/registry.ts           scene metadata: names, descriptions, props, themes
 lib/backgrounds.ts        background metadata
-lib/llms.ts               generates /llms.txt, /llms-full.txt, /scenes/<name>.md and /backgrounds/<name>.md
+lib/three.ts              3D scene metadata
+lib/llms.ts               generates /llms.txt, /llms-full.txt and /<category>/<name>.md
 lib/analytics.ts          Vercel Analytics custom events
 prototypes/               the original Three.js and web-component experiments
 ```

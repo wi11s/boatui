@@ -1,11 +1,11 @@
 import type { ComponentType } from 'react';
 import {
-  MeshBackground,
-  meshTheme,
   SnowfallBackground,
   snowfallTheme,
   PetalsBackground,
   petalsTheme,
+  FirefliesBackground,
+  firefliesTheme,
   type BackgroundProps,
 } from '@/components/backgrounds';
 
@@ -25,17 +25,6 @@ export type BackgroundEntry = {
 };
 
 export const backgrounds: BackgroundEntry[] = [
-  {
-    slug: 'mesh',
-    name: 'MeshBackground',
-    title: 'Mesh gradient',
-    blurb: 'Blurred colour blobs drifting slowly.',
-    description: 'Three large blurred colour blobs on a base colour, forming a soft mesh gradient. Each blob drifts and scales on its own 18–27 second loop.',
-    animated: true,
-    theme: meshTheme,
-    file: 'mesh-background',
-    Component: MeshBackground as BackgroundEntry['Component'],
-  },
   {
     slug: 'snowfall',
     name: 'SnowfallBackground',
@@ -57,6 +46,17 @@ export const backgrounds: BackgroundEntry[] = [
     theme: petalsTheme,
     file: 'petals-background',
     Component: PetalsBackground as BackgroundEntry['Component'],
+  },
+  {
+    slug: 'fireflies',
+    name: 'FirefliesBackground',
+    title: 'Fireflies',
+    blurb: 'Fireflies blinking over a dusky meadow.',
+    description: 'Thirty fireflies wandering four-point loops and blinking on their own rhythms over a dusk gradient, with a crescent moon and a meadow of swaying grass blades placed by percentage so it spans any width. CSS keyframes only.',
+    animated: true,
+    theme: firefliesTheme,
+    file: 'fireflies-background',
+    Component: FirefliesBackground as BackgroundEntry['Component'],
   },
 ];
 

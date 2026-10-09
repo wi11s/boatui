@@ -52,8 +52,14 @@
   gap: 24px 20px;
 }
 
-.bgGrid {
+.wideGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 24px 20px;
+}
+
+.requires {
+  margin: -12px 0 20px;
+  font-size: 0.85rem;
+  color: var(--faint);
 }

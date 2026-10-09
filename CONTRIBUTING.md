@@ -33,6 +33,10 @@ A scene is two files in `components/scenes/`: `<name>-scene.tsx` and `<name>-sce
 
 A background is two files in `components/backgrounds/`: `<name>-background.tsx` and `<name>-background.module.css`. Render through `BackgroundFrame` with a `defaultTheme` and a `layer`, following `snowfall-background.tsx`. Keep it CSS-only with no client JavaScript, and subtle enough to sit behind text. Export it from `components/backgrounds/index.ts` and add an entry to `lib/backgrounds.ts`.
 
+## Adding a 3D scene
+
+A 3D scene is one file in `components/three/`: `<name>-3d.tsx`. Write a module-level `setup` that builds the scene and returns `update(time)` and `setTheme(theme)`, and render it through `ThreeFrame`, following `tiny-planet-3d.tsx`. Keep geometry low-poly, update materials in `setTheme` rather than rebuilding, and let the frame handle sizing, pausing and disposal. Export it from `components/three/index.ts` and add an entry to `lib/three.ts`.
+
 ### What makes a good Quiet Scene
 
 - **Calm.** One main subject making a slow crossing, plus a few small ambient motions. Nothing should flash or move fast.

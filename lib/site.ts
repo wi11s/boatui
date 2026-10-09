@@ -1,6 +1,6 @@
 export const SITE_NAME = 'Quiet Scenes';
 export const SITE_DESCRIPTION =
-  'Prebuilt animated SVG scene components for React. CSS-only motion, typed props, theme tokens, zero dependencies.';
+  'Prebuilt animated components for React: SVG scenes, textured backgrounds and three.js 3D scenes. Typed props and theme tokens; scenes and backgrounds have zero dependencies.';
 
 /**
  * Absolute site origin, used for sitemap, robots, llms.txt and structured data.
@@ -23,6 +23,9 @@ export const ISSUES_URL = `${REPO_URL}/issues`;
 
 /** Copies the whole scenes folder into a project. */
 export const INSTALL_COMMAND = 'npx degit wi11s/boatui/components/scenes components/scenes';
+
+/** Copies the whole 3D folder into a project (also needs `npm i three`). */
+export const THREE_INSTALL_COMMAND = 'npx degit wi11s/boatui/components/three components/three';
 
 /** Copies the whole backgrounds folder into a project. */
 export const BACKGROUNDS_INSTALL_COMMAND = 'npx degit wi11s/boatui/components/backgrounds components/backgrounds';

@@ -13,10 +13,12 @@ body:
         - ReefScene
         - TrainScene
         - Shared scene files
-        - MeshBackground
         - SnowfallBackground
         - PetalsBackground
+        - FirefliesBackground
         - Shared background files
+        - TinyPlanet3D
+        - Shared 3D files
         - Documentation site
         - llms.txt / markdown docs
     validations:
