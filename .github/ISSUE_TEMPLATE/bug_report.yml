@@ -18,6 +18,7 @@ body:
         - FirefliesBackground
         - Shared background files
         - TinyPlanet3D
+        - Lagoon3D
         - Shared 3D files
         - Documentation site
         - llms.txt / markdown docs

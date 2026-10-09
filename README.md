@@ -50,6 +50,7 @@ npm i three
 | Component | 3D scene |
 | --- | --- |
 | `<TinyPlanet3D />` | Low-poly planet with cottages, a windmill and orbiting clouds |
+| `<Lagoon3D />` | Sailboat circling a palm-tree island on a low-poly sea |
 
 ## Run the site
 

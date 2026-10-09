@@ -1,5 +1,11 @@
 import type { ComponentType } from 'react';
-import { TinyPlanet3D, tinyPlanetTheme, type ThreeSceneProps } from '@/components/three';
+import {
+  TinyPlanet3D,
+  tinyPlanetTheme,
+  Lagoon3D,
+  lagoonTheme,
+  type ThreeSceneProps,
+} from '@/components/three';
 
 export type ThreeEntry = {
   slug: string;
@@ -27,6 +33,18 @@ export const threeScenes: ThreeEntry[] = [
     theme: tinyPlanetTheme,
     file: 'tiny-planet-3d',
     Component: TinyPlanet3D as ThreeEntry['Component'],
+  },
+  {
+    slug: 'lagoon',
+    name: 'Lagoon3D',
+    title: 'Lagoon',
+    blurb: 'Sailboat circling a palm-tree island on a low-poly sea.',
+    description: 
+      'A sailboat circling a small palm-tree island on a flat-shaded low-poly sea. The boat samples the same wave function as the water, so it pitches and rolls with the swell. Gulls flap overhead, clouds drift past, and distance fog blends the sea into a warm horizon. three.js.',
+    animated: true,
+    theme: lagoonTheme,
+    file: 'lagoon-3d',
+    Component: Lagoon3D as ThreeEntry['Component'],
   },
 ];
 
