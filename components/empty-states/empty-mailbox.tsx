@@ -13,7 +13,7 @@ export const emptyMailboxTheme = {
   grass: '#b9dca8',
   bird: '#f2a65a',
   birdWing: '#d9823b',
-  ink: '#4a3a33',
+  birdInk: '#4a3a33',
   notes: '#8a97a0',
 };
 export type EmptyMailboxTheme = typeof emptyMailboxTheme;
@@ -63,10 +63,10 @@ export function EmptyMailbox(props: EmptyStateProps<EmptyMailboxTheme>) {
               <path d="M-9 -9 Q-3 -3 3 -8" fill="var(--bird-wing)" />
               <g className={styles.head}>
                 <circle cx="7" cy="-16" r="6.5" fill="var(--bird)" />
-                <circle cx="9" cy="-17" r="1.3" fill="var(--ink)" />
+                <circle cx="9" cy="-17" r="1.3" fill="var(--bird-ink)" />
                 <path d="M13 -16.5 L18 -15 L13 -13.5 Z" fill="var(--flag)" />
               </g>
-              <path d="M-4 0 V2 M1 0 V2" stroke="var(--ink)" strokeWidth="1.4" strokeLinecap="round" />
+              <path d="M-4 0 V2 M1 0 V2" stroke="var(--bird-ink)" strokeWidth="1.4" strokeLinecap="round" />
             </g>
           </g>
 

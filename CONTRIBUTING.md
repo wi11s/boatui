@@ -46,7 +46,7 @@ A 3D scene is one file in `components/three/`: `<name>-3d.tsx`. Write a module-l
 - **Calm.** One main subject making a slow crossing, plus a few small ambient motions. Nothing should flash or move fast.
 - **CSS only.** Animate with keyframes on `transform` and `opacity`. No JavaScript animation loops, canvas or WebGL.
 - **Readable on top.** Leave the top of the card quiet enough for a heading and a line of text.
-- **Themeable.** Expose the main colours as theme tokens with sensible defaults.
+- **Themeable.** Expose the main colours as theme tokens with sensible defaults. Name each token after what it colours (`fishingLine`, `birdInk`), not a generic role (`line`, `ink`): tokens become CSS variables on the component's root, and generic names can clash with the host app's own variables.
 - **Considerate.** Check it with reduced motion turned on: it should still look like a complete picture when everything is still.
 
 A CSS `transform` replaces an element's `transform` attribute, so put animated classes on an inner `<g>` when the element is also positioned with `transform`.
