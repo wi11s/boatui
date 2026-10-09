@@ -1,18 +1,23 @@
-import Link from 'next/link';
 import type { SceneEntry } from '@/lib/registry';
+import { TrackedLink } from './tracked-link';
 import styles from './scene-card.module.css';
 
 export function SceneCard({ scene }: { scene: SceneEntry }) {
   const { Component } = scene;
   return (
-    <Link href={`/scenes/${scene.slug}`} className={styles.card} aria-label={`${scene.title}: ${scene.name}`}>
-      <Component>
-        <div className={`${styles.copy} ${scene.tone === 'light' ? styles.light : ''}`}>
-          <h3>{scene.title}</h3>
-          <p>{scene.blurb}</p>
-        </div>
-        <span className={styles.tag}>{`<${scene.name} />`}</span>
-      </Component>
-    </Link>
+    <TrackedLink
+      href={`/scenes/${scene.slug}`}
+      className={styles.card}
+      event="scene_open"
+      eventProps={{ scene: scene.slug, location: 'grid' }}
+    >
+      <div className={styles.art}>
+        <Component />
+      </div>
+      <div className={styles.caption}>
+        <span className={styles.title}>{scene.title}</span>
+        <code className={styles.name}>{scene.name}</code>
+      </div>
+    </TrackedLink>
   );
 }

@@ -27,7 +27,7 @@
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .row small { font-weight: 400; color: var(--muted); }
@@ -39,22 +39,23 @@
 
 .button {
   font: inherit;
-  font-weight: 600;
-  padding: 8px 18px;
-  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 7px 16px;
+  border-radius: var(--radius-sm);
   border: 1px solid var(--line);
   background: var(--surface);
   color: var(--ink);
   cursor: pointer;
 }
 
-.button:hover { background: var(--surface-2); }
+.button:hover { border-color: var(--muted); }
 
 .colors {
   margin: 0;
   padding: 14px 16px 16px;
   border: 1px solid var(--line);
-  border-radius: 14px;
+  border-radius: var(--radius-sm);
   background: var(--surface);
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -63,7 +64,9 @@
 
 .colors legend {
   padding: 0 6px;
-  font-weight: 600;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--muted);
 }
 
 .color {

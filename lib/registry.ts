@@ -33,10 +33,10 @@ export const scenes: SceneEntry[] = [
   {
     slug: 'boat',
     name: 'BoatScene',
-    title: 'Slow crossing',
-    blurb: 'A small sailboat on an easy afternoon swell.',
+    title: 'Boat',
+    blurb: 'Sailboat crossing layered waves. Daytime.',
     description:
-      'A sailboat bobs across five layers of drifting waves under a hazy sun. The front waves pass over the hull, so it sits in the water instead of on top of it.',
+      'Sailboat crossing five drifting wave layers under a low sun. Front layers occlude the hull so it reads as floating. Ambient motion: bobbing, wake, clouds, sun glints.',
     durationLabel: 'one left-to-right crossing',
     defaultDuration: 40,
     theme: boatTheme,
@@ -47,10 +47,10 @@ export const scenes: SceneEntry[] = [
   {
     slug: 'lighthouse',
     name: 'LighthouseScene',
-    title: 'Night watch',
-    blurb: "A steamer passes under the lighthouse's sweep.",
+    title: 'Lighthouse',
+    blurb: 'Rotating beam over a night sea. Ship on the horizon.',
     description:
-      'Stars twinkle over a moonlit sea while a lighthouse sweeps its beam and flashes as it turns toward you. A small steamer with lit windows crosses the horizon.',
+      'Lighthouse on a headland with a sweeping beam that flashes when facing the viewer. A steamer crosses the horizon. Ambient motion: twinkling stars, moon glints, drifting waves.',
     durationLabel: "the steamer's crossing",
     defaultDuration: 80,
     theme: lighthouseTheme,
@@ -61,10 +61,10 @@ export const scenes: SceneEntry[] = [
   {
     slug: 'balloon',
     name: 'BalloonScene',
-    title: 'First light',
-    blurb: 'A balloon lifts over the hills at dawn.',
+    title: 'Balloon',
+    blurb: 'Hot-air balloon rising over hills. Dawn.',
     description:
-      'A striped hot-air balloon rises diagonally over rolling hills, swaying under a flickering burner. Mist drifts between the ridges and a few birds flap past.',
+      'Hot-air balloon ascending diagonally over four hill layers at sunrise. Ambient motion: swaying basket, burner flicker, drifting mist, a distant second balloon, birds.',
     durationLabel: "the balloon's ascent",
     defaultDuration: 45,
     theme: balloonTheme,
@@ -75,10 +75,10 @@ export const scenes: SceneEntry[] = [
   {
     slug: 'reef',
     name: 'ReefScene',
-    title: 'Reef drift',
-    blurb: 'A sea turtle glides across the shallows.',
+    title: 'Reef',
+    blurb: 'Sea turtle crossing a reef. Underwater.',
     description:
-      'A sea turtle paddles through rippling light while kelp sways, bubbles rise and a school of fish swims the other way.',
+      'Sea turtle swimming across a shallow reef. A fish school crosses the other way. Ambient motion: surface ripples, light rays, swaying kelp, rising bubbles.',
     durationLabel: "the turtle's crossing",
     defaultDuration: 50,
     theme: reefTheme,
@@ -96,3 +96,13 @@ export const SHARED_FILES = ['geometry.ts', 'scene.tsx', 'scene-frame.tsx', 'sce
 // skyTop → --sky-top, water1 → --water-1 (mirrors the conversion in scene-frame.tsx)
 export const tokenToVar = (key: string) =>
   `--${key.replace(/([A-Z])/g, '-$1').replace(/(\d+)/g, '-$1').toLowerCase()}`;
+
+/** The props every scene accepts, as [name, type, default, description]. */
+export const sceneProps = (scene: SceneEntry): [string, string, string, string][] => [
+  ['duration', 'number', `${scene.defaultDuration}`, `Seconds for ${scene.durationLabel}.`],
+  ['theme', `Partial<${scene.name.replace('Scene', 'Theme')}>`, '—', 'Colour overrides. Keys listed under theme tokens.'],
+  ['paused', 'boolean', 'false', 'Freezes all motion. Also paused automatically while off-screen.'],
+  ['className', 'string', '—', 'Applied to the root element.'],
+  ['style', 'CSSProperties', '—', 'Merged into the root element style, after theme variables.'],
+  ['children', 'ReactNode', '—', 'Rendered above the art in an absolutely positioned layer.'],
+];

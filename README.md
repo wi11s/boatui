@@ -1,8 +1,12 @@
 # Quiet Scenes
 
-Small, calm, animated scenes for the web, as copy-paste React components.
+Prebuilt animated SVG scene components for React. Import a finished scene instead of generating one.
 
-Each scene is a portrait SVG illustration moved entirely by CSS keyframes. There's no WebGL, no canvas and no animation loop in JavaScript. Scenes pause while off-screen, hold still for people who prefer reduced motion, and render on the server.
+Each scene is a portrait SVG illustration animated with CSS keyframes only: no WebGL, canvas or JavaScript animation loop. Scenes render on the server, pause while off-screen and show a still frame under `prefers-reduced-motion`. Generating a scene from scratch is roughly 1,300–2,300 output tokens before any visual iteration; importing one is under 20.
+
+```bash
+npx degit wi11s/boatui/components/scenes components/scenes
+```
 
 | Component | Scene |
 | --- | --- |
@@ -18,7 +22,9 @@ npm install
 npm run dev      # http://localhost:3000
 ```
 
-The site has a gallery and a page per scene with a live playground (duration, pause, colours), a props table, theme tokens and the full source to copy.
+The site has a gallery and a page per scene with a live playground (duration, pause, colours), props, theme tokens and the full source to copy.
+
+For agents and other non-browser readers, the site also serves plain-text docs generated from `lib/registry.ts`: `/llms.txt` (index), `/llms-full.txt` (everything, including source) and `/scenes/<name>.md` (one scene).
 
 ## Use a scene in your project
 
@@ -66,9 +72,15 @@ components/scenes/        the library: copy from here
   scene.module.css        shared motion primitives and reduced-motion handling
   *-scene.tsx / .css      one scene each
 components/site/          playground, code blocks, cards (site only)
-lib/registry.ts           scene metadata for the site
+lib/registry.ts           scene metadata: names, descriptions, props, themes
+lib/llms.ts               generates /llms.txt, /llms-full.txt and /scenes/<name>.md
+lib/analytics.ts          Vercel Analytics custom events
 prototypes/               the original Three.js and web-component experiments
 ```
+
+## Contributing
+
+New scenes and fixes are welcome. See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines, or [open an issue](https://github.com/wi11s/boatui/issues) to suggest a scene.
 
 ## Adding a scene
 

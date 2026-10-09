@@ -1,0 +1,30 @@
+name: Bug report
+description: A scene or the site doesn't look or behave as expected.
+labels: [bug]
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: Where
+      options:
+        - BoatScene
+        - LighthouseScene
+        - BalloonScene
+        - ReefScene
+        - Shared scene files
+        - Documentation site
+        - llms.txt / markdown docs
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you expected, what you saw instead, and how to reproduce it. Screenshots help a lot.
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      placeholder: e.g. Chrome 130 on macOS, Next.js 16, React 19

@@ -4,3 +4,11 @@ out/
 next-env.d.ts
 *.tsbuildinfo
 .DS_Store
+
+# Secrets and local deployment config
+.env*
+!.env.example
+.vercel/
+
+# Local Claude Code instructions
+.claude/

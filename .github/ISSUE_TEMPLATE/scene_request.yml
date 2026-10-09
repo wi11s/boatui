@@ -1,0 +1,17 @@
+name: Scene request
+description: Suggest a new scene.
+labels: [scene request]
+body:
+  - type: textarea
+    id: scene
+    attributes:
+      label: Scene
+      description: The main subject, what crosses the frame, and the small ambient motions.
+      placeholder: e.g. A train crossing a viaduct at dusk. Steam drifting, windows lit, stars appearing.
+    validations:
+      required: true
+  - type: textarea
+    id: use
+    attributes:
+      label: Where you'd use it
+      description: Optional. A hero, an empty state, a loading screen…
