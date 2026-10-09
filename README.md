@@ -21,6 +21,7 @@ npx degit wi11s/boatui/components/scenes components/scenes
 | `<BlossomScene />` | Cherry petals drifting over a river as a duck family swims by |
 | `<CityScene />` | A tram passing on a rainy city night |
 | `<DesertScene />` | A camel caravan crossing the dunes at sunset |
+| `<AutumnScene />` | A cyclist on a country road as maple leaves fall |
 
 ### Empty states
 

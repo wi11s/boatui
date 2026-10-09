@@ -1,6 +1,7 @@
 import type { ComponentType } from 'react';
 import {
   AuroraScene,
+  AutumnScene,
   BalloonScene,
   BlossomScene,
   BoatScene,
@@ -11,6 +12,7 @@ import {
   ReefScene,
   SnowfallScene,
   auroraTheme,
+  autumnTheme,
   balloonTheme,
   blossomTheme,
   boatTheme,
@@ -197,6 +199,20 @@ export const scenes: SceneEntry[] = [
     file: 'desert-scene',
     tone: 'dark',
     Component: DesertScene as SceneEntry['Component'],
+  },
+  {
+    slug: 'autumn',
+    name: 'AutumnScene',
+    title: 'Autumn',
+    blurb: 'A cyclist on a country road as maple leaves fall.',
+    description:
+      'A cyclist with a basket of flowers rides a winding country road on an autumn afternoon, staying on the road as it rises and dips. Maple leaves tumble down on the wind past orange and gold trees, a red barn with a silo sits on the hill, a fence runs along the verge and geese fly south in a V. Ambient motion: spinning wheels, pedalling legs, a streaming scarf, leaves that sway, spin and flutter.',
+    durationLabel: 'the cyclist to cross the frame',
+    defaultDuration: 30,
+    theme: autumnTheme,
+    file: 'autumn-scene',
+    tone: 'dark',
+    Component: AutumnScene as SceneEntry['Component'],
   },
 ];
 
