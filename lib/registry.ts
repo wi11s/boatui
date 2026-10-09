@@ -5,6 +5,7 @@ import {
   BlossomScene,
   BoatScene,
   CityScene,
+  DesertScene,
   KiteScene,
   LighthouseScene,
   ReefScene,
@@ -14,6 +15,7 @@ import {
   blossomTheme,
   boatTheme,
   cityTheme,
+  desertTheme,
   kiteTheme,
   lighthouseTheme,
   reefTheme,
@@ -181,6 +183,20 @@ export const scenes: SceneEntry[] = [
     file: 'city-scene',
     tone: 'light',
     Component: CityScene as SceneEntry['Component'],
+  },
+  {
+    slug: 'desert',
+    name: 'DesertScene',
+    title: 'Desert',
+    blurb: 'A camel caravan crossing the dunes at sunset.',
+    description:
+      'A camel caravan crossing a dune crest at sunset: a guide with a staff walks ahead of three camels, one carrying a rider, each stepping along the ridge as it rises and dips. Layered dunes glow under a low sun, with a far oasis, sand blowing off the crests and the first stars coming out. Ambient motion: rolling gaits and nodding heads, wisps of sand, a pulsing sun glow, twinkling stars.',
+    durationLabel: 'the caravan to cross the frame',
+    defaultDuration: 60,
+    theme: desertTheme,
+    file: 'desert-scene',
+    tone: 'dark',
+    Component: DesertScene as SceneEntry['Component'],
   },
 ];
 

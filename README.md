@@ -20,6 +20,7 @@ npx degit wi11s/boatui/components/scenes components/scenes
 | `<SnowfallScene />` | A fox trotting through falling snow in a winter valley |
 | `<BlossomScene />` | Cherry petals drifting over a river as a duck family swims by |
 | `<CityScene />` | A tram passing on a rainy city night |
+| `<DesertScene />` | A camel caravan crossing the dunes at sunset |
 
 ### Empty states
 
