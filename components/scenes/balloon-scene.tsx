@@ -1,3 +1,6 @@
+// <BalloonScene>: a hot-air balloon rising over layered hills at first light, soft mist lying
+// in the valleys. `duration` is seconds for the balloon's ascent across the frame (default 45).
+
 import { W, bandPath, ridgeY, seeded, type Ridge } from './geometry';
 import { SceneFrame, sceneStyles as base, useSvgId, type SceneProps } from './scene';
 import styles from './balloon-scene.module.css';
@@ -37,7 +40,9 @@ function Balloon({ envelope, stripe }: { envelope: string; stripe: string }) {
       <path d="M0 -58 C40 -58 50 -22 38 8 C32 22 18 32 12 40 L-12 40 C-18 32 -32 22 -38 8 C-50 -22 -40 -58 0 -58 Z" fill={envelope} />
       <path d="M0 -58 C20 -58 26 -22 19 8 C16 22 9 32 6 40 L-6 40 C-9 32 -16 22 -19 8 C-26 -22 -20 -58 0 -58 Z" fill={stripe} />
       <path d="M0 -58 C7 -58 9 -22 7 8 C6 22 3 32 2 40 L-2 40 C-3 32 -6 22 -7 8 C-9 -22 -7 -58 0 -58 Z" fill={envelope} />
+      <path d="M-24 -50 C-30 -20 -24 20 -7 40 M24 -50 C30 -20 24 20 7 40" fill="none" stroke="#000" strokeOpacity="0.08" strokeWidth="1.2" />
       <ellipse cx="-17" cy="-30" rx="8" ry="16" fill="#fff" opacity="0.18" />
+      <path d="M-13 36 H13 L12 41 H-12 Z" fill="#000" opacity="0.15" />
       <path d="M-11 40 L-8 54 M11 40 L8 54" stroke="#5a3e2b" strokeWidth="1.2" />
       <rect x="-9" y="54" width="18" height="13" rx="2" fill="#8a5a36" />
       <rect x="-9" y="54" width="18" height="3" rx="1" fill="#6e4528" />
@@ -51,10 +56,26 @@ const BIRDS = [
   { x: 30, y: -4, delay: -0.35, d: 'M-5 0 Q-2.5 -2.5 0 0 Q2.5 -2.5 5 0' },
 ];
 
+/** Mist lying in a valley: a soft band that fades in and out vertically, plus drifting puffs. */
+function Mist({ y, band, puff, duration, delay }: { y: number; band: string; puff: string; duration: number; delay: number }) {
+  return (
+    <>
+      <rect x="0" y={y - 22} width={W} height="44" fill={`url(#${band})`} />
+      <g className={base.across} style={{ animationDuration: `${duration}s`, animationDelay: `${-delay}s` }}>
+        <ellipse cx="0" cy={y} rx="150" ry="20" fill={`url(#${puff})`} />
+        <ellipse cx="180" cy={y + 6} rx="110" ry="14" fill={`url(#${puff})`} />
+      </g>
+    </>
+  );
+}
+
 /** A hot-air balloon drifting up and across rolling hills at first light. */
 export function BalloonScene(props: SceneProps<BalloonTheme>) {
   const sky = useSvgId('sky');
   const glow = useSvgId('glow');
+  const band = useSvgId('mistband');
+  const puff = useSvgId('mistpuff');
+  const flameGlow = useSvgId('flameglow');
 
   return (
     <SceneFrame
@@ -72,6 +93,19 @@ export function BalloonScene(props: SceneProps<BalloonTheme>) {
             <radialGradient id={glow}>
               <stop offset="0" stopColor="var(--sun)" stopOpacity="0.95" />
               <stop offset="1" stopColor="var(--sun)" stopOpacity="0" />
+            </radialGradient>
+            <linearGradient id={band} x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stopColor="#fff" stopOpacity="0" />
+              <stop offset="0.55" stopColor="#fff" stopOpacity="0.22" />
+              <stop offset="1" stopColor="#fff" stopOpacity="0" />
+            </linearGradient>
+            <radialGradient id={puff}>
+              <stop offset="0" stopColor="#fff" stopOpacity="0.45" />
+              <stop offset="1" stopColor="#fff" stopOpacity="0" />
+            </radialGradient>
+            <radialGradient id={flameGlow}>
+              <stop offset="0" stopColor="#ffd27a" stopOpacity="0.8" />
+              <stop offset="1" stopColor="#ffd27a" stopOpacity="0" />
             </radialGradient>
           </defs>
 
@@ -108,9 +142,7 @@ export function BalloonScene(props: SceneProps<BalloonTheme>) {
           <path fill={HILLS[0].fill} d={HILL_PATHS[0]} />
           <path fill={HILLS[1].fill} d={HILL_PATHS[1]} />
 
-          <g className={base.across} style={{ animationDuration: '70s', animationDelay: '-20s' }}>
-            <ellipse cx="0" cy="535" rx="130" ry="9" fill="#fff" opacity="0.35" />
-          </g>
+          <Mist y={530} band={band} puff={puff} duration={70} delay={20} />
 
           <path fill={HILLS[2].fill} d={HILL_PATHS[2]} />
           <g fill="#50655b">
@@ -122,9 +154,7 @@ export function BalloonScene(props: SceneProps<BalloonTheme>) {
             ))}
           </g>
 
-          <g className={base.across} style={{ animationDuration: '95s', animationDelay: '-60s' }}>
-            <ellipse cx="0" cy="612" rx="150" ry="10" fill="#fff" opacity="0.3" />
-          </g>
+          <Mist y={606} band={band} puff={puff} duration={95} delay={60} />
 
           <path fill={HILLS[3].fill} d={HILL_PATHS[3]} />
 
@@ -132,7 +162,10 @@ export function BalloonScene(props: SceneProps<BalloonTheme>) {
           <g className={styles.balloon}>
             <g className={styles.sway}>
               <Balloon envelope="var(--envelope)" stripe="var(--stripe)" />
-              <ellipse className={styles.flame} cx="0" cy="46" rx="3" ry="5" fill="#ffb347" />
+              <g className={styles.flame}>
+                <circle cx="0" cy="40" r="14" fill={`url(#${flameGlow})`} />
+                <ellipse cx="0" cy="46" rx="3" ry="5" fill="#ffb347" />
+              </g>
             </g>
           </g>
         </>

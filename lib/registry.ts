@@ -66,7 +66,7 @@ export const scenes: SceneEntry[] = [
     title: 'Balloon',
     blurb: 'Hot-air balloon rising over hills. Dawn.',
     description:
-      'Hot-air balloon ascending diagonally over four hill layers at sunrise. Ambient motion: swaying basket, burner flicker, drifting mist, a distant second balloon, birds.',
+      'Hot-air balloon ascending diagonally over four hill layers at sunrise, with soft mist lying in the valleys. Ambient motion: swaying basket, a glowing burner flicker, drifting mist puffs, a distant second balloon, birds.',
     durationLabel: 'the balloon\'s ascent',
     defaultDuration: 45,
     theme: balloonTheme,
@@ -94,7 +94,7 @@ export const scenes: SceneEntry[] = [
     title: 'Train',
     blurb: 'Steam train crossing a viaduct. Dusk.',
     description:
-      'Steam train crossing a stone viaduct at dusk with mountains and a setting sun behind. Ambient motion: steam puffs, twinkling stars, drifting valley mist.',
+      'Steam train with its headlamp lit crossing a five-arched stone viaduct at dusk, mountains and a setting sun behind and a hazy valley seen through the arches. Ambient motion: steam puffs, twinkling stars, drifting valley mist.',
     durationLabel: 'the train crossing the frame',
     defaultDuration: 30,
     theme: trainTheme,
