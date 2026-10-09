@@ -17,6 +17,8 @@ body:
         - PetalsBackground
         - FirefliesBackground
         - Shared background files
+        - TinyPlanet3D
+        - Shared 3D files
         - Documentation site
         - llms.txt / markdown docs
     validations:

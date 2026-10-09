@@ -5,7 +5,8 @@ import type { ComponentType, ReactNode } from 'react';
 import type { ItemKind } from './analytics';
 import { BACKGROUND_SHARED_FILES, backgroundProps, backgrounds } from './backgrounds';
 import { SHARED_FILES, sceneProps, scenes } from './registry';
-import { BACKGROUNDS_INSTALL_COMMAND, INSTALL_COMMAND } from './site';
+import { BACKGROUNDS_INSTALL_COMMAND, INSTALL_COMMAND, THREE_INSTALL_COMMAND } from './site';
+import { THREE_SHARED_FILES, threeProps, threeScenes } from './three';
 
 /** [prop, type, default, description] */
 export type PropRow = [string, string, string, string];
@@ -86,6 +87,23 @@ export const categories: Category[] = [
     files: tsxAndCss,
     usage: item =>
       `import { ${item.name} } from '@/components/backgrounds/${item.file}';\n\nexport default function Layout({ children }: { children: React.ReactNode }) {\n  return <${item.name} style={{ minHeight: '100vh' }}>{children}</${item.name}>;\n}`,
+  },
+  {
+    kind: 'three',
+    label: '3D',
+    path: '3d',
+    dir: 'components/three',
+    sharedFiles: THREE_SHARED_FILES,
+    install: THREE_INSTALL_COMMAND,
+    requires: 'npm i three',
+    about:
+      '3D scenes are three.js client components. A shared frame (`three-frame.tsx`) owns the canvas: it sizes to its container (4:3 by default), caps pixel ratio at 2, stops rendering while off-screen, in hidden tabs or when `paused`, shows one still frame under prefers-reduced-motion, falls back to the CSS background when WebGL is unavailable, and disposes every geometry and material on unmount. Each scene is one file with a module-level `setup` that builds the scene and returns `update(time)` and `setTheme(theme)`, so colour changes apply live. Props: `theme`, `speed`, `paused`, `className`, `style`, `children`.',
+    card: 'wide',
+    items: threeScenes,
+    props: item => threeProps(threeScenes.find(s => s.slug === item.slug)!),
+    files: item => [`${item.file}.tsx`],
+    usage: item =>
+      `'use client';\n\nimport { ${item.name} } from '@/components/three/${item.file}';\n\nexport function Hero() {\n  return (\n    <${item.name} speed={1}>\n      <h1>Your content</h1>\n    </${item.name}>\n  );\n}`,
   },
 ];
 
