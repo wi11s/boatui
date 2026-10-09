@@ -21,7 +21,8 @@ export function BeeLoader(props: LoaderProps<BeeLoaderTheme>) {
       {...props}
       defaultTheme={beeLoaderTheme}
       art={
-        <>
+        // Drawn small, then scaled up a fifth (and nudged up) so bee and flower fill the box.
+        <g transform="translate(50 50) scale(1.2) translate(-50 -54)">
           {/* Flower: sways from the base of its stem */}
           <g className={styles.flower}>
             <path d="M50 94 C50 84 48 78 50 70" fill="none" stroke="var(--stem)" strokeWidth="3" strokeLinecap="round" />
@@ -53,7 +54,7 @@ export function BeeLoader(props: LoaderProps<BeeLoaderTheme>) {
               </g>
             </g>
           </g>
-        </>
+        </g>
       }
     />
   );

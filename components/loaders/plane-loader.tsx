@@ -5,8 +5,8 @@ import { LoaderFrame, type LoaderProps } from './loader';
 import styles from './plane-loader.module.css';
 
 export const planeLoaderTheme = {
-  paper: '#ffffff',
-  paperShade: '#cfdde8',
+  paper: '#f4f8fb',
+  paperShade: '#b9d3e6',
   outline: '#5b7a93',
   trail: '#9cc9e3',
   cloud: '#e4eff6',

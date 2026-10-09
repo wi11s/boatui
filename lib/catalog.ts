@@ -49,6 +49,8 @@ export type Category = {
   about: string;
   /** Card shape on the home page. */
   card: 'tall' | 'wide';
+  /** Extra props for the home-page card, e.g. a larger loader size. */
+  cardProps?: Record<string, unknown>;
   items: CatalogItem[];
   props: (item: CatalogItem) => PropRow[];
   /** Files for one item, relative to `dir`. */
@@ -104,6 +106,7 @@ export const categories: Category[] = [
     about:
       'Loaders are small animated loading indicators with a bit of character, drawn in a 100×100 box. Each renders `role="status"` with a visually hidden label for screen readers. Under prefers-reduced-motion the choreography is replaced by a slow fade, so the loader still reads as working. Pure server components with CSS animation. Props: `theme`, `size` (pixels, default 64), `label` (default "Loading…"), `paused`, `className`, `style`.',
     card: 'wide',
+    cardProps: { size: 112 },
     items: loaders,
     props: item => loaderProps(loaders.find(l => l.slug === item.slug)!),
     files: tsxAndCss,

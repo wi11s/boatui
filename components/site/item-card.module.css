@@ -47,11 +47,5 @@
 
 @media (prefers-reduced-motion: reduce) {
   .art { transition: none; }
-  .tile {
-  aspect-ratio: 4 / 3;
-  border: 1px solid var(--line);
-  box-shadow: none;
-}
-
-.card:hover .art { transform: none; }
+  .card:hover .art { transform: none; }
 }

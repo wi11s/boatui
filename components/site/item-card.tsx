@@ -12,7 +12,7 @@ export function ItemCard({ category, item }: { category: Category; item: Catalog
       event="item_open"
       eventProps={{ kind: category.kind, item: item.slug, location: 'grid' }}
     >
-      <Component className={`${styles.art} ${category.card === 'wide' ? styles.wide : ''}`} />
+      <Component {...category.cardProps} className={`${styles.art} ${category.card === 'wide' ? styles.wide : ''}`} />
       <div className={styles.caption}>
         <span className={styles.title}>{item.title}</span>
         <code className={styles.name}>{item.name}</code>
