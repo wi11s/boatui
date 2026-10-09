@@ -7,4 +7,5 @@ export { AuroraScene, auroraTheme, type AuroraTheme } from './aurora-scene';
 export { KiteScene, kiteTheme, type KiteTheme } from './kite-scene';
 export { SnowfallScene, snowfallTheme, type SnowfallTheme } from './snowfall-scene';
 export { BlossomScene, blossomTheme, type BlossomTheme } from './blossom-scene';
+export { CityScene, cityTheme, type CityTheme } from './city-scene';
 export type { SceneProps } from './scene';

@@ -4,6 +4,7 @@ import {
   BalloonScene,
   BlossomScene,
   BoatScene,
+  CityScene,
   KiteScene,
   LighthouseScene,
   ReefScene,
@@ -12,6 +13,7 @@ import {
   balloonTheme,
   blossomTheme,
   boatTheme,
+  cityTheme,
   kiteTheme,
   lighthouseTheme,
   reefTheme,
@@ -165,6 +167,20 @@ export const scenes: SceneEntry[] = [
     file: 'blossom-scene',
     tone: 'dark',
     Component: BlossomScene as SceneEntry['Component'],
+  },
+  {
+    slug: 'city',
+    name: 'CityScene',
+    title: 'City',
+    blurb: 'A tram passing on a rainy city night.',
+    description:
+      'A city street on a rainy night: two rows of buildings with lit windows (a few flicker), a café with a neon sign that stutters, a streetlamp whose pool of light shows the rain, and a figure waiting under a red umbrella. A tram hums past on its overhead wire, its lights smeared in the wet road. Ambient motion: rain at two depths, ripples in the puddles, shimmering reflections.',
+    durationLabel: 'the tram to cross the frame',
+    defaultDuration: 24,
+    theme: cityTheme,
+    file: 'city-scene',
+    tone: 'light',
+    Component: CityScene as SceneEntry['Component'],
   },
 ];
 
