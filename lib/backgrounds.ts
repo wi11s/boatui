@@ -1,11 +1,11 @@
 import type { ComponentType } from 'react';
 import {
-  DotGridBackground,
   GrainBackground,
   MeshBackground,
-  dotGridTheme,
   grainTheme,
   meshTheme,
+  SnowfallBackground,
+  snowfallTheme,
   type BackgroundProps,
 } from '@/components/backgrounds';
 
@@ -25,17 +25,6 @@ export type BackgroundEntry = {
 };
 
 export const backgrounds: BackgroundEntry[] = [
-  {
-    slug: 'dot-grid',
-    name: 'DotGridBackground',
-    title: 'Dot grid',
-    blurb: 'Fine dot grid fading toward the edges.',
-    description: 'A 22px dot grid on a flat base colour, masked with a radial fade so it disappears toward the edges. Static, pure CSS.',
-    animated: false,
-    theme: dotGridTheme,
-    file: 'dot-grid-background',
-    Component: DotGridBackground as BackgroundEntry['Component'],
-  },
   {
     slug: 'grain',
     name: 'GrainBackground',
@@ -57,6 +46,17 @@ export const backgrounds: BackgroundEntry[] = [
     theme: meshTheme,
     file: 'mesh-background',
     Component: MeshBackground as BackgroundEntry['Component'],
+  },
+  {
+    slug: 'snowfall',
+    name: 'SnowfallBackground',
+    title: 'Snowfall',
+    blurb: 'Snow falling at three depths onto soft drifts.',
+    description: 'Snow falling at three depths over a pale winter sky: small slow flakes far away, six-armed spinning flakes up close, all swaying as they fall onto soft drifts at the bottom. About 75 flakes, CSS keyframes only, sized to any box with container units.',
+    animated: true,
+    theme: snowfallTheme,
+    file: 'snowfall-background',
+    Component: SnowfallBackground as BackgroundEntry['Component'],
   },
 ];
 

@@ -34,9 +34,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
 | Component | Background |
 | --- | --- |
-| `<DotGridBackground />` | Fine dot grid fading toward the edges (static) |
 | `<GrainBackground />` | Two-colour gradient with film grain (static) |
 | `<MeshBackground />` | Blurred colour blobs drifting slowly (animated) |
+| `<SnowfallBackground />` | Snow falling at three depths onto soft drifts (animated) |
 
 ## Run the site
 
