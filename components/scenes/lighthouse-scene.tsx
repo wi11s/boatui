@@ -1,3 +1,6 @@
+// <LighthouseScene>: a lighthouse on a headland sweeping its beam over a moonlit sea while a
+// steamer crosses the horizon. `duration` is seconds for the steamer's crossing (default 80).
+
 import { W, seeded } from './geometry';
 import { SceneFrame, WaveLayer, sceneStyles as base, useSvgId, type SceneProps, type WaveLayerProps } from './scene';
 import styles from './lighthouse-scene.module.css';
@@ -30,6 +33,13 @@ const halfWidth = (y: number) => 10 + (5 * (y - 300)) / 104;
 const towerBand = (y1: number, y2: number) =>
   `M${LAMP.x - halfWidth(y1)} ${y1} L${LAMP.x + halfWidth(y1)} ${y1} ` +
   `L${LAMP.x + halfWidth(y2)} ${y2} L${LAMP.x - halfWidth(y2)} ${y2} Z`;
+
+// Glints below the moon: lower rows are wider, more scattered and fainter.
+const MOON_PATH = Array.from({ length: 12 }, (_, i) => {
+  const y = 478 + i * 16;
+  const w = 10 + i * 2.5 + rand() * 12;
+  return { x: 96 - w / 2 + (rand() - 0.5) * (10 + i * 5), y, w, o: 0.75 - i * 0.045, dur: 1.4 + rand() * 1.4, delay: rand() * 2 };
+});
 
 const FRONT_WAVES: WaveLayerProps[] = [
   { y: 470, components: [[4, 100]],   fill: 'var(--water-2)', drift: 13, swell: 4.4, delay: 1, reverse: true },
@@ -124,12 +134,31 @@ export function LighthouseScene(props: SceneProps<LighthouseTheme>) {
 
           <g transform={`translate(${LAMP.x} ${LAMP.y})`}>
             <g className={styles.beam}>
-              <path d="M0 -4 L-430 -50 L-430 50 L0 4 Z" fill={`url(#${beam})`} />
+              {/* A wide soft cone under a narrow bright core reads as light in haze */}
+              <path d="M0 -6 L-430 -78 L-430 78 L0 6 Z" fill={`url(#${beam})`} opacity="0.35" />
+              <path d="M0 -3 L-430 -34 L-430 34 L0 3 Z" fill={`url(#${beam})`} />
             </g>
             <circle className={styles.lamp} r="22" fill={`url(#${lampGlow})`} />
           </g>
 
           {FRONT_WAVES.map((w, i) => <WaveLayer key={i} {...w} />)}
+
+          {/* The moon's glitter path, widening and fading toward the viewer */}
+          <g fill="var(--moon)">
+            {MOON_PATH.map((g, i) => (
+              <rect
+                key={i}
+                className={base.glint}
+                x={g.x.toFixed(1)}
+                y={g.y}
+                width={g.w.toFixed(1)}
+                height="2"
+                rx="1"
+                opacity={g.o}
+                style={{ animationDuration: `${g.dur.toFixed(2)}s`, animationDelay: `${(-g.delay).toFixed(2)}s` }}
+              />
+            ))}
+          </g>
         </>
       }
     />

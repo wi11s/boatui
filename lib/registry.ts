@@ -56,7 +56,7 @@ export const scenes: SceneEntry[] = [
     title: 'Lighthouse',
     blurb: 'Rotating beam over a night sea. Ship on the horizon.',
     description:
-      'Lighthouse on a headland with a sweeping beam that flashes when facing the viewer. A steamer crosses the horizon. Ambient motion: twinkling stars, moon glints, drifting waves.',
+      'Lighthouse on a headland with a sweeping beam (a soft wide cone under a bright core) that flashes when facing the viewer. A steamer crosses the horizon. Ambient motion: twinkling stars, a glittering moon path down the water, drifting waves.',
     durationLabel: 'the steamer\'s crossing',
     defaultDuration: 80,
     theme: lighthouseTheme,
