@@ -1,20 +1,23 @@
 import { track } from '@vercel/analytics';
 
+/** The component categories in the library. */
+export type ItemKind = 'scene' | 'background';
+
 /**
  * Every custom event the site sends to Vercel Analytics, with its properties.
  * Add new events here so the full list stays in one place.
  */
 export type AnalyticsEvents = {
   /** Any link to GitHub: repo, file, issues, guidelines, license. */
-  github_click: { target: string; location: string; scene?: string };
-  /** Opened a scene page from the home page. */
-  scene_open: { scene: string; location: string };
-  /** Copied the one-line install command. */
+  github_click: { target: string; location: string; item?: string };
+  /** Opened a scene or background page from the home page. */
+  item_open: { kind: ItemKind; item: string; location: string };
+  /** Copied a one-line install command. */
   install_copy: { location: string };
   /** Copied a code block. */
-  code_copy: { title: string; scene?: string };
+  code_copy: { title: string; item?: string };
   /** First use of a playground control during a page view. */
-  playground_use: { scene: string; control: string };
+  playground_use: { kind: ItemKind; item: string; control: string };
 };
 
 export type AnalyticsEventName = keyof AnalyticsEvents;

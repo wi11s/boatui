@@ -1,0 +1,22 @@
+/* The root establishes a stacking context so the layer sits behind children
+   without escaping behind the page. */
+.root {
+  position: relative;
+  isolation: isolate;
+}
+
+.layer {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.paused,
+.paused * { animation-play-state: paused !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  .layer,
+  .layer * { animation: none !important; }
+}

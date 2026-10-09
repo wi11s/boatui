@@ -35,6 +35,10 @@
 .nav a { text-decoration: none; transition: color 0.15s; }
 .nav a:hover { color: var(--ink); }
 
+@media (max-width: 480px) {
+  .optional { display: none; }
+}
+
 .main { padding-bottom: 96px; }
 
 .footer {

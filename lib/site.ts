@@ -23,3 +23,6 @@ export const ISSUES_URL = `${REPO_URL}/issues`;
 
 /** Copies the whole scenes folder into a project. */
 export const INSTALL_COMMAND = 'npx degit wi11s/boatui/components/scenes components/scenes';
+
+/** Copies the whole backgrounds folder into a project. */
+export const BACKGROUNDS_INSTALL_COMMAND = 'npx degit wi11s/boatui/components/backgrounds components/backgrounds';

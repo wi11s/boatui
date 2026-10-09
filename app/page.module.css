@@ -1,5 +1,5 @@
 .hero {
-  padding: 96px 0 64px;
+  padding: 96px 0 72px;
   max-width: 640px;
 }
 
@@ -16,8 +16,6 @@
   color: var(--muted);
 }
 
-.install { margin-top: 28px; }
-
 .meta {
   margin: 14px 0 0;
   font-size: 0.85rem;
@@ -31,9 +29,31 @@
 
 .meta a:hover { color: var(--ink); }
 
+.section {
+  margin-bottom: 88px;
+  scroll-margin-top: 80px;
+}
+
+.sectionHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
+  margin-bottom: 24px;
+}
+
+.sectionHead h2 { margin: 0; font-size: 1.25rem; }
+.sectionHead > div { flex: 0 1 600px; min-width: 0; }
+
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
   gap: 24px 20px;
-  scroll-margin-top: 80px;
+}
+
+.bgGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px 20px;
 }

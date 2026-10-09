@@ -11,7 +11,12 @@ body:
         - LighthouseScene
         - BalloonScene
         - ReefScene
+        - TrainScene
         - Shared scene files
+        - DotGridBackground
+        - GrainBackground
+        - MeshBackground
+        - Shared background files
         - Documentation site
         - llms.txt / markdown docs
     validations:

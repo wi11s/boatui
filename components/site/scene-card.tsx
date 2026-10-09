@@ -8,8 +8,8 @@ export function SceneCard({ scene }: { scene: SceneEntry }) {
     <TrackedLink
       href={`/scenes/${scene.slug}`}
       className={styles.card}
-      event="scene_open"
-      eventProps={{ scene: scene.slug, location: 'grid' }}
+      event="item_open"
+      eventProps={{ kind: 'scene', item: scene.slug, location: 'grid' }}
     >
       <div className={styles.art}>
         <Component />
