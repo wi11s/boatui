@@ -1,4 +1,4 @@
-# Quiet Scenes
+# boatui
 
 Prebuilt animated SVG scene components for React. Import a finished scene instead of generating one.
 

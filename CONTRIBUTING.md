@@ -1,4 +1,4 @@
-# Contributing to Quiet Scenes
+# Contributing to boatui
 
 Thanks for wanting to help. New scenes, fixes to existing ones, docs improvements and ideas are all welcome.
 
@@ -41,7 +41,7 @@ An empty state is two files in `components/empty-states/`: `empty-<name>.tsx` an
 
 A 3D scene is one file in `components/three/`: `<name>-3d.tsx`. Write a module-level `setup` that builds the scene and returns `update(time)` and `setTheme(theme)`, and render it through `ThreeFrame`, following `tiny-planet-3d.tsx`. Keep geometry low-poly, update materials in `setTheme` rather than rebuilding, and let the frame handle sizing, pausing and disposal. Export it from `components/three/index.ts` and add an entry to `lib/three.ts`.
 
-### What makes a good Quiet Scene
+### What makes a good component
 
 - **Calm.** One main subject making a slow crossing, plus a few small ambient motions. Nothing should flash or move fast.
 - **CSS only.** Animate with keyframes on `transform` and `opacity`. No JavaScript animation loops, canvas or WebGL.

@@ -1,4 +1,4 @@
-export const SITE_NAME = 'Quiet Scenes';
+export const SITE_NAME = 'boatui';
 export const SITE_DESCRIPTION =
   'Prebuilt animated components for React: SVG scenes, textured backgrounds and three.js 3D scenes. Typed props and theme tokens; scenes and backgrounds have zero dependencies.';
 
