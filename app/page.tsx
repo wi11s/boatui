@@ -32,7 +32,7 @@ export default function Home() {
       <section className={styles.hero}>
         <h1 className={styles.title}>{SITE_NAME}</h1>
         <p className={styles.lede}>
-          Animated scenes, backgrounds and 3D for React. Copy-paste components you own.
+          Animated scenes, empty states, loaders and 3D for React. Copy-paste components you own.
         </p>
         <p className={styles.meta}>
           MIT ·{' '}

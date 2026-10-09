@@ -1,7 +1,7 @@
 import { track } from '@vercel/analytics';
 
 /** The component categories in the library. */
-export type ItemKind = 'scene' | 'background' | 'three' | 'empty' | 'loader';
+export type ItemKind = 'scene' | 'three' | 'empty' | 'loader';
 
 /**
  * Every custom event the site sends to Vercel Analytics, with its properties.
@@ -10,7 +10,7 @@ export type ItemKind = 'scene' | 'background' | 'three' | 'empty' | 'loader';
 export type AnalyticsEvents = {
   /** Any link to GitHub: repo, file, issues, guidelines, license. */
   github_click: { target: string; location: string; item?: string };
-  /** Opened a scene or background page from the home page. */
+  /** Opened an item's page from the home page. */
   item_open: { kind: ItemKind; item: string; location: string };
   /** Copied a one-line install command. */
   install_copy: { location: string };

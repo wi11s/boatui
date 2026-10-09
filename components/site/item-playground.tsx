@@ -11,7 +11,6 @@ export function ItemPlayground({ kind, slug }: { kind: ItemKind; slug: string })
   switch (kind) {
     case 'scene':
       return <Playground slug={slug} />;
-    case 'background':
     case 'empty':
       return <WrapPlayground kind={kind} slug={slug} />;
     case 'loader':

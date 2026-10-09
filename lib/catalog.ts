@@ -3,12 +3,10 @@
 
 import type { ComponentType, ReactNode } from 'react';
 import type { ItemKind } from './analytics';
-import { BACKGROUND_SHARED_FILES, backgroundProps, backgrounds } from './backgrounds';
 import { SHARED_FILES, sceneProps, scenes } from './registry';
 import { EMPTY_STATE_SHARED_FILES, emptyStateProps, emptyStates } from './empty-states';
 import { LOADER_SHARED_FILES, loaderProps, loaders } from './loaders';
 import {
-  BACKGROUNDS_INSTALL_COMMAND,
   EMPTY_STATES_INSTALL_COMMAND,
   INSTALL_COMMAND,
   LOADERS_INSTALL_COMMAND,
@@ -81,22 +79,6 @@ export const categories: Category[] = [
     },
   },
   {
-    kind: 'background',
-    label: 'Backgrounds',
-    path: 'backgrounds',
-    dir: 'components/backgrounds',
-    sharedFiles: BACKGROUND_SHARED_FILES,
-    install: BACKGROUNDS_INSTALL_COMMAND,
-    about:
-      'Backgrounds are textures that paint behind your content: wrap content in the component, e.g. `<PetalsBackground><App /></PetalsBackground>`. They are pure server components with no client JavaScript; particles move with CSS keyframes and container units, so they fill any size. Every background has the same props: `theme`, `paused`, `className`, `style` and `children`. The root is a block element with `position: relative`; size it like any div (for a full page, `min-height: 100vh`).',
-    card: 'wide',
-    items: backgrounds,
-    props: item => backgroundProps(backgrounds.find(b => b.slug === item.slug)!),
-    files: tsxAndCss,
-    usage: item =>
-      `import { ${item.name} } from '@/components/backgrounds/${item.file}';\n\nexport default function Layout({ children }: { children: React.ReactNode }) {\n  return <${item.name} style={{ minHeight: '100vh' }}>{children}</${item.name}>;\n}`,
-  },
-  {
     kind: 'empty',
     label: 'Empty states',
     path: 'empty-states',
@@ -104,7 +86,7 @@ export const categories: Category[] = [
     sharedFiles: EMPTY_STATE_SHARED_FILES,
     install: EMPTY_STATES_INSTALL_COMMAND,
     about:
-      'Empty states are small animated illustrations for screens with nothing to show yet: empty lists, no search results, inbox zero, offline. Pass your message and actions as children and they appear centred under the illustration. Pure server components with CSS animation, drawn in a 240×180 box. Props: `theme`, `size` (illustration width, default 240), `paused`, `className`, `style`, `children`.',
+      'Empty states are small animated illustrations for screens with nothing to show yet: empty lists, no search results, inbox zero. Pass your message and actions as children and they appear centred under the illustration. Pure server components with CSS animation, drawn in a 240×180 box. Props: `theme`, `size` (illustration width, default 240), `paused`, `className`, `style`, `children`.',
     card: 'wide',
     items: emptyStates,
     props: item => emptyStateProps(emptyStates.find(e => e.slug === item.slug)!),

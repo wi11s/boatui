@@ -1,6 +1,6 @@
 export const SITE_NAME = 'boatUI';
 export const SITE_DESCRIPTION =
-  'Prebuilt animated components for React: SVG scenes, textured backgrounds and three.js 3D scenes. Typed props and theme tokens; scenes and backgrounds have zero dependencies.';
+  'Prebuilt animated components for React: SVG scenes, empty states, loaders and three.js 3D scenes. Typed props and theme tokens; everything but the 3D scenes has zero dependencies.';
 
 /**
  * Absolute site origin, used for sitemap, robots, llms.txt and structured data.
@@ -32,6 +32,3 @@ export const LOADERS_INSTALL_COMMAND = 'npx degit wi11s/boatui/components/loader
 
 /** Copies the whole empty-states folder into a project. */
 export const EMPTY_STATES_INSTALL_COMMAND = 'npx degit wi11s/boatui/components/empty-states components/empty-states';
-
-/** Copies the whole backgrounds folder into a project. */
-export const BACKGROUNDS_INSTALL_COMMAND = 'npx degit wi11s/boatui/components/backgrounds components/backgrounds';

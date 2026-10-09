@@ -29,10 +29,6 @@ A scene is two files in `components/scenes/`: `<name>-scene.tsx` and `<name>-sce
 4. Use `useSvgId()` for gradient ids so several copies of a scene can share a page.
 5. Export it from `components/scenes/index.ts` and add an entry to `lib/registry.ts`. The site picks it up from there.
 
-## Adding a background
-
-A background is two files in `components/backgrounds/`: `<name>-background.tsx` and `<name>-background.module.css`. Render through `BackgroundFrame` with a `defaultTheme` and a `layer`, following `snowfall-background.tsx`. Keep it CSS-only with no client JavaScript, and subtle enough to sit behind text. Export it from `components/backgrounds/index.ts` and add an entry to `lib/backgrounds.ts`.
-
 ## Adding an empty state
 
 An empty state is two files in `components/empty-states/`: `empty-<name>.tsx` and `empty-<name>.module.css`. Draw into the 240×180 box through `EmptyStateFrame`, following `empty-nap.tsx`. Keep the motion gentle and looping, and leave room for the message underneath. Export it from `components/empty-states/index.ts` and add an entry to `lib/empty-states.ts`.

@@ -20,32 +20,6 @@ npx degit wi11s/boatui/components/scenes components/scenes
 | `<SnowfallScene />` | A fox trotting through falling snow in a winter valley |
 | `<BlossomScene />` | Cherry petals drifting over a river as a duck family swims by |
 
-### Backgrounds
-
-Textures that paint behind your content. Pure server components, no client JavaScript.
-
-```bash
-npx degit wi11s/boatui/components/backgrounds components/backgrounds
-```
-
-```tsx
-import { PetalsBackground } from '@/components/backgrounds';
-
-export default function Layout({ children }: { children: React.ReactNode }) {
-  return <PetalsBackground style={{ minHeight: '100vh' }}>{children}</PetalsBackground>;
-}
-```
-
-| Component | Background |
-| --- | --- |
-| `<SnowfallBackground />` | Snow falling at three depths onto soft drifts (animated) |
-| `<PetalsBackground />` | Cherry-blossom petals drifting on a breeze, with a swaying branch (animated) |
-| `<FirefliesBackground />` | Fireflies drifting and pulsing over dusky hills (animated) |
-| `<CloudsBackground />` | Soft clouds drifting across the sky in parallax, under a glowing sun (animated) |
-| `<RainBackground />` | Soft rain on a slant, rippling the puddles below (animated) |
-| `<NightSkyBackground />` | Twinkling stars, the Milky Way and shooting stars (animated) |
-| `<WavesBackground />` | A calm sea rolling along the bottom edge (animated) |
-
 ### Empty states
 
 Small animated illustrations for screens with nothing to show. Your message goes underneath as children.
@@ -66,7 +40,6 @@ npx degit wi11s/boatui/components/empty-states components/empty-states
 | `<EmptyNap />` | A cat asleep on a cushion, for "nothing here yet" |
 | `<EmptyFishing />` | A bobber in a quiet pond, fish swimming past, for "no results" |
 | `<EmptyMailbox />` | An open, empty mailbox with a bird on top, for inbox zero |
-| `<EmptyOffline />` | A tin-can telephone with a slack string, for offline screens |
 
 ### Loaders
 
@@ -160,9 +133,6 @@ components/scenes/        the library: copy from here
   scene-frame.tsx         client frame: sizing, theming, overlay, off-screen pause
   scene.module.css        shared motion primitives and reduced-motion handling
   *-scene.tsx / .css      one scene each
-components/backgrounds/   backgrounds: copy from here
-  background.tsx          shared frame: theming, layering, pausing
-  *-background.tsx / .css one background each
 components/empty-states/  empty-state illustrations: copy from here
   empty-state.tsx         shared frame: theming, illustration box, message slot
 components/loaders/       loaders: copy from here
@@ -173,7 +143,6 @@ components/three/         3D scenes (three.js): copy from here
 components/site/          playground, code blocks, cards (site only)
 lib/catalog.ts            every category: folder, install command, props, usage; drives all pages and docs
 lib/registry.ts           scene metadata: names, descriptions, props, themes
-lib/backgrounds.ts        background metadata
 lib/three.ts              3D scene metadata
 lib/empty-states.ts       empty-state metadata
 lib/loaders.ts            loader metadata

@@ -1,17 +1,15 @@
 'use client';
 
-// Playground for components that wrap your content: backgrounds paint behind it,
-// empty states show it under an illustration.
+// Playground for components that wrap your content: empty states show it under an illustration.
 
 import { useRef, useState, type ComponentType } from 'react';
 import { trackEvent, type ItemKind } from '@/lib/analytics';
-import { getBackground } from '@/lib/backgrounds';
 import { getEmptyState } from '@/lib/empty-states';
 import { CodeBlock } from './code-block';
 import { ThemeControls, snippetFor } from './theme-controls';
 import styles from './playground.module.css';
 
-type WrapKind = Extract<ItemKind, 'background' | 'empty'>;
+type WrapKind = Extract<ItemKind, 'empty'>;
 type Entry = {
   name: string;
   animated: boolean;
@@ -20,7 +18,6 @@ type Entry = {
 };
 
 const lookup: Record<WrapKind, (slug: string) => Entry | undefined> = {
-  background: getBackground,
   empty: getEmptyState,
 };
 
@@ -42,19 +39,10 @@ export function WrapPlayground({ kind, slug }: { kind: WrapKind; slug: string })
 
   return (
     <div className={`${styles.playground} ${styles.playgroundWide}`}>
-      {kind === 'background' ? (
-        <Component theme={theme} paused={paused} className={styles.bgPreview}>
-          <div className={styles.sampleCard}>
-            <strong>Your app</strong>
-            <span>Content sits on top of the background.</span>
-          </div>
-        </Component>
-      ) : (
-        <Component theme={theme} paused={paused} className={styles.emptyPreview}>
-          <strong>Nothing here yet</strong>
-          <p>Your message goes here, with an action if you need one.</p>
-        </Component>
-      )}
+      <Component theme={theme} paused={paused} className={styles.emptyPreview}>
+        <strong>Nothing here yet</strong>
+        <p>Your message goes here, with an action if you need one.</p>
+      </Component>
 
       <div className={styles.controls}>
         <div className={styles.buttons}>
