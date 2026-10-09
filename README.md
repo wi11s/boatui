@@ -34,9 +34,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
 | Component | Background |
 | --- | --- |
-| `<MeshBackground />` | Blurred colour blobs drifting slowly (animated) |
 | `<SnowfallBackground />` | Snow falling at three depths onto soft drifts (animated) |
 | `<PetalsBackground />` | Cherry-blossom petals drifting on a breeze, with a swaying branch (animated) |
+| `<FirefliesBackground />` | Fireflies wandering and blinking over a dusky meadow (animated) |
 
 ## Run the site
 

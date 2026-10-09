@@ -1,0 +1,59 @@
+.sky {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(var(--sky-top), var(--sky-bottom));
+}
+
+.moon {
+  position: absolute;
+  top: 28px;
+  right: 36px;
+  width: 54px;
+  height: 54px;
+  filter: drop-shadow(0 0 14px rgb(255 245 210 / 0.35));
+}
+
+/* Each firefly wanders a four-point loop and blinks on its own rhythm. */
+.firefly {
+  position: absolute;
+  animation: wander ease-in-out infinite;
+}
+
+.light {
+  display: block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--firefly);
+  box-shadow: 0 0 6px 2px var(--glow), 0 0 18px 6px color-mix(in srgb, var(--glow) 45%, transparent);
+  animation: blink ease-in-out infinite;
+}
+
+.grass {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 90px;
+  overflow: visible;
+}
+
+.blade {
+  animation: sway ease-in-out infinite alternate;
+}
+
+@keyframes wander {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(var(--ax), var(--ay)); }
+  50% { transform: translate(var(--bx), var(--by)); }
+  75% { transform: translate(var(--cx), var(--cy)); }
+}
+@keyframes blink {
+  0%, 35%, 100% { opacity: 0.12; }
+  50% { opacity: 1; }
+  65% { opacity: 0.3; }
+}
+@keyframes sway {
+  from { transform: rotate(-4deg); }
+  to   { transform: rotate(4deg); }
+}
