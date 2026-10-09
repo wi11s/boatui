@@ -1,4 +1,4 @@
-# Contributing to boatui
+# Contributing to boatUI
 
 Thanks for wanting to help. New scenes, fixes to existing ones, docs improvements and ideas are all welcome.
 
