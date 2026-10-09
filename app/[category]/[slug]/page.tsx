@@ -1,39 +1,45 @@
+// Detail page for any catalog item: /scenes/boat, /backgrounds/petals, …
+
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { CodeBlock } from '@/components/site/code-block';
+import { ItemPlayground } from '@/components/site/item-playground';
 import { JsonLd } from '@/components/site/json-ld';
-import { Playground } from '@/components/site/playground';
 import { TrackedLink } from '@/components/site/tracked-link';
-import { SHARED_FILES, getScene, sceneProps, scenes, tokenToVar } from '@/lib/registry';
+import { allItems, findItem } from '@/lib/catalog';
+import { tokenToVar } from '@/lib/registry';
 import { REPO_URL, SITE_NAME, SITE_URL, repoFile } from '@/lib/site';
-import { readSceneSource, sceneFiles } from '@/lib/source-stats';
+import { itemSources, sharedSources } from '@/lib/source-stats';
 import styles from '@/components/site/item-page.module.css';
 
-type Params = { params: Promise<{ slug: string }> };
+type Params = { params: Promise<{ category: string; slug: string }> };
+
+export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return scenes.map(s => ({ slug: s.slug }));
+  return allItems().map(({ category, item }) => ({ category: category.path, slug: item.slug }));
 }
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
-  const scene = getScene((await params).slug);
-  if (!scene) return {};
+  const { category: path, slug } = await params;
+  const found = findItem(path, slug);
+  if (!found) return {};
+  const { item } = found;
   return {
-    title: scene.name,
-    description: `<${scene.name} />: ${scene.description}`,
-    alternates: { canonical: `/scenes/${scene.slug}`, types: { 'text/markdown': `/scenes/${scene.slug}.md` } },
+    title: item.name,
+    description: `<${item.name} />: ${item.description}`,
+    alternates: { canonical: `/${path}/${slug}`, types: { 'text/markdown': `/${path}/${slug}.md` } },
   };
 }
 
-export default async function ScenePage({ params }: Params) {
-  const scene = getScene((await params).slug);
-  if (!scene) notFound();
+export default async function ItemPage({ params }: Params) {
+  const { category: path, slug } = await params;
+  const found = findItem(path, slug);
+  if (!found) notFound();
+  const { category, item } = found;
 
-  const [own, shared] = await Promise.all([
-    Promise.all(sceneFiles(scene).map(async name => ({ name, code: await readSceneSource(name) }))),
-    Promise.all(SHARED_FILES.map(async name => ({ name, code: await readSceneSource(name) }))),
-  ]);
+  const [own, shared] = await Promise.all([itemSources(category, item), sharedSources(category)]);
 
   return (
     <div className="container">
@@ -41,9 +47,9 @@ export default async function ScenePage({ params }: Params) {
         data={{
           '@context': 'https://schema.org',
           '@type': 'SoftwareSourceCode',
-          name: scene.name,
-          description: scene.description,
-          url: `${SITE_URL}/scenes/${scene.slug}`,
+          name: item.name,
+          description: item.description,
+          url: `${SITE_URL}/${category.path}/${item.slug}`,
           codeRepository: REPO_URL,
           license: 'https://opensource.org/licenses/MIT',
           programmingLanguage: ['TypeScript', 'CSS'],
@@ -52,26 +58,27 @@ export default async function ScenePage({ params }: Params) {
         }}
       />
 
-      <Link href="/" className={styles.back}>← Scenes</Link>
+      <Link href={`/#${category.path}`} className={styles.back}>← {category.label}</Link>
 
       <header className={styles.header}>
-        <h1 className={styles.title}>{scene.title}</h1>
+        <h1 className={styles.title}>{item.title}</h1>
         <p className={styles.lede}>
-          <code className={styles.name}>{`<${scene.name} />`}</code> {scene.blurb}
+          <code className={styles.name}>{`<${item.name} />`}</code> {item.blurb}
         </p>
         <p className={styles.meta}>
+          {item.animated ? 'Animated' : 'Static'} ·{' '}
           <TrackedLink
-            href={repoFile(`components/scenes/${scene.file}.tsx`)}
+            href={repoFile(`${category.dir}/${item.file}.tsx`)}
             event="github_click"
-            eventProps={{ target: 'source_file', location: 'scene_header', item: scene.slug }}
+            eventProps={{ target: 'source_file', location: 'item_header', item: item.slug }}
           >
             Source
           </TrackedLink>{' '}
-          · <a href={`/scenes/${scene.slug}.md`}>Markdown</a>
+          · <a href={`/${category.path}/${item.slug}.md`}>Markdown</a>
         </p>
       </header>
 
-      <Playground slug={scene.slug} />
+      <ItemPlayground kind={category.kind} slug={item.slug} />
 
       <details className={styles.details}>
         <summary>Props and theme tokens</summary>
@@ -82,7 +89,7 @@ export default async function ScenePage({ params }: Params) {
                 <tr><th>Prop</th><th>Type</th><th>Default</th><th>Description</th></tr>
               </thead>
               <tbody>
-                {sceneProps(scene).map(([prop, type, def, desc]) => (
+                {category.props(item).map(([prop, type, def, desc]) => (
                   <tr key={prop}>
                     <td><code>{prop}</code></td>
                     <td><code>{type}</code></td>
@@ -99,7 +106,7 @@ export default async function ScenePage({ params }: Params) {
                 <tr><th>Theme key</th><th>CSS variable</th><th>Default</th></tr>
               </thead>
               <tbody>
-                {Object.entries(scene.theme).map(([key, value]) => (
+                {Object.entries(item.theme).map(([key, value]) => (
                   <tr key={key}>
                     <td><code>{key}</code></td>
                     <td><code>{tokenToVar(key)}</code></td>
@@ -119,10 +126,15 @@ export default async function ScenePage({ params }: Params) {
         <summary>Source files</summary>
         <div className={styles.detailsBody}>
           <p className={styles.note}>
-            Copy into <code>components/scenes/</code>. The shared files are needed once for all scenes.
+            Copy into <code>{category.dir}/</code>. The shared files are needed once for all {category.label.toLowerCase()}.
+            {category.requires && (
+              <>
+                {' '}Also run <code>{category.requires}</code>.
+              </>
+            )}
           </p>
           {[...own, ...shared].map(f => (
-            <CodeBlock key={f.name} title={`components/scenes/${f.name}`} code={f.code} item={scene.slug} />
+            <CodeBlock key={f.name} title={`${category.dir}/${f.name}`} code={f.code} item={item.slug} />
           ))}
         </div>
       </details>

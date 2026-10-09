@@ -4,6 +4,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import Link from 'next/link';
 import { Logo } from '@/components/site/logo';
 import { TrackedLink } from '@/components/site/tracked-link';
+import { categories } from '@/lib/catalog';
 import { REPO_URL, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/lib/site';
 import './globals.css';
 import styles from './layout.module.css';
@@ -31,8 +32,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               {SITE_NAME}
             </Link>
             <nav className={styles.nav}>
-              <Link href="/#scenes" className={styles.optional}>Scenes</Link>
-              <Link href="/#backgrounds" className={styles.optional}>Backgrounds</Link>
+              {categories.map(c => (
+                <Link key={c.path} href={`/#${c.path}`} className={styles.optional}>
+                  {c.label}
+                </Link>
+              ))}
               <TrackedLink href={REPO_URL} event="github_click" eventProps={{ target: 'repo', location: 'header' }}>
                 GitHub
               </TrackedLink>

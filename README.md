@@ -98,9 +98,10 @@ components/backgrounds/   backgrounds: copy from here
   background.tsx          shared frame: theming, layering, pausing
   *-background.tsx / .css one background each
 components/site/          playground, code blocks, cards (site only)
+lib/catalog.ts            every category: folder, install command, props, usage; drives all pages and docs
 lib/registry.ts           scene metadata: names, descriptions, props, themes
 lib/backgrounds.ts        background metadata
-lib/llms.ts               generates /llms.txt, /llms-full.txt, /scenes/<name>.md and /backgrounds/<name>.md
+lib/llms.ts               generates /llms.txt, /llms-full.txt and /<category>/<name>.md
 lib/analytics.ts          Vercel Analytics custom events
 prototypes/               the original Three.js and web-component experiments
 ```
