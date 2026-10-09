@@ -12,7 +12,7 @@ export const emptyFishingTheme = {
   reeds: '#6cbf6a',
   cattail: '#9a6b45',
   rod: '#9a6b45',
-  line: '#8a97a0',
+  fishingLine: '#8a97a0',
   bobber: '#e4573d',
   lily: '#6cbf6a',
   flower: '#f7b7c8',
@@ -65,7 +65,7 @@ export function EmptyFishing(props: EmptyStateProps<EmptyFishingTheme>) {
           {/* Rod from the top left, line down to the bobber */}
           <path d="M6 58 L66 18" stroke="var(--rod)" strokeWidth="4" strokeLinecap="round" />
           <circle cx="20" cy="49" r="4" fill="none" stroke="var(--rod)" strokeWidth="2" />
-          <path d="M66 18 Q108 30 132 115" fill="none" stroke="var(--line)" strokeWidth="1.2" />
+          <path d="M66 18 Q108 30 132 115" fill="none" stroke="var(--fishing-line)" strokeWidth="1.2" />
 
           {/* Rings spreading from the bobber */}
           <g fill="none" stroke="#ffffff" strokeWidth="1.6">
@@ -75,7 +75,7 @@ export function EmptyFishing(props: EmptyStateProps<EmptyFishingTheme>) {
           </g>
 
           <g className={styles.bob}>
-            <path d="M132 114 V120" stroke="var(--line)" strokeWidth="1.6" strokeLinecap="round" />
+            <path d="M132 114 V120" stroke="var(--fishing-line)" strokeWidth="1.6" strokeLinecap="round" />
             <path d="M124.5 127 a7.5 7.5 0 0 1 15 0 Z" fill="#ffffff" />
             <path d="M124.5 127 a7.5 6 0 0 0 15 0 Z" fill="var(--bobber)" />
             <path d="M124.5 127 H139.5" stroke="var(--bobber)" strokeWidth="1" />

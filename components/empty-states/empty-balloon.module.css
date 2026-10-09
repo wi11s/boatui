@@ -1,0 +1,52 @@
+/* The balloon hangs in the frame, drifting and tilting, while clouds slide down past it (one every
+   3.4s, on a 10.2s loop) so it seems to keep rising. Its string waves from the knot. */
+.drift { animation: drift 5s ease-in-out infinite alternate; }
+.tilt {
+  transform-box: fill-box;
+  transform-origin: 50% 30%;
+  animation: tilt 3.6s ease-in-out infinite alternate;
+}
+.string {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: wave 1.8s ease-in-out infinite alternate;
+}
+
+.cloud {
+  opacity: 0;
+  animation: cloud 10.2s linear infinite;
+}
+
+.bird { animation: bird 9s linear infinite; animation-delay: -3s; }
+.flap {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: flap 0.4s ease-in-out infinite alternate;
+}
+
+@keyframes drift {
+  from { transform: translate(-8px, 4px); }
+  to   { transform: translate(8px, -4px); }
+}
+@keyframes tilt {
+  from { transform: rotate(-6deg); }
+  to   { transform: rotate(5deg); }
+}
+@keyframes wave {
+  from { transform: skewX(-8deg); }
+  to   { transform: skewX(8deg); }
+}
+@keyframes cloud {
+  0%   { transform: translateY(10px); opacity: 0; }
+  12%  { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { transform: translateY(190px); opacity: 0; }
+}
+@keyframes bird {
+  0%   { transform: translate(260px, 40px); }
+  100% { transform: translate(-30px, 26px); }
+}
+@keyframes flap {
+  from { transform: scaleY(1); }
+  to   { transform: scaleY(-0.5); }
+}

@@ -12,20 +12,34 @@ body:
         - BalloonScene
         - ReefScene
         - TrainScene
+        - AuroraScene
+        - KiteScene
+        - SnowfallScene
+        - BlossomScene
+        - CityScene
+        - DesertScene
+        - AutumnScene
         - Shared scene files
-        - SnowfallBackground
-        - PetalsBackground
-        - FirefliesBackground
-        - CloudsBackground
-        - Shared background files
         - EmptyNap
+        - EmptyFishing
+        - EmptyMailbox
+        - EmptySprout
+        - EmptyHammock
+        - EmptyBalloon
         - Shared empty-state files
         - BoatLoader
         - TeaLoader
         - ToastLoader
+        - PlaneLoader
+        - LighthouseLoader
+        - BeeLoader
+        - KettleLoader
+        - MoonLoader
+        - FishbowlLoader
         - Shared loader files
         - TinyPlanet3D
         - Lagoon3D
+        - Campfire3D
         - Shared 3D files
         - Documentation site
         - llms.txt / markdown docs

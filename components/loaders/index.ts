@@ -4,4 +4,7 @@ export { ToastLoader, toastLoaderTheme, type ToastLoaderTheme } from './toast-lo
 export { PlaneLoader, planeLoaderTheme, type PlaneLoaderTheme } from './plane-loader';
 export { LighthouseLoader, lighthouseLoaderTheme, type LighthouseLoaderTheme } from './lighthouse-loader';
 export { BeeLoader, beeLoaderTheme, type BeeLoaderTheme } from './bee-loader';
+export { KettleLoader, kettleLoaderTheme, type KettleLoaderTheme } from './kettle-loader';
+export { MoonLoader, moonLoaderTheme, type MoonLoaderTheme } from './moon-loader';
+export { FishbowlLoader, fishbowlLoaderTheme, type FishbowlLoaderTheme } from './fishbowl-loader';
 export type { LoaderProps } from './loader';

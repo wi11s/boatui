@@ -1,0 +1,50 @@
+/* The duck family swims across the river once per --duration. */
+.ducks {
+  transform: translate(160px, 566px); /* resting spot for reduced motion */
+  animation: swim var(--duration) linear infinite;
+  animation-delay: calc(var(--duration) * -0.4); /* start already in view */
+}
+.bob  { animation: bob 1.4s ease-in-out infinite alternate; }
+.wake { animation: wake 1.4s ease-in-out infinite alternate; }
+
+.canopy {
+  transform-box: fill-box;
+  transform-origin: 70% 100%;
+  animation: sway 7s ease-in-out infinite alternate;
+}
+
+.bokeh { animation: float ease-in-out infinite alternate; }
+
+/* Petals ride a breeze: down past the bottom and 110 units left, relative to each petal's
+   resting point (set through --from and --to), spinning and fluttering (a 3D flip faked
+   with scaleX) as they go. */
+.fall    { animation: fall linear infinite; }
+.spin    { animation: spin linear infinite; }
+.flutter { animation: flutter ease-in-out infinite alternate; }
+
+@keyframes swim {
+  from { transform: translate(-60px, 566px); }
+  to   { transform: translate(520px, 566px); }
+}
+@keyframes bob {
+  from { transform: translateY(-1px) rotate(-2deg); }
+  to   { transform: translateY(1px) rotate(2deg); }
+}
+@keyframes wake {
+  from { opacity: 0.35; }
+  to   { opacity: 0.8; }
+}
+@keyframes sway {
+  from { transform: rotate(-1.2deg); }
+  to   { transform: rotate(1deg); }
+}
+@keyframes float {
+  from { transform: translate(0, 0); opacity: 0.45; }
+  to   { transform: translate(18px, -14px); opacity: 0.75; }
+}
+@keyframes fall {
+  from { transform: translate(0, var(--from)); }
+  to   { transform: translate(-110px, var(--to)); }
+}
+@keyframes spin    { to { transform: rotate(360deg); } }
+@keyframes flutter { from { transform: scaleX(1); } to { transform: scaleX(0.25); } }

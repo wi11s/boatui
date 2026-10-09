@@ -1,4 +1,4 @@
-# boatui
+# boatUI
 
 Prebuilt animated SVG scene components for React. Import a finished scene instead of generating one.
 
@@ -17,32 +17,11 @@ npx degit wi11s/boatui/components/scenes components/scenes
 | `<TrainScene />` | A steam train crossing a stone viaduct at dusk |
 | `<AuroraScene />` | Northern lights over a cabin by a frozen lake |
 | `<KiteScene />` | A child flying a kite from a grassy hill on a breezy afternoon |
-
-### Backgrounds
-
-Textures that paint behind your content. Pure server components, no client JavaScript.
-
-```bash
-npx degit wi11s/boatui/components/backgrounds components/backgrounds
-```
-
-```tsx
-import { PetalsBackground } from '@/components/backgrounds';
-
-export default function Layout({ children }: { children: React.ReactNode }) {
-  return <PetalsBackground style={{ minHeight: '100vh' }}>{children}</PetalsBackground>;
-}
-```
-
-| Component | Background |
-| --- | --- |
-| `<SnowfallBackground />` | Snow falling at three depths onto soft drifts (animated) |
-| `<PetalsBackground />` | Cherry-blossom petals drifting on a breeze, with a swaying branch (animated) |
-| `<FirefliesBackground />` | Fireflies drifting and pulsing over dusky hills (animated) |
-| `<CloudsBackground />` | Soft clouds drifting across the sky in parallax, under a glowing sun (animated) |
-| `<RainBackground />` | Soft rain on a slant, rippling the puddles below (animated) |
-| `<NightSkyBackground />` | Twinkling stars, the Milky Way and shooting stars (animated) |
-| `<WavesBackground />` | A calm sea rolling along the bottom edge (animated) |
+| `<SnowfallScene />` | A fox trotting through falling snow in a winter valley |
+| `<BlossomScene />` | Cherry petals drifting over a river as a duck family swims by |
+| `<CityScene />` | A tram passing on a rainy city night |
+| `<DesertScene />` | A camel caravan crossing the dunes at sunset |
+| `<AutumnScene />` | A cyclist on a country road as maple leaves fall |
 
 ### Empty states
 
@@ -64,7 +43,9 @@ npx degit wi11s/boatui/components/empty-states components/empty-states
 | `<EmptyNap />` | A cat asleep on a cushion, for "nothing here yet" |
 | `<EmptyFishing />` | A bobber in a quiet pond, fish swimming past, for "no results" |
 | `<EmptyMailbox />` | An open, empty mailbox with a bird on top, for inbox zero |
-| `<EmptyOffline />` | A tin-can telephone with a slack string, for offline screens |
+| `<EmptySprout />` | A seedling being watered, for "create your first…" |
+| `<EmptyHammock />` | Someone dozing in a hammock, for "all caught up" |
+| `<EmptyBalloon />` | A lone balloon drifting away, for "page not found" |
 
 ### Loaders
 
@@ -86,6 +67,9 @@ npx degit wi11s/boatui/components/loaders components/loaders
 | `<PlaneLoader />` | A paper plane looping the loop |
 | `<LighthouseLoader />` | A lighthouse beam sweeping round |
 | `<BeeLoader />` | A bumblebee flying figure-eights over a flower |
+| `<KettleLoader />` | A kettle coming to the boil, whistling |
+| `<MoonLoader />` | The moon running through its phases |
+| `<FishbowlLoader />` | A goldfish swimming laps of its bowl |
 
 ### 3D
 
@@ -158,9 +142,6 @@ components/scenes/        the library: copy from here
   scene-frame.tsx         client frame: sizing, theming, overlay, off-screen pause
   scene.module.css        shared motion primitives and reduced-motion handling
   *-scene.tsx / .css      one scene each
-components/backgrounds/   backgrounds: copy from here
-  background.tsx          shared frame: theming, layering, pausing
-  *-background.tsx / .css one background each
 components/empty-states/  empty-state illustrations: copy from here
   empty-state.tsx         shared frame: theming, illustration box, message slot
 components/loaders/       loaders: copy from here
@@ -171,7 +152,6 @@ components/three/         3D scenes (three.js): copy from here
 components/site/          playground, code blocks, cards (site only)
 lib/catalog.ts            every category: folder, install command, props, usage; drives all pages and docs
 lib/registry.ts           scene metadata: names, descriptions, props, themes
-lib/backgrounds.ts        background metadata
 lib/three.ts              3D scene metadata
 lib/empty-states.ts       empty-state metadata
 lib/loaders.ts            loader metadata

@@ -1,3 +1,7 @@
+// <BoatScene>: a sailboat crossing layered waves on a calm afternoon, with an island on the
+// horizon, gulls overhead and a dolphin that leaps now and then. `duration` is seconds for one
+// left-to-right crossing (default 40).
+
 import { W } from './geometry';
 import { SceneFrame, WaveLayer, sceneStyles as base, useSvgId, type SceneProps, type WaveLayerProps } from './scene';
 import styles from './boat-scene.module.css';
@@ -12,6 +16,8 @@ export const boatTheme = {
   water4: '#2a6a8d',
   water5: '#1d5675',
   hull: '#b8322a',
+  island: '#5f8f7a',
+  dolphin: '#93acc0',
 };
 export type BoatTheme = typeof boatTheme;
 
@@ -63,6 +69,27 @@ export function BoatScene(props: SceneProps<BoatTheme>) {
             </g>
           </g>
 
+          {/* Gulls gliding across, wings flexing */}
+          <g fill="none" stroke="#4a5d6b" strokeWidth="1.6" strokeLinecap="round">
+            {[
+              { y: 176, dur: 46, delay: 10, s: 1 },
+              { y: 196, dur: 58, delay: 30, s: 0.75 },
+            ].map((g, i) => (
+              <g key={i} className={base.across} style={{ animationDuration: `${g.dur}s`, animationDelay: `${-g.delay}s` }}>
+                <g transform={`translate(0 ${g.y}) scale(${g.s})`}>
+                  <path className={styles.gull} d="M-9 0 Q-4.5 -5 0 0 Q4.5 -5 9 0" />
+                </g>
+              </g>
+            ))}
+          </g>
+
+          {/* A small island with a lighthouse on the horizon */}
+          <g fill="var(--island)" opacity="0.7">
+            <path d="M28 384 Q44 364 64 366 Q80 360 96 374 Q104 380 110 384 Z" />
+            <rect x="72" y="346" width="5" height="20" />
+            <path d="M71 346 L74.5 341 L78 346 Z" />
+          </g>
+
           {BACK_WAVES.map((w, i) => <WaveLayer key={i} {...w} />)}
 
           <g fill="var(--sun)">
@@ -96,7 +123,22 @@ export function BoatScene(props: SceneProps<BoatTheme>) {
             </g>
           </g>
 
-          {FRONT_WAVES.map((w, i) => <WaveLayer key={i} {...w} />)}
+          <WaveLayer {...FRONT_WAVES[0]} />
+          {/* Dolphin: rides a ring that turns about a point under the water, so it arcs out of the
+              swell and dives back behind the nearer waves, once every 14 seconds */}
+          <g transform="translate(118 578)">
+            <g className={styles.leap}>
+              <g transform="translate(0 -48) scale(1.2)">
+                <path
+                  d="M-18 2 C-12 -6 6 -8 16 -2 L22 -1 L16 2 C8 6 -8 6 -16 4 L-22 9 L-20 2 L-24 -4 Z M-2 -6 L2 -13 L5 -5 Z"
+                  fill="var(--dolphin)"
+                />
+                <path d="M-14 3.5 C-4 6 8 5 16 1.5" fill="none" stroke="#e8f0f5" strokeWidth="1.6" strokeLinecap="round" />
+                <circle cx="12" cy="-2" r="0.9" fill="#1d2b33" />
+              </g>
+            </g>
+          </g>
+          {FRONT_WAVES.slice(1).map((w, i) => <WaveLayer key={i} {...w} />)}
         </>
       }
     />

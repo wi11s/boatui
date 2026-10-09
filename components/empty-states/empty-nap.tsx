@@ -11,7 +11,7 @@ export const emptyNapTheme = {
   cushion: '#9cc9e3',
   cushionShade: '#7fb2d2',
   blush: '#f7b7c8',
-  ink: '#4a3a33',
+  face: '#4a3a33',
   yarn: '#e4708a',
   zzz: '#8a97a0',
 };
@@ -65,15 +65,15 @@ export function EmptyNap(props: EmptyStateProps<EmptyNapTheme>) {
               <path d="M88 93 V100" />
               <path d="M94 94 V100" />
             </g>
-            <g fill="none" stroke="var(--ink)" strokeWidth="2.2" strokeLinecap="round">
+            <g fill="none" stroke="var(--face)" strokeWidth="2.2" strokeLinecap="round">
               <path d="M73 113 Q77 117 81 113" />
               <path d="M94 113 Q98 117 102 113" />
               <path d="M85 122 Q87.5 124.5 90 122" />
             </g>
-            <path d="M86 119.5 H89 L87.5 121 Z" fill="var(--ink)" />
+            <path d="M86 119.5 H89 L87.5 121 Z" fill="var(--face)" />
             <ellipse cx="71" cy="121" rx="5" ry="3" fill="var(--blush)" opacity="0.8" />
             <ellipse cx="104" cy="121" rx="5" ry="3" fill="var(--blush)" opacity="0.8" />
-            <g fill="none" stroke="var(--ink)" strokeOpacity="0.35" strokeWidth="1" strokeLinecap="round">
+            <g fill="none" stroke="var(--face)" strokeOpacity="0.35" strokeWidth="1" strokeLinecap="round">
               <path d="M66 118 L56 116 M66 122 L56 124" />
               <path d="M109 118 L119 116 M109 122 L119 124" />
             </g>

@@ -1,5 +1,7 @@
 export { EmptyNap, emptyNapTheme, type EmptyNapTheme } from './empty-nap';
 export { EmptyFishing, emptyFishingTheme, type EmptyFishingTheme } from './empty-fishing';
 export { EmptyMailbox, emptyMailboxTheme, type EmptyMailboxTheme } from './empty-mailbox';
-export { EmptyOffline, emptyOfflineTheme, type EmptyOfflineTheme } from './empty-offline';
+export { EmptySprout, emptySproutTheme, type EmptySproutTheme } from './empty-sprout';
+export { EmptyHammock, emptyHammockTheme, type EmptyHammockTheme } from './empty-hammock';
+export { EmptyBalloon, emptyBalloonTheme, type EmptyBalloonTheme } from './empty-balloon';
 export type { EmptyStateProps } from './empty-state';

@@ -1,0 +1,62 @@
+/* Drops fall from the spout every 1.5s, each ripple the soil as it lands; the sprout sways and
+   its leaves open and close a touch; the sun's rays turn slowly. */
+.drop {
+  opacity: 0;
+  animation: drop 1.5s ease-in infinite;
+}
+
+.ripple {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  animation: ripple 1.5s ease-out infinite;
+  animation-delay: -0.6s;
+}
+
+.sprout {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: sway 3.2s ease-in-out infinite alternate;
+}
+.leftLeaf {
+  transform-box: fill-box;
+  transform-origin: 100% 80%;
+  animation: leftLeaf 2.4s ease-in-out infinite alternate;
+}
+.rightLeaf {
+  transform-box: fill-box;
+  transform-origin: 0% 80%;
+  animation: rightLeaf 2.4s ease-in-out infinite alternate;
+  animation-delay: -1.2s;
+}
+
+.rays {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: turn 24s linear infinite;
+}
+
+@keyframes drop {
+  0%   { transform: translate(0, 0); opacity: 0; }
+  10%  { opacity: 1; }
+  60%  { transform: translate(-4px, 54px); opacity: 1; }
+  64%, 100% { transform: translate(-4px, 54px); opacity: 0; }
+}
+@keyframes ripple {
+  0%, 55% { transform: scale(0.3); opacity: 0; }
+  62%     { opacity: 0.9; }
+  100%    { transform: scale(1.6); opacity: 0; }
+}
+@keyframes sway {
+  from { transform: rotate(-4deg); }
+  to   { transform: rotate(4deg); }
+}
+@keyframes leftLeaf {
+  from { transform: rotate(-6deg); }
+  to   { transform: rotate(5deg); }
+}
+@keyframes rightLeaf {
+  from { transform: rotate(6deg); }
+  to   { transform: rotate(-5deg); }
+}
+@keyframes turn { to { transform: rotate(360deg); } }

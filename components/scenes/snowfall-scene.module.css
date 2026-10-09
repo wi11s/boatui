@@ -1,0 +1,62 @@
+/* The fox trots across the meadow once per --duration. */
+.fox {
+  transform: translate(200px, 600px); /* resting spot for reduced motion */
+  animation: cross var(--duration) linear infinite;
+  animation-delay: calc(var(--duration) * -0.35); /* start already in view */
+}
+
+/* A trot: the body bobs twice per stride while diagonal leg pairs swing in opposition. */
+.trot { animation: bob 0.25s ease-in-out infinite alternate; }
+.leg {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: stride 0.5s ease-in-out infinite alternate;
+}
+.legB { animation-delay: -0.5s; }
+
+.tail {
+  transform-box: fill-box;
+  transform-origin: 100% 40%;
+  animation: tail 1s ease-in-out infinite alternate;
+}
+.head {
+  transform-box: fill-box;
+  transform-origin: 0% 80%;
+  animation: look 6s ease-in-out infinite;
+}
+
+/* Snow: each flake falls from just above the top to just below the bottom, relative to its
+   resting point (set per flake through --from and --to), while it sways and, up close, spins. */
+.fall { animation: fall linear infinite; }
+.sway { animation: sway ease-in-out infinite alternate; }
+.spin { animation: spin linear infinite; }
+
+@keyframes cross {
+  from { transform: translate(-70px, 600px); }
+  to   { transform: translate(470px, 600px); }
+}
+@keyframes bob {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-1.6px); }
+}
+@keyframes stride {
+  from { transform: rotate(-24deg); }
+  to   { transform: rotate(24deg); }
+}
+@keyframes tail {
+  from { transform: rotate(-6deg); }
+  to   { transform: rotate(5deg); }
+}
+@keyframes look {
+  0%, 70%, 100% { transform: rotate(0deg); }
+  78%, 88%      { transform: rotate(-10deg); }
+}
+@keyframes fall {
+  from { transform: translateY(var(--from)); }
+  to   { transform: translateY(var(--to)); }
+}
+@keyframes sway {
+  from { transform: translateX(calc(var(--sway) * -1)); }
+  to   { transform: translateX(var(--sway)); }
+}
+@keyframes spin { to { transform: rotate(360deg); } }

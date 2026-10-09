@@ -1,0 +1,65 @@
+/* One 2.4s loop: wisps of steam while it simmers (0–55%), then the lid rattles, the kettle
+   shivers and a big puff whistles out (60–85%), then it settles. Flames flicker throughout. */
+.wisp {
+  opacity: 0;
+  animation: wisp 1.2s ease-out infinite;
+}
+
+.puff {
+  transform-box: fill-box;
+  transform-origin: 0% 100%;
+  opacity: 0;
+  animation: puff 2.4s ease-out infinite;
+}
+
+.lid {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: rattle 2.4s linear infinite;
+}
+
+.kettle {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: shiver 2.4s linear infinite;
+}
+
+.flame {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: flicker 0.4s ease-in-out infinite alternate;
+}
+
+@keyframes wisp {
+  0%   { transform: translate(0, 0) scale(0.5); opacity: 0; }
+  20%  { opacity: 0.8; }
+  100% { transform: translate(8px, -16px) scale(1.2); opacity: 0; }
+}
+@keyframes puff {
+  0%, 58% { transform: translate(0, 0) scale(0.3); opacity: 0; }
+  64%     { opacity: 0.95; }
+  90%     { transform: translate(6px, -14px) scale(1.3); opacity: 0; }
+  100%    { transform: translate(6px, -14px) scale(1.3); opacity: 0; }
+}
+@keyframes rattle {
+  0%, 58%, 86%, 100% { transform: translateY(0) rotate(0deg); }
+  62% { transform: translateY(-3px) rotate(-6deg); }
+  66% { transform: translateY(0) rotate(0deg); }
+  70% { transform: translateY(-3px) rotate(5deg); }
+  74% { transform: translateY(0) rotate(0deg); }
+  78% { transform: translateY(-2px) rotate(-4deg); }
+  82% { transform: translateY(0) rotate(0deg); }
+}
+@keyframes shiver {
+  0%, 58%, 86%, 100% { transform: translateX(0) scale(1, 1); }
+  60% { transform: translateX(0) scale(1.03, 0.97); }
+  64% { transform: translateX(-1px) scale(1, 1); }
+  68% { transform: translateX(1px); }
+  72% { transform: translateX(-1px); }
+  76% { transform: translateX(1px); }
+  80% { transform: translateX(-0.5px); }
+}
+@keyframes flicker {
+  from { transform: scale(1, 1); }
+  to   { transform: scale(0.85, 1.2); }
+}

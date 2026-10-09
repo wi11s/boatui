@@ -1,0 +1,89 @@
+/* The cyclist rides across once per --duration, at the road's height at eleven points along the
+   way (--y0 … --y10, computed from the same curve that draws the road). */
+.ride {
+  transform: translate(200px, var(--y5)); /* resting spot for reduced motion */
+  animation: ride var(--duration) linear infinite;
+  animation-delay: calc(var(--duration) * -0.4);
+}
+
+/* Wheels spin, legs pedal in opposition, the bike rocks over the gravel, the scarf streams. */
+.spin {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: spin 0.9s linear infinite;
+}
+.leg {
+  transform-box: fill-box;
+  transform-origin: 0% 0%;
+  animation: pedal 0.9s ease-in-out infinite alternate;
+}
+.legB { animation-delay: -0.9s; }
+.bob { animation: bob 0.45s ease-in-out infinite alternate; }
+.scarf {
+  transform-box: fill-box;
+  transform-origin: 100% 50%;
+  animation: scarf 0.6s ease-in-out infinite alternate;
+}
+
+/* Geese cross high up, wings beating. */
+.geese {
+  transform: translate(200px, 150px);
+  animation: geese 40s linear infinite;
+  animation-delay: -12s;
+}
+.flap {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: flap 0.5s ease-in-out infinite alternate;
+}
+
+/* Leaves fall past their resting point (set through --from and --to), carried right on the wind,
+   swaying, tumbling and fluttering (a flip faked with scaleY). */
+.fall    { animation: fall linear infinite; }
+.sway    { animation: sway 2.6s ease-in-out infinite alternate; }
+.tumble  { animation: spin linear infinite; }
+.flutter { animation: flutter ease-in-out infinite alternate; }
+
+@keyframes ride {
+  0%   { transform: translate(-80px, var(--y0)); }
+  10%  { transform: translate(-24px, var(--y1)); }
+  20%  { transform: translate(32px, var(--y2)); }
+  30%  { transform: translate(88px, var(--y3)); }
+  40%  { transform: translate(144px, var(--y4)); }
+  50%  { transform: translate(200px, var(--y5)); }
+  60%  { transform: translate(256px, var(--y6)); }
+  70%  { transform: translate(312px, var(--y7)); }
+  80%  { transform: translate(368px, var(--y8)); }
+  90%  { transform: translate(424px, var(--y9)); }
+  100% { transform: translate(480px, var(--y10)); }
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes pedal {
+  from { transform: rotate(-22deg); }
+  to   { transform: rotate(16deg); }
+}
+@keyframes bob {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-0.8px); }
+}
+@keyframes scarf {
+  from { transform: rotate(-6deg) scaleX(0.92); }
+  to   { transform: rotate(6deg) scaleX(1.06); }
+}
+@keyframes geese {
+  from { transform: translate(470px, 170px); }
+  to   { transform: translate(-60px, 120px); }
+}
+@keyframes flap {
+  from { transform: scaleY(1); }
+  to   { transform: scaleY(-0.5); }
+}
+@keyframes fall {
+  from { transform: translate(0, var(--from)); }
+  to   { transform: translate(90px, var(--to)); }
+}
+@keyframes sway {
+  from { transform: translateX(-10px); }
+  to   { transform: translateX(10px); }
+}
+@keyframes flutter { from { transform: scaleY(1); } to { transform: scaleY(0.3); } }

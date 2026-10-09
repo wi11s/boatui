@@ -5,6 +5,17 @@
 }
 .bob  { animation: bob 3.4s ease-in-out infinite alternate; }
 .wake { animation: wake 1.2s linear infinite; }
+.gull {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: glide 1.6s ease-in-out infinite alternate;
+}
+/* Hidden under the swell most of the loop, then one quick arc. */
+.leap {
+  transform: rotate(-80deg);
+  animation: leap 14s linear infinite;
+  animation-delay: -9s;
+}
 
 @keyframes sail {
   from { transform: translate(-90px, 478px); }
@@ -16,3 +27,12 @@
   100% { transform: translateY(-1px) rotate(3deg); }
 }
 @keyframes wake { to { stroke-dashoffset: 18; } }
+@keyframes glide {
+  from { transform: scaleY(1); }
+  to   { transform: scaleY(0.45); }
+}
+@keyframes leap {
+  0%, 84%  { transform: rotate(-80deg); }
+  94%      { transform: rotate(80deg); }
+  100%     { transform: rotate(80deg); }
+}

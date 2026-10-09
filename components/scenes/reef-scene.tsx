@@ -1,3 +1,7 @@
+// <ReefScene>: a sea turtle gliding across a sunlit reef: staghorn, brain and fan coral, an anemone
+// with clownfish, a jellyfish, swaying kelp and light rippling on the sand. `duration` is seconds
+// for the turtle's crossing (default 50).
+
 import { W, bandPath, ridgeY, seeded, type Ridge } from './geometry';
 import { SceneFrame, WaveLayer, sceneStyles as base, useSvgId, type SceneProps } from './scene';
 import styles from './reef-scene.module.css';
@@ -10,6 +14,11 @@ export const reefTheme = {
   sand2: '#a99062',
   kelp: '#2f7d52',
   fish: '#f2c14e',
+  coral: '#e8846f',
+  coralAlt: '#d96a8b',
+  anemone: '#f2a6c2',
+  clownfish: '#f08a3c',
+  jelly: '#f7c6e0',
 };
 export type ReefTheme = typeof reefTheme;
 
@@ -44,10 +53,38 @@ const KELP = [
   return { ...k, leaves };
 });
 
-const CORAL = [
-  { x: 122, colors: ['#e8846f', '#f2a65a', '#d96a8b'] },
-  { x: 268, colors: ['#d96a8b', '#e8846f', '#f2c14e'] },
-].map(c => ({ ...c, y: ridgeY(c.x, SAND_BACK.y, SAND_BACK.components) }));
+// Where each reef feature sits on the back sand.
+const onSand = (x: number) => ridgeY(x, SAND_BACK.y, SAND_BACK.components) + 3;
+const STAGHORN = { x: 118, y: onSand(118) };
+const ANEMONE = { x: 184, y: onSand(184) };
+const BRAIN = { x: 262, y: onSand(262) };
+const FAN = { x: 304, y: onSand(304) };
+
+// Staghorn coral: branches forking upward, drawn as round-capped strokes.
+const STAGHORN_PATH =
+  'M0 0 V-22 L-12 -38 M-6 -30 L-4 -48 M0 -22 L10 -40 L8 -56 M10 -40 L22 -50 M-12 -38 L-22 -46 M0 0 L16 -14 L28 -22';
+
+// Sea fan: branches radiating from the top of the stalk, each forking once near its tip.
+const FAN_BRANCHES = [-62, -40, -20, 0, 20, 40, 60]
+  .map(deg => {
+    const a = (deg * Math.PI) / 180;
+    const len = 48 - Math.abs(deg) * 0.22;
+    const tx = Math.sin(a) * len;
+    const ty = -8 - Math.cos(a) * len;
+    const mx = Math.sin(a) * len * 0.65;
+    const my = -8 - Math.cos(a) * len * 0.65;
+    const f = (d: number) => `M${mx.toFixed(1)} ${my.toFixed(1)} L${(mx + Math.sin(a + d) * 12).toFixed(1)} ${(my - Math.cos(a + d) * 12).toFixed(1)}`;
+    return `M0 -8 L${tx.toFixed(1)} ${ty.toFixed(1)} ${f(0.45)} ${f(-0.45)}`;
+  })
+  .join(' ');
+
+// Light rippling on the sand: short curves that brighten and fade out of step.
+const CAUSTICS = Array.from({ length: 9 }, () => {
+  const x = 20 + rand() * (W - 40);
+  const y = ridgeY(x, SAND_BACK.y, SAND_BACK.components) + 8 + rand() * 30;
+  const w = 10 + rand() * 14;
+  return { d: `M${x.toFixed(1)} ${y.toFixed(1)} q${(w / 2).toFixed(1)} -4 ${w.toFixed(1)} 0`, dur: 2 + rand() * 2.5, delay: rand() * 3 };
+});
 
 const FISH = [[0, 0], [22, -10], [26, 12], [46, 2], [50, -16], [68, 10], [12, 22]];
 
@@ -92,6 +129,18 @@ export function ReefScene(props: SceneProps<ReefTheme>) {
             {RAYS.map((r, i) => (
               <path key={i} className={styles.ray} style={{ animationDuration: `${r.dur}s`, animationDelay: `${r.delay}s` }} d={r.d} />
             ))}
+          </g>
+
+          {/* A jellyfish pulsing slowly upward in the open water */}
+          <g transform="translate(78 250)">
+            <g className={styles.jellyDrift}>
+              <g className={styles.jellyPulse}>
+                <path d="M-16 0 C-16 -22 16 -22 16 0 Q12 3 8 0 Q4 3 0 0 Q-4 3 -8 0 Q-12 3 -16 0 Z" fill="var(--jelly)" opacity="0.75" />
+                <g fill="none" stroke="var(--jelly)" strokeOpacity="0.6" strokeWidth="1.4" strokeLinecap="round">
+                  <path d="M-10 2 q-3 10 0 20 t0 18 M-3 2 q3 12 0 24 t0 16 M4 2 q-3 10 0 22 t0 14 M11 2 q3 9 0 18 t0 14" />
+                </g>
+              </g>
+            </g>
           </g>
 
           <path fill="#1d7290" opacity="0.6" d={PATHS.ridgeFar} />
@@ -139,14 +188,59 @@ export function ReefScene(props: SceneProps<ReefTheme>) {
           </g>
 
           <path fill="var(--sand-1)" d={PATHS.sandBack} />
-          {CORAL.map((c, i) => (
-            <g key={i} transform={`translate(${c.x} ${c.y.toFixed(1)})`}>
-              <circle cx="-8" cy="-4" r="9" fill={c.colors[0]} />
-              <circle cx="6" cy="-9" r="11" fill={c.colors[1]} />
-              <circle cx="16" cy="-2" r="7" fill={c.colors[0]} />
-              <circle cx="2" cy="2" r="8" fill={c.colors[2]} />
+          <g fill="none" stroke="#e9fcf9" strokeWidth="2" strokeLinecap="round">
+            {CAUSTICS.map((c, i) => (
+              <path key={i} className={styles.caustic} style={{ animationDuration: `${c.dur.toFixed(2)}s`, animationDelay: `${(-c.delay).toFixed(2)}s` }} d={c.d} />
+            ))}
+          </g>
+
+          {/* Sea fan: a lacy net of branches on a short stalk, rocking in the current */}
+          <g transform={`translate(${FAN.x} ${FAN.y.toFixed(1)})`}>
+            <g className={styles.fan}>
+              <path d="M0 -8 C-30 -12 -38 -46 -16 -60 C-4 -67 12 -66 24 -58 C40 -44 30 -12 0 -8 Z" fill="var(--coral-alt)" opacity="0.28" />
+              <g fill="none" stroke="var(--coral-alt)" strokeLinecap="round">
+                <path d="M0 0 V-8" strokeWidth="4" />
+                <path d={FAN_BRANCHES} strokeWidth="2.2" />
+                <path d="M-22 -24 Q0 -32 24 -22 M-26 -40 Q0 -50 28 -40 M-16 -54 Q2 -60 20 -54" strokeWidth="1" opacity="0.7" />
+              </g>
             </g>
-          ))}
+          </g>
+
+          {/* Brain coral: a low dome with winding grooves */}
+          <g transform={`translate(${BRAIN.x} ${BRAIN.y.toFixed(1)})`}>
+            <path d="M-24 2 C-24 -22 24 -22 24 2 Z" fill="var(--coral)" />
+            <path d="M-18 -4 q4 -8 8 0 t8 0 t8 0 t8 0 M-12 -12 q4 -6 8 0 t8 0 t8 0" fill="none" stroke="#ffffff" strokeOpacity="0.35" strokeWidth="1.4" />
+          </g>
+
+          {/* Staghorn coral */}
+          <g transform={`translate(${STAGHORN.x} ${STAGHORN.y.toFixed(1)})`}>
+            <path d={STAGHORN_PATH} fill="none" stroke="var(--coral)" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+            <path d={STAGHORN_PATH} fill="none" stroke="#ffffff" strokeOpacity="0.2" strokeWidth="2" strokeLinecap="round" transform="translate(-1 -1)" />
+          </g>
+
+          {/* Anemone: tentacles sway together from the base; two clownfish dart in and out */}
+          <g transform={`translate(${ANEMONE.x} ${ANEMONE.y.toFixed(1)})`}>
+            <g className={styles.clown}>
+              <g transform="translate(-14 -40)">
+                <path d="M0 0 Q7 -5 14 0 Q7 5 0 0 Z M1 0 L-5 -4 L-5 4 Z" fill="var(--clownfish)" />
+                <path d="M5 -3.5 V3.5 M9 -3 V3" stroke="#ffffff" strokeWidth="1.6" />
+                <circle cx="11" cy="-0.8" r="0.9" fill="#1d2b33" />
+              </g>
+            </g>
+            <g className={`${styles.clown} ${styles.clown2}`}>
+              <g transform="translate(10 -30) scale(-0.8 0.8)">
+                <path d="M0 0 Q7 -5 14 0 Q7 5 0 0 Z M1 0 L-5 -4 L-5 4 Z" fill="var(--clownfish)" />
+                <path d="M5 -3.5 V3.5 M9 -3 V3" stroke="#ffffff" strokeWidth="1.6" />
+                <circle cx="11" cy="-0.8" r="0.9" fill="#1d2b33" />
+              </g>
+            </g>
+            <g className={styles.tentacles} fill="none" stroke="var(--anemone)" strokeWidth="3.4" strokeLinecap="round">
+              {[-14, -10, -6, -2, 2, 6, 10, 14].map((x, i) => (
+                <path key={x} d={`M${x * 0.5} -6 Q${x * 0.9} -16 ${x * 1.1 + (i % 2 ? 2 : -2)} -24`} />
+              ))}
+            </g>
+            <path d="M-10 0 Q-10 -8 0 -8 Q10 -8 10 0 Z" fill="var(--coral-alt)" />
+          </g>
           {KELP.map((k, i) => (
             <g key={i} transform={`translate(${k.x} 690)`}>
               <g className={styles.sway} style={{ animationDuration: `${k.dur}s`, animationDelay: `${-i * 1.3}s` }}>
@@ -166,6 +260,13 @@ export function ReefScene(props: SceneProps<ReefTheme>) {
             </g>
           ))}
           <path fill="var(--sand-2)" d={PATHS.sandFront} />
+          <g transform={`translate(84 ${(ridgeY(84, SAND_FRONT.y, SAND_FRONT.components) + 14).toFixed(1)}) rotate(-12)`}>
+            <path d="M0 -10 L3 -3 L10 -3 L4.5 1.5 L6.5 9 L0 4.5 L-6.5 9 L-4.5 1.5 L-10 -3 L-3 -3 Z" fill="var(--coral)" strokeLinejoin="round" stroke="var(--coral)" strokeWidth="2" />
+          </g>
+          <g transform={`translate(318 ${(ridgeY(318, SAND_FRONT.y, SAND_FRONT.components) + 16).toFixed(1)})`}>
+            <path d="M-8 2 Q-8 -9 0 -9 Q8 -9 8 2 Z" fill="#f4e6d0" />
+            <path d="M0 2 V-8 M-4 2 L-5 -6 M4 2 L5 -6" stroke="#d9c4a2" strokeWidth="1" />
+          </g>
 
           <g fill="none" stroke="#e9fcf9" strokeWidth="1.2">
             {BUBBLES.map((b, i) => (

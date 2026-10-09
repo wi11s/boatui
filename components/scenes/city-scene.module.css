@@ -1,0 +1,65 @@
+/* The tram crosses once per --duration; everything else is ambient. */
+.tram {
+  transform: translateX(240px); /* resting spot for reduced motion */
+  animation: tram var(--duration) linear infinite;
+  animation-delay: calc(var(--duration) * -0.4);
+}
+
+/* Rain falls past each streak's resting point (set through --from and --to), drifting left
+   by a fifth of the distance to match the streak's slant. */
+.fall { animation: fall linear infinite; }
+
+.ripple {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  animation: ripple ease-out infinite;
+}
+
+.flicker { animation: flicker steps(1) infinite; }
+.neon    { animation: neon 5s steps(1) infinite; }
+.lamp    { animation: lamp 3s ease-in-out infinite alternate; }
+.shimmer {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: shimmer 1.6s ease-in-out infinite alternate;
+}
+
+.umbrella {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: tilt 4s ease-in-out infinite alternate;
+}
+
+@keyframes tram {
+  from { transform: translateX(-30px); }
+  to   { transform: translateX(560px); }
+}
+@keyframes fall {
+  from { transform: translate(0, var(--from)); }
+  to   { transform: translate(calc((var(--to) - var(--from)) * -0.2), var(--to)); }
+}
+@keyframes ripple {
+  0%   { transform: scale(0.2); opacity: 0; }
+  15%  { opacity: 0.7; }
+  100% { transform: scale(1); opacity: 0; }
+}
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  60%      { opacity: 0.15; }
+  64%      { opacity: 1; }
+}
+/* The neon sign stutters twice, then holds. */
+@keyframes neon {
+  0%, 100% { opacity: 1; }
+  80%      { opacity: 0.3; }
+  82%      { opacity: 1; }
+  85%      { opacity: 0.4; }
+  87%      { opacity: 1; }
+}
+@keyframes lamp    { from { opacity: 0.75; } to { opacity: 1; } }
+@keyframes shimmer { from { transform: scaleX(0.85); opacity: 0.35; } to { transform: scaleX(1.1); opacity: 0.6; } }
+@keyframes tilt {
+  from { transform: rotate(-4deg); }
+  to   { transform: rotate(3deg); }
+}

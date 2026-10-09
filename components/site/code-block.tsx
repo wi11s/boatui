@@ -8,7 +8,7 @@ type Props = {
   code: string;
   /** Shown in the header bar, e.g. a filename. */
   title?: string;
-  /** Scene or background slug the block belongs to (for analytics). */
+  /** Slug of the item the block belongs to (for analytics). */
   item?: string;
 };
 
