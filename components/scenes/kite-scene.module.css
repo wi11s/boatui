@@ -1,0 +1,66 @@
+/* The kite wanders a loop once per --duration. The string's keyframes are the same positions seen
+   from the hand (angle change and length ratio from the first position), on the same timing, so
+   its far end stays under the kite. */
+.kite {
+  transform: translate(232px, 236px); /* resting spot for reduced motion */
+  animation: wander var(--duration) ease-in-out infinite;
+}
+.string { animation: string var(--duration) ease-in-out infinite; }
+
+/* Little gusts on top of the wander: a tilt and a bob. */
+.dance { animation: dance 2.6s ease-in-out infinite alternate; }
+
+/* Each bow swings a little from the one above it, with a delay, so a wave runs down the tail. */
+.tail { animation: tail 1.1s ease-in-out infinite alternate; }
+
+.blades { animation: spin 6s linear infinite; }
+
+.blade {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: blow 2.4s ease-in-out infinite alternate;
+}
+
+.scarf {
+  transform-box: fill-box;
+  transform-origin: 100% 0%;
+  animation: flap 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes wander {
+  0%   { transform: translate(232px, 236px); }
+  14%  { transform: translate(262px, 214px); }
+  30%  { transform: translate(292px, 226px); }
+  46%  { transform: translate(304px, 256px); }
+  62%  { transform: translate(276px, 276px); }
+  78%  { transform: translate(244px, 266px); }
+  90%  { transform: translate(222px, 252px); }
+  100% { transform: translate(232px, 236px); }
+}
+@keyframes string {
+  0%   { transform: rotate(0deg) scale(1); }
+  14%  { transform: rotate(2.56deg) scale(1.0834); }
+  30%  { transform: rotate(6.9deg) scale(1.0923); }
+  46%  { transform: rotate(10.49deg) scale(1.0433); }
+  62%  { transform: rotate(8.63deg) scale(0.9612); }
+  78%  { transform: rotate(3.57deg) scale(0.9433); }
+  90%  { transform: rotate(-0.44deg) scale(0.9522); }
+  100% { transform: rotate(0deg) scale(1); }
+}
+@keyframes dance {
+  from { transform: rotate(-9deg) translateY(-2px); }
+  to   { transform: rotate(7deg) translateY(3px); }
+}
+@keyframes tail {
+  from { transform: rotate(-14deg); }
+  to   { transform: rotate(14deg); }
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes blow {
+  from { transform: skewX(-6deg); }
+  to   { transform: skewX(10deg); }
+}
+@keyframes flap {
+  from { transform: rotate(-6deg) scaleX(0.9); }
+  to   { transform: rotate(8deg) scaleX(1.1); }
+}

@@ -16,6 +16,7 @@ npx degit wi11s/boatui/components/scenes components/scenes
 | `<ReefScene />` | A sea turtle gliding across a sunlit reef |
 | `<TrainScene />` | A steam train crossing a stone viaduct at dusk |
 | `<AuroraScene />` | Northern lights over a cabin by a frozen lake |
+| `<KiteScene />` | A child flying a kite from a grassy hill on a breezy afternoon |
 
 ### Backgrounds
 
