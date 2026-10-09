@@ -1,16 +1,17 @@
-// <FirefliesBackground>: fireflies wandering and blinking over a dusky meadow,
-// with a crescent moon and swaying grass. Animated.
+// <FirefliesBackground>: fireflies drifting and pulsing over dusky hills, with a crescent
+// moon and faint stars. Animated.
 
 import type { CSSProperties } from 'react';
 import { BackgroundFrame, r2, seeded, type BackgroundProps } from './background';
 import styles from './fireflies-background.module.css';
 
 export const firefliesTheme = {
-  skyTop: '#0e1a30',
-  skyBottom: '#33284d',
-  firefly: '#fbf8c4',
+  skyTop: '#101b33',
+  skyBottom: '#2e2a4f',
+  firefly: '#fdf9c8',
   glow: '#d6f36a',
-  grass: '#0a1120',
+  hillFar: '#1c2440',
+  hillNear: '#121a2e',
   moon: '#f3ecd2',
 };
 export type FirefliesTheme = typeof firefliesTheme;
@@ -18,27 +19,23 @@ export type FirefliesTheme = typeof firefliesTheme;
 const rand = seeded(73);
 const offset = (range: number) => `${r2((rand() - 0.5) * range)}px`;
 
-const FIREFLIES = Array.from({ length: 30 }, () => ({
-  x: r2(3 + rand() * 94),
-  y: r2(18 + rand() * 72),
-  wander: r2(10 + rand() * 10),
-  blink: r2(2.8 + rand() * 3.5),
-  delay: r2(rand() * 10),
-  path: { '--ax': offset(80), '--ay': offset(50), '--bx': offset(80), '--by': offset(50), '--cx': offset(80), '--cy': offset(50) },
-  scale: r2(0.7 + rand() * 0.7),
+const FIREFLIES = Array.from({ length: 22 }, () => ({
+  x: r2(4 + rand() * 92),
+  y: r2(35 + rand() * 55),
+  wander: r2(12 + rand() * 10),
+  pulse: r2(3 + rand() * 3),
+  delay: r2(rand() * 12),
+  path: { '--ax': offset(70), '--ay': offset(40), '--bx': offset(70), '--by': offset(40), '--cx': offset(70), '--cy': offset(40) },
 }));
 
-// Blades are placed at percentage positions so the meadow spans any width without stretching.
-const BLADES = Array.from({ length: 70 }, () => ({
-  x: r2(rand() * 101),
-  h: r2(28 + rand() * 52),
-  lean: r2((rand() - 0.5) * 16),
-  w: r2(2.5 + rand() * 2.5),
-  sway: r2(2.5 + rand() * 2.5),
+const STARS = Array.from({ length: 26 }, () => ({
+  x: r2(rand() * 100),
+  y: r2(rand() * 45),
+  dur: r2(2 + rand() * 3),
   delay: r2(rand() * 4),
 }));
 
-/** Fireflies wandering and blinking over a dusky meadow. */
+/** Fireflies drifting and pulsing over dusky hills. */
 export function FirefliesBackground(props: BackgroundProps<FirefliesTheme>) {
   return (
     <BackgroundFrame
@@ -47,38 +44,38 @@ export function FirefliesBackground(props: BackgroundProps<FirefliesTheme>) {
       layer={
         <>
           <div className={styles.sky} />
-          <svg className={styles.moon} viewBox="0 0 54 54">
+          {STARS.map((s, i) => (
+            <span
+              key={`star-${i}`}
+              className={styles.star}
+              style={{ left: `${s.x}%`, top: `${s.y}%`, animationDuration: `${s.dur}s`, animationDelay: `${-s.delay}s` }}
+            />
+          ))}
+          <svg className={styles.moon} viewBox="0 0 48 48">
             <defs>
               <mask id="qs-fireflies-moon">
-                <rect width="54" height="54" fill="#fff" />
-                <circle cx="36" cy="20" r="21" fill="#000" />
+                <rect width="48" height="48" fill="#fff" />
+                <circle cx="32" cy="18" r="18" fill="#000" />
               </mask>
             </defs>
-            <circle cx="27" cy="27" r="22" fill="var(--moon)" mask="url(#qs-fireflies-moon)" />
+            <circle cx="24" cy="24" r="19" fill="var(--moon)" mask="url(#qs-fireflies-moon)" />
+          </svg>
+
+          {/* Two soft hill silhouettes; smooth curves stretch cleanly to any width. */}
+          <svg className={styles.hills} viewBox="0 0 400 100" preserveAspectRatio="none">
+            <path fill="var(--hill-far)" d="M0 46 C70 20 130 22 190 40 S320 18 400 34 V100 H0 Z" />
+            <path fill="var(--hill-near)" d="M0 70 C80 50 150 58 220 66 S340 52 400 62 V100 H0 Z" />
           </svg>
 
           {FIREFLIES.map((f, i) => (
             <div
               key={i}
               className={styles.firefly}
-              style={{ left: `${f.x}%`, top: `${f.y}%`, animationDuration: `${f.wander}s`, animationDelay: `${-f.delay}s`, scale: f.scale, ...f.path } as CSSProperties}
+              style={{ left: `${f.x}%`, top: `${f.y}%`, animationDuration: `${f.wander}s`, animationDelay: `${-f.delay}s`, ...f.path } as CSSProperties}
             >
-              <span className={styles.light} style={{ animationDuration: `${f.blink}s`, animationDelay: `${-f.delay}s` }} />
+              <span className={styles.light} style={{ animationDuration: `${f.pulse}s`, animationDelay: `${-f.delay}s` }} />
             </div>
           ))}
-
-          <svg className={styles.grass}>
-            {BLADES.map((b, i) => (
-              <svg key={i} x={`${b.x}%`} y="100%" overflow="visible">
-                <path
-                  className={styles.blade}
-                  style={{ animationDuration: `${b.sway}s`, animationDelay: `${-b.delay}s` }}
-                  d={`M${-b.w} 0 Q${r2(b.lean * 0.4)} ${r2(-b.h * 0.6)} ${b.lean} ${-b.h} Q${r2(b.lean * 0.4 + 1)} ${r2(-b.h * 0.5)} ${b.w} 0 Z`}
-                  fill="var(--grass)"
-                />
-              </svg>
-            ))}
-          </svg>
         </>
       }
     />

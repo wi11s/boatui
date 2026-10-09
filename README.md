@@ -36,7 +36,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 | --- | --- |
 | `<SnowfallBackground />` | Snow falling at three depths onto soft drifts (animated) |
 | `<PetalsBackground />` | Cherry-blossom petals drifting on a breeze, with a swaying branch (animated) |
-| `<FirefliesBackground />` | Fireflies wandering and blinking over a dusky meadow (animated) |
+| `<FirefliesBackground />` | Fireflies drifting and pulsing over dusky hills (animated) |
 | `<CloudsBackground />` | Soft clouds drifting across the sky in parallax, under a glowing sun (animated) |
 
 ### Empty states
