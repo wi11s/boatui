@@ -33,6 +33,9 @@ body:
         - PlaneLoader
         - LighthouseLoader
         - BeeLoader
+        - KettleLoader
+        - MoonLoader
+        - FishbowlLoader
         - Shared loader files
         - TinyPlanet3D
         - Lagoon3D

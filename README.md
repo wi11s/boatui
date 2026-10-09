@@ -67,6 +67,9 @@ npx degit wi11s/boatui/components/loaders components/loaders
 | `<PlaneLoader />` | A paper plane looping the loop |
 | `<LighthouseLoader />` | A lighthouse beam sweeping round |
 | `<BeeLoader />` | A bumblebee flying figure-eights over a flower |
+| `<KettleLoader />` | A kettle coming to the boil, whistling |
+| `<MoonLoader />` | The moon running through its phases |
+| `<FishbowlLoader />` | A goldfish swimming laps of its bowl |
 
 ### 3D
 

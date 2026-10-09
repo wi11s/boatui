@@ -1,0 +1,33 @@
+/* One 2.4s cycle: the shadow slides from fully covering the disc (new moon) off to the right
+   (full), then reappears off the left and slides back over it. The jump from right to left
+   happens while both positions are clear of the disc, so the loop is seamless. */
+.shadow { animation: phase 2.4s linear infinite; }
+
+.tilt {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: tilt 4.8s ease-in-out infinite alternate;
+}
+
+.star {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: twinkle 2.4s ease-in-out infinite;
+}
+
+@keyframes phase {
+  0%      { transform: translateX(0); }
+  45%     { transform: translateX(60px); }
+  50%     { transform: translateX(60px); }
+  50.01%  { transform: translateX(-60px); }
+  55%     { transform: translateX(-60px); }
+  100%    { transform: translateX(0); }
+}
+@keyframes tilt {
+  from { transform: rotate(-8deg); }
+  to   { transform: rotate(8deg); }
+}
+@keyframes twinkle {
+  0%, 100% { transform: scale(0.5); opacity: 0.3; }
+  50%      { transform: scale(1); opacity: 1; }
+}
