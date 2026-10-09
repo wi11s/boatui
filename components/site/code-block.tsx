@@ -8,17 +8,17 @@ type Props = {
   code: string;
   /** Shown in the header bar, e.g. a filename. */
   title?: string;
-  /** Scene slug, when the block belongs to a scene page (for analytics). */
-  scene?: string;
+  /** Scene or background slug the block belongs to (for analytics). */
+  item?: string;
 };
 
-export function CodeBlock({ code, title, scene }: Props) {
+export function CodeBlock({ code, title, item }: Props) {
   const [copied, setCopied] = useState(false);
 
   async function copy() {
     try {
       await navigator.clipboard.writeText(code);
-      trackEvent('code_copy', { title: title ?? 'untitled', scene });
+      trackEvent('code_copy', { title: title ?? 'untitled', item });
       setCopied(true);
       setTimeout(() => setCopied(false), 1600);
     } catch {

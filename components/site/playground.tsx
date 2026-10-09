@@ -4,14 +4,10 @@ import { useRef, useState } from 'react';
 import { trackEvent } from '@/lib/analytics';
 import { getScene } from '@/lib/registry';
 import { CodeBlock } from './code-block';
+import { ThemeControls, snippetFor } from './theme-controls';
 import styles from './playground.module.css';
 
-// waterTop → "Water top", hill2 → "Hill 2"
-const label = (key: string) => {
-  const words = key.replace(/([A-Z])/g, ' $1').replace(/(\d+)/g, ' $1').toLowerCase();
-  return words.charAt(0).toUpperCase() + words.slice(1);
-};
-
+/** Live preview and controls for a scene. */
 export function Playground({ slug }: { slug: string }) {
   const scene = getScene(slug)!;
   const { Component, defaultDuration, theme: defaults, name } = scene;
@@ -25,16 +21,10 @@ export function Playground({ slug }: { slug: string }) {
   const noteUse = (control: string) => {
     if (used.current.has(control)) return;
     used.current.add(control);
-    trackEvent('playground_use', { scene: slug, control });
+    trackEvent('playground_use', { kind: 'scene', item: slug, control });
   };
 
-  const changed = Object.entries(theme).filter(([key, value]) => value !== defaults[key]);
-  const props = [
-    duration !== defaultDuration && `  duration={${duration}}`,
-    changed.length > 0 &&
-      `  theme={{\n${changed.map(([key, value]) => `    ${key}: '${value}',`).join('\n')}\n  }}`,
-  ].filter(Boolean);
-  const snippet = props.length ? `<${name}\n${props.join('\n')}\n/>` : `<${name} />`;
+  const snippet = snippetFor(name, { props: [duration !== defaultDuration && `duration={${duration}}`], theme, defaults });
 
   return (
     <div className={styles.playground}>
@@ -88,24 +78,16 @@ export function Playground({ slug }: { slug: string }) {
           </button>
         </div>
 
-        <fieldset className={styles.colors}>
-          <legend>Theme</legend>
-          {Object.entries(defaults).map(([key, value]) => (
-            <label key={key} className={styles.color}>
-              <input
-                type="color"
-                value={theme[key] ?? value}
-                onChange={e => {
-                  setTheme(t => ({ ...t, [key]: e.target.value }));
-                  noteUse(`theme.${key}`);
-                }}
-              />
-              <span>{label(key)}</span>
-            </label>
-          ))}
-        </fieldset>
+        <ThemeControls
+          defaults={defaults}
+          theme={theme}
+          onChange={(key, value) => {
+            setTheme(t => ({ ...t, [key]: value }));
+            noteUse(`theme.${key}`);
+          }}
+        />
 
-        <CodeBlock title="Usage" code={snippet} scene={slug} />
+        <CodeBlock title="Usage" code={snippet} item={slug} />
       </div>
     </div>
   );

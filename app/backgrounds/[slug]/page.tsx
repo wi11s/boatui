@@ -1,39 +1,42 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { BackgroundPlayground } from '@/components/site/background-playground';
 import { CodeBlock } from '@/components/site/code-block';
 import { JsonLd } from '@/components/site/json-ld';
-import { Playground } from '@/components/site/playground';
 import { TrackedLink } from '@/components/site/tracked-link';
-import { SHARED_FILES, getScene, sceneProps, scenes, tokenToVar } from '@/lib/registry';
+import { BACKGROUND_SHARED_FILES, backgroundProps, backgrounds, getBackground } from '@/lib/backgrounds';
+import { tokenToVar } from '@/lib/registry';
 import { REPO_URL, SITE_NAME, SITE_URL, repoFile } from '@/lib/site';
-import { readSceneSource, sceneFiles } from '@/lib/source-stats';
+import { backgroundFiles, readBackgroundSource } from '@/lib/source-stats';
 import styles from '@/components/site/item-page.module.css';
 
 type Params = { params: Promise<{ slug: string }> };
 
 export function generateStaticParams() {
-  return scenes.map(s => ({ slug: s.slug }));
+  return backgrounds.map(b => ({ slug: b.slug }));
 }
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
-  const scene = getScene((await params).slug);
-  if (!scene) return {};
+  const bg = getBackground((await params).slug);
+  if (!bg) return {};
   return {
-    title: scene.name,
-    description: `<${scene.name} />: ${scene.description}`,
-    alternates: { canonical: `/scenes/${scene.slug}`, types: { 'text/markdown': `/scenes/${scene.slug}.md` } },
+    title: bg.name,
+    description: `<${bg.name} />: ${bg.description}`,
+    alternates: { canonical: `/backgrounds/${bg.slug}`, types: { 'text/markdown': `/backgrounds/${bg.slug}.md` } },
   };
 }
 
-export default async function ScenePage({ params }: Params) {
-  const scene = getScene((await params).slug);
-  if (!scene) notFound();
+export default async function BackgroundPage({ params }: Params) {
+  const bg = getBackground((await params).slug);
+  if (!bg) notFound();
 
-  const [own, shared] = await Promise.all([
-    Promise.all(sceneFiles(scene).map(async name => ({ name, code: await readSceneSource(name) }))),
-    Promise.all(SHARED_FILES.map(async name => ({ name, code: await readSceneSource(name) }))),
-  ]);
+  const files = await Promise.all(
+    [...backgroundFiles(bg), ...BACKGROUND_SHARED_FILES].map(async name => ({
+      name,
+      code: await readBackgroundSource(name),
+    })),
+  );
 
   return (
     <div className="container">
@@ -41,9 +44,9 @@ export default async function ScenePage({ params }: Params) {
         data={{
           '@context': 'https://schema.org',
           '@type': 'SoftwareSourceCode',
-          name: scene.name,
-          description: scene.description,
-          url: `${SITE_URL}/scenes/${scene.slug}`,
+          name: bg.name,
+          description: bg.description,
+          url: `${SITE_URL}/backgrounds/${bg.slug}`,
           codeRepository: REPO_URL,
           license: 'https://opensource.org/licenses/MIT',
           programmingLanguage: ['TypeScript', 'CSS'],
@@ -52,26 +55,27 @@ export default async function ScenePage({ params }: Params) {
         }}
       />
 
-      <Link href="/" className={styles.back}>← Scenes</Link>
+      <Link href="/#backgrounds" className={styles.back}>← Backgrounds</Link>
 
       <header className={styles.header}>
-        <h1 className={styles.title}>{scene.title}</h1>
+        <h1 className={styles.title}>{bg.title}</h1>
         <p className={styles.lede}>
-          <code className={styles.name}>{`<${scene.name} />`}</code> {scene.blurb}
+          <code className={styles.name}>{`<${bg.name} />`}</code> {bg.blurb}
         </p>
         <p className={styles.meta}>
+          {bg.animated ? 'Animated' : 'Static'} ·{' '}
           <TrackedLink
-            href={repoFile(`components/scenes/${scene.file}.tsx`)}
+            href={repoFile(`components/backgrounds/${bg.file}.tsx`)}
             event="github_click"
-            eventProps={{ target: 'source_file', location: 'scene_header', item: scene.slug }}
+            eventProps={{ target: 'source_file', location: 'background_header', item: bg.slug }}
           >
             Source
           </TrackedLink>{' '}
-          · <a href={`/scenes/${scene.slug}.md`}>Markdown</a>
+          · <a href={`/backgrounds/${bg.slug}.md`}>Markdown</a>
         </p>
       </header>
 
-      <Playground slug={scene.slug} />
+      <BackgroundPlayground slug={bg.slug} />
 
       <details className={styles.details}>
         <summary>Props and theme tokens</summary>
@@ -82,7 +86,7 @@ export default async function ScenePage({ params }: Params) {
                 <tr><th>Prop</th><th>Type</th><th>Default</th><th>Description</th></tr>
               </thead>
               <tbody>
-                {sceneProps(scene).map(([prop, type, def, desc]) => (
+                {backgroundProps(bg).map(([prop, type, def, desc]) => (
                   <tr key={prop}>
                     <td><code>{prop}</code></td>
                     <td><code>{type}</code></td>
@@ -99,7 +103,7 @@ export default async function ScenePage({ params }: Params) {
                 <tr><th>Theme key</th><th>CSS variable</th><th>Default</th></tr>
               </thead>
               <tbody>
-                {Object.entries(scene.theme).map(([key, value]) => (
+                {Object.entries(bg.theme).map(([key, value]) => (
                   <tr key={key}>
                     <td><code>{key}</code></td>
                     <td><code>{tokenToVar(key)}</code></td>
@@ -119,10 +123,10 @@ export default async function ScenePage({ params }: Params) {
         <summary>Source files</summary>
         <div className={styles.detailsBody}>
           <p className={styles.note}>
-            Copy into <code>components/scenes/</code>. The shared files are needed once for all scenes.
+            Copy into <code>components/backgrounds/</code>. The shared files are needed once for all backgrounds.
           </p>
-          {[...own, ...shared].map(f => (
-            <CodeBlock key={f.name} title={`components/scenes/${f.name}`} code={f.code} item={scene.slug} />
+          {files.map(f => (
+            <CodeBlock key={f.name} title={`components/backgrounds/${f.name}`} code={f.code} item={bg.slug} />
           ))}
         </div>
       </details>

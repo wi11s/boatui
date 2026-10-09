@@ -16,6 +16,28 @@ npx degit wi11s/boatui/components/scenes components/scenes
 | `<ReefScene />` | A sea turtle gliding across a sunlit reef |
 | `<TrainScene />` | A steam train crossing a stone viaduct at dusk |
 
+### Backgrounds
+
+Textures that paint behind your content. Pure server components, no client JavaScript.
+
+```bash
+npx degit wi11s/boatui/components/backgrounds components/backgrounds
+```
+
+```tsx
+import { GrainBackground } from '@/components/backgrounds';
+
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return <GrainBackground style={{ minHeight: '100vh' }}>{children}</GrainBackground>;
+}
+```
+
+| Component | Background |
+| --- | --- |
+| `<DotGridBackground />` | Fine dot grid fading toward the edges (static) |
+| `<GrainBackground />` | Two-colour gradient with film grain (static) |
+| `<MeshBackground />` | Blurred colour blobs drifting slowly (animated) |
+
 ## Run the site
 
 ```bash
@@ -72,9 +94,13 @@ components/scenes/        the library: copy from here
   scene-frame.tsx         client frame: sizing, theming, overlay, off-screen pause
   scene.module.css        shared motion primitives and reduced-motion handling
   *-scene.tsx / .css      one scene each
+components/backgrounds/   backgrounds: copy from here
+  background.tsx          shared frame: theming, layering, pausing
+  *-background.tsx / .css one background each
 components/site/          playground, code blocks, cards (site only)
 lib/registry.ts           scene metadata: names, descriptions, props, themes
-lib/llms.ts               generates /llms.txt, /llms-full.txt and /scenes/<name>.md
+lib/backgrounds.ts        background metadata
+lib/llms.ts               generates /llms.txt, /llms-full.txt, /scenes/<name>.md and /backgrounds/<name>.md
 lib/analytics.ts          Vercel Analytics custom events
 prototypes/               the original Three.js and web-component experiments
 ```

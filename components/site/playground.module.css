@@ -91,3 +91,34 @@
 .color input::-webkit-color-swatch-wrapper { padding: 2px; }
 .color input::-webkit-color-swatch { border: none; border-radius: 6px; }
 .color input::-moz-color-swatch { border: none; border-radius: 6px; }
+
+/* Background playground: a wide preview with sample content on top. */
+.playgroundWide { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); }
+
+@media (max-width: 760px) {
+  .playgroundWide { grid-template-columns: minmax(0, 1fr); }
+}
+
+.bgPreview {
+  min-height: 420px;
+  display: grid;
+  place-items: center;
+  padding: 32px;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.sampleCard {
+  display: grid;
+  gap: 4px;
+  width: min(320px, 100%);
+  padding: 20px 22px;
+  border-radius: 12px;
+  background: rgb(255 255 255 / 0.85);
+  color: #1c1c1c;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.06), 0 8px 24px rgb(0 0 0 / 0.08);
+  backdrop-filter: blur(6px);
+}
+
+.sampleCard span { font-size: 0.9rem; color: #6b6b6b; }

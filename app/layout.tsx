@@ -31,6 +31,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               {SITE_NAME}
             </Link>
             <nav className={styles.nav}>
+              <Link href="/#scenes" className={styles.optional}>Scenes</Link>
+              <Link href="/#backgrounds" className={styles.optional}>Backgrounds</Link>
               <TrackedLink href={REPO_URL} event="github_click" eventProps={{ target: 'repo', location: 'header' }}>
                 GitHub
               </TrackedLink>

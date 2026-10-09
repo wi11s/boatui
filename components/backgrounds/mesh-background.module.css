@@ -1,0 +1,25 @@
+.base {
+  position: absolute;
+  inset: 0;
+  background: var(--base);
+}
+
+/* Three large blurred blobs drifting slowly on different loops. */
+.blob {
+  position: absolute;
+  width: 70%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.7;
+  animation: drift ease-in-out infinite alternate;
+}
+
+.blob1 { background: var(--blob-1); left: -15%; top: -20%; animation-duration: 18s; }
+.blob2 { background: var(--blob-2); right: -20%; top: 10%; animation-duration: 23s; animation-delay: -8s; }
+.blob3 { background: var(--blob-3); left: 15%; bottom: -35%; animation-duration: 27s; animation-delay: -14s; }
+
+@keyframes drift {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(12%, 8%) scale(1.15); }
+}
