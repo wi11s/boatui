@@ -43,6 +43,9 @@ npx degit wi11s/boatui/components/empty-states components/empty-states
 | `<EmptyNap />` | A cat asleep on a cushion, for "nothing here yet" |
 | `<EmptyFishing />` | A bobber in a quiet pond, fish swimming past, for "no results" |
 | `<EmptyMailbox />` | An open, empty mailbox with a bird on top, for inbox zero |
+| `<EmptySprout />` | A seedling being watered, for "create your first…" |
+| `<EmptyHammock />` | Someone dozing in a hammock, for "all caught up" |
+| `<EmptyBalloon />` | A lone balloon drifting away, for "page not found" |
 
 ### Loaders
 

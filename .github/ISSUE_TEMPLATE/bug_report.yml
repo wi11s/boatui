@@ -16,10 +16,16 @@ body:
         - KiteScene
         - SnowfallScene
         - BlossomScene
+        - CityScene
+        - DesertScene
+        - AutumnScene
         - Shared scene files
         - EmptyNap
         - EmptyFishing
         - EmptyMailbox
+        - EmptySprout
+        - EmptyHammock
+        - EmptyBalloon
         - Shared empty-state files
         - BoatLoader
         - TeaLoader

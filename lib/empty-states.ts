@@ -1,9 +1,15 @@
 import type { ComponentType } from 'react';
 import {
+  EmptyBalloon,
   EmptyFishing,
+  EmptyHammock,
+  EmptySprout,
   EmptyMailbox,
   EmptyNap,
+  emptyBalloonTheme,
   emptyFishingTheme,
+  emptyHammockTheme,
+  emptySproutTheme,
   emptyMailboxTheme,
   emptyNapTheme,
   type EmptyStateProps,
@@ -59,6 +65,42 @@ export const emptyStates: EmptyStateEntry[] = [
     theme: emptyMailboxTheme,
     file: 'empty-mailbox',
     Component: EmptyMailbox as EmptyStateEntry['Component'],
+  },
+  {
+    slug: 'sprout',
+    name: 'EmptySprout',
+    title: 'Sprout',
+    blurb: 'A seedling being watered. For "create your first…".',
+    description:
+      'A seedling in a terracotta pot being watered: drops fall from a tilted watering can and ripple the soil, the sprout sways and its two leaves open and close, and the sun\'s rays turn slowly. For getting-started and "create your first…" screens.',
+    animated: true,
+    theme: emptySproutTheme,
+    file: 'empty-sprout',
+    Component: EmptySprout as EmptyStateEntry['Component'],
+  },
+  {
+    slug: 'hammock',
+    name: 'EmptyHammock',
+    title: 'Hammock',
+    blurb: 'Someone dozing in a hammock. For "all caught up".',
+    description:
+      'Someone dozing in a hammock strung between two palms, a straw hat over their face and a drink waiting on the sand. The hammock swings like a pendulum, the hat rises and falls with their breathing, the fronds stir and small Zs drift up. For "all caught up", inbox zero and "nothing to do" screens.',
+    animated: true,
+    theme: emptyHammockTheme,
+    file: 'empty-hammock',
+    Component: EmptyHammock as EmptyStateEntry['Component'],
+  },
+  {
+    slug: 'balloon',
+    name: 'EmptyBalloon',
+    title: 'Balloon',
+    blurb: 'A lone balloon drifting away. For "page not found".',
+    description:
+      'A lone red balloon drifting up and away, its string trailing and waving, as clouds slide down past it and a bird flaps by. It hangs in the frame and tilts on the breeze, so it reads as rising without leaving. For "page not found" (404), missing links and lost things.',
+    animated: true,
+    theme: emptyBalloonTheme,
+    file: 'empty-balloon',
+    Component: EmptyBalloon as EmptyStateEntry['Component'],
   },
 ];
 

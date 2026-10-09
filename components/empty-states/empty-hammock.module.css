@@ -1,0 +1,38 @@
+/* The hammock swings like a pendulum from between its tie points; the hat rises and falls with
+   breathing; fronds stir; Zs drift up. */
+.swing {
+  transform-origin: 120px 78px;
+  animation: swing 3.6s ease-in-out infinite alternate;
+}
+.breathe {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: breathe 3s ease-in-out infinite;
+}
+.fronds {
+  transform-box: fill-box;
+  transform-origin: 50% 60%;
+  animation: stir 4.4s ease-in-out infinite alternate;
+}
+.z {
+  opacity: 0;
+  animation: float 3.2s ease-out infinite;
+}
+
+@keyframes swing {
+  from { transform: rotate(-3deg); }
+  to   { transform: rotate(3deg); }
+}
+@keyframes breathe {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-1.2px); }
+}
+@keyframes stir {
+  from { transform: rotate(-3deg); }
+  to   { transform: rotate(3deg); }
+}
+@keyframes float {
+  0%   { transform: translate(0, 0) scale(0.6); opacity: 0; }
+  20%  { opacity: 1; }
+  100% { transform: translate(12px, -30px) scale(1.1); opacity: 0; }
+}

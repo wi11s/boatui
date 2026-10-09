@@ -88,7 +88,7 @@ export const categories: Category[] = [
     sharedFiles: EMPTY_STATE_SHARED_FILES,
     install: EMPTY_STATES_INSTALL_COMMAND,
     about:
-      'Empty states are small animated illustrations for screens with nothing to show yet: empty lists, no search results, inbox zero. Pass your message and actions as children and they appear centred under the illustration. Pure server components with CSS animation, drawn in a 240×180 box. Props: `theme`, `size` (illustration width, default 240), `paused`, `className`, `style`, `children`.',
+      'Empty states are small animated illustrations for screens with nothing to show yet: empty lists, no search results, inbox zero, getting started, all caught up, page not found. Pass your message and actions as children and they appear centred under the illustration. Pure server components with CSS animation, drawn in a 240×180 box. Props: `theme`, `size` (illustration width, default 240), `paused`, `className`, `style`, `children`.',
     card: 'wide',
     items: emptyStates,
     props: item => emptyStateProps(emptyStates.find(e => e.slug === item.slug)!),
