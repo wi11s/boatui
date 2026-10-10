@@ -164,7 +164,7 @@ export const scenes: SceneEntry[] = [
     title: 'Blossom',
     blurb: 'Cherry petals drifting over a river as ducks swim by. Spring.',
     description:
-      'A spring riverbank under a cherry tree in full bloom. Petals drift down on a breeze, spinning and fluttering (a 3D flip faked with scaleX), past a red arched bridge, while a mother duck leads three ducklings across the water. Ambient motion: a swaying canopy, soft bokeh light, glints on the river, bobbing ducks with fading wakes.',
+      'A spring riverbank under a cherry tree in full bloom. Petals drift down on a breeze, spinning and fluttering (a 3D flip faked with scaleX), past a red arched bridge and a stone lantern, while a mother duck leads three ducklings across the water. The tree forks into branches that each end in a cluster of blossom. Ambient motion: a swaying canopy, a flickering lantern, soft bokeh light, glints on the river, bobbing ducks with fading wakes.',
     durationLabel: 'the ducks to cross the frame',
     defaultDuration: 50,
     theme: blossomTheme,

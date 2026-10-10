@@ -1,5 +1,5 @@
 // <BlossomScene>: a spring riverbank under a cherry tree in full bloom. Petals drift down on a
-// breeze, spinning and fluttering, past a red arched bridge while a mother duck leads three
+// breeze, spinning and fluttering, past a red arched bridge and a stone lantern while a mother duck leads three
 // ducklings across the water. `duration` is seconds for the ducks to cross the frame (default 50).
 
 import type { CSSProperties } from 'react';
@@ -16,6 +16,9 @@ export const blossomTheme = {
   bridge: '#d9543f',
   grass: '#b9dca8',
   trunk: '#8a5a52',
+  stone: '#c9c3bd',
+  stoneShade: '#aaa29b',
+  lanternGlow: '#ffe2a8',
   blossom: '#f8bed0',
   blossomDeep: '#f29bb6',
   petal1: '#f6a9be',
@@ -65,12 +68,25 @@ const FAR_TREES = Array.from({ length: 9 }, () => {
   return { x, y: ridgeY(x, 470, NEAR_HILL), r: 9 + rand() * 7 };
 });
 
-// The big tree's canopy: overlapping puffs of blossom in two tones, centred on the crown.
-const CANOPY = Array.from({ length: 46 }, () => {
-  const a = rand() * Math.PI * 2;
-  const d = Math.sqrt(rand());
-  return { x: 300 + Math.cos(a) * d * 96, y: 392 + Math.sin(a) * d * 62, r: 14 + rand() * 16, deep: rand() > 0.62 };
-}).sort((a, b) => Number(b.deep) - Number(a.deep));
+// The big tree's canopy: a cluster of blossom puffs at the end of each branch, so the branches
+// show through the gaps. Deep pink puffs sit low in each cluster as shade under the pale ones.
+const CLUSTERS: [number, number, number, number][] = [
+  // [x, y, half-width, half-height]
+  [236, 432, 34, 24],
+  [276, 384, 40, 28],
+  [326, 350, 42, 30],
+  [378, 384, 38, 28],
+  [392, 446, 30, 22],
+  [306, 418, 30, 20],
+];
+const CANOPY = CLUSTERS.flatMap(([cx, cy, w, h]) =>
+  Array.from({ length: 22 }, () => {
+    const a = rand() * Math.PI * 2;
+    const d = Math.sqrt(rand());
+    const y = cy + Math.sin(a) * d * h;
+    return { x: cx + Math.cos(a) * d * w, y, r: 8 + rand() * 7, deep: y > cy + h * 0.2 && rand() > 0.3 };
+  }),
+).sort((a, b) => Number(b.deep) - Number(a.deep));
 
 const FALLEN = Array.from({ length: 22 }, () => {
   const x = rand() * W;
@@ -217,25 +233,39 @@ export function BlossomScene(props: SceneProps<BlossomTheme>) {
             ))}
           </g>
 
-          {/* The cherry tree: trunk and branches, then a canopy that sways from the trunk */}
-          <path
-            d="M352 700 C346 640 340 560 320 500 M330 530 C300 500 270 470 244 440 M324 510 C346 470 360 440 372 410 M318 480 C312 450 300 420 296 400"
-            fill="none"
-            stroke="var(--trunk)"
-            strokeWidth="9"
-            strokeLinecap="round"
-          />
+          {/* Stone lantern on the near bank */}
+          <g transform="translate(64 652)">
+            <ellipse cx="0" cy="2" rx="24" ry="5" fill="#000" opacity="0.08" />
+            <path d="M-10 0 H10 L7 -26 H-7 Z" fill="var(--stone)" />
+            <rect x="-15" y="-34" width="30" height="8" rx="2" fill="var(--stone-shade)" />
+            <rect x="-11" y="-54" width="22" height="20" rx="2" fill="var(--stone)" />
+            <rect x="-5" y="-49" width="10" height="11" rx="1.5" fill="var(--lantern-glow)" className={styles.lantern} />
+            <path d="M-22 -54 Q0 -72 22 -54 Z" fill="var(--stone-shade)" />
+            <circle cx="0" cy="-70" r="4" fill="var(--stone-shade)" />
+          </g>
+
+          {/* The cherry tree: a tapered trunk forking into branches, each ending in blossom */}
+          <path d="M330 700 C336 640 330 560 316 500 L332 498 C350 560 362 640 372 700 Z" fill="var(--trunk)" />
+          <g fill="none" stroke="var(--trunk)" strokeLinecap="round">
+            <path d="M320 512 C296 486 266 460 240 436" strokeWidth="9" />
+            <path d="M318 500 C302 456 288 420 278 388" strokeWidth="8" />
+            <path d="M324 500 C326 452 328 400 326 354" strokeWidth="8" />
+            <path d="M328 510 C350 470 366 430 378 388" strokeWidth="7" />
+            <path d="M334 540 C360 516 380 488 392 448" strokeWidth="7" />
+            <path d="M264 456 C258 444 250 436 238 430 M300 424 C292 410 296 398 290 392 M346 452 C340 436 316 424 306 418" strokeWidth="3.5" />
+          </g>
+          <path d="M340 640 C342 600 338 560 330 520" fill="none" stroke="#000" strokeOpacity="0.07" strokeWidth="5" strokeLinecap="round" />
           <g className={styles.canopy}>
-            {/* Deeper pink first, so it reads as shade between the paler puffs on top */}
+            {/* Deeper pink first, so it reads as shade under the paler puffs on top */}
             {CANOPY.map((c, i) => (
               <circle key={i} cx={c.x.toFixed(1)} cy={c.y.toFixed(1)} r={c.r.toFixed(1)} fill={c.deep ? 'var(--blossom-deep)' : 'var(--blossom)'} />
             ))}
-            <Blossom x={236} y={412} r={10} />
-            <Blossom x={282} y={346} r={9} />
-            <Blossom x={350} y={372} r={11} />
-            <Blossom x={312} y={438} r={9} />
-            <Blossom x={380} y={420} r={10} />
-            <Blossom x={252} y={380} r={8} />
+            <Blossom x={226} y={420} r={9} />
+            <Blossom x={268} y={366} r={9} />
+            <Blossom x={338} y={334} r={10} />
+            <Blossom x={312} y={412} r={8} />
+            <Blossom x={384} y={372} r={10} />
+            <Blossom x={380} y={444} r={9} />
           </g>
 
           {/* Petals on the breeze, drawn last so they drift in front of everything */}
