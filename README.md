@@ -46,6 +46,9 @@ npx degit wi11s/boatui/components/empty-states components/empty-states
 | `<EmptySprout />` | A seedling being watered, for "create your first…" |
 | `<EmptyHammock />` | Someone dozing in a hammock, for "all caught up" |
 | `<EmptyBalloon />` | A lone balloon drifting away, for "page not found" |
+| `<EmptyBasket />` | An empty shopping basket with a ladybird on the handle, for an empty cart |
+| `<EmptyTelescope />` | A telescope scanning a quiet night sky, for "no notifications" |
+| `<EmptySnail />` | A snail with a flag crawling along, for "coming soon" |
 
 ### Loaders
 
@@ -85,6 +88,9 @@ npm i three
 | `<TinyPlanet3D />` | Low-poly planet with cottages, sheep, a windmill and orbiting clouds |
 | `<Lagoon3D />` | Sailboat circling a palm-tree island on a low-poly sea |
 | `<Campfire3D />` | A campfire in a night clearing, with a tent, pines and fireflies |
+| `<SnowGlobe3D />` | A snow globe with a cabin, pines and a snowman. Now and then it shakes |
+| `<KoiPond3D />` | Koi swimming slow loops in a garden pond, with lily pads and a dragonfly |
+| `<ToyRailway3D />` | A toy train running round a diorama board, through a tunnel and past a station |
 
 ## Run the site
 

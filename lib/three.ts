@@ -6,6 +6,12 @@ import {
   lagoonTheme,
   Campfire3D,
   campfireTheme,
+  SnowGlobe3D,
+  snowGlobeTheme,
+  KoiPond3D,
+  koiPondTheme,
+  ToyRailway3D,
+  toyRailwayTheme,
   type ThreeSceneProps,
 } from '@/components/three';
 
@@ -59,6 +65,42 @@ export const threeScenes: ThreeEntry[] = [
     theme: campfireTheme,
     file: 'campfire-3d',
     Component: Campfire3D as ThreeEntry['Component'],
+  },
+  {
+    slug: 'snow-globe',
+    name: 'SnowGlobe3D',
+    title: 'Snow globe',
+    blurb: 'A snow globe with a cabin, pines and a snowman. Now and then it shakes.',
+    description:
+      'A snow globe on a wooden base with brass bands, holding a little winter world that turns slowly: a cabin with a lit window and chimney smoke, four snowy pines and a snowman with a carrot nose. 160 flakes swirl and drift down inside the glass. Every 14 seconds the globe gives a quick wobble and the snow whirls round faster and out toward the glass before settling. The glass is a fresnel shader: clear head-on, bright at the rim, with one sharp highlight. three.js.',
+    animated: true,
+    theme: snowGlobeTheme,
+    file: 'snow-globe-3d',
+    Component: SnowGlobe3D as ThreeEntry['Component'],
+  },
+  {
+    slug: 'koi-pond',
+    name: 'KoiPond3D',
+    title: 'Koi pond',
+    blurb: 'Koi swimming slow loops in a garden pond, with lily pads and a dragonfly.',
+    description:
+      'A garden pond seen from above as the camera circles slowly. Five koi (orange-and-white, white with an orange head, and gold) swim looping paths under a see-through surface, their bodies bending side to side more toward the tail. Lily pads bob, one carrying a pink lotus; rings spread and fade where something touched the water; reeds and cattails sway at the back; and a dragonfly hovers, then darts to a new spot. The lawn, sandy shore and pond floor are one low-poly mesh of rings that follow the outline of the pond. three.js.',
+    animated: true,
+    theme: koiPondTheme,
+    file: 'koi-pond-3d',
+    Component: KoiPond3D as ThreeEntry['Component'],
+  },
+  {
+    slug: 'toy-railway',
+    name: 'ToyRailway3D',
+    title: 'Toy railway',
+    blurb: 'A toy train running round a diorama board, through a tunnel and past a station.',
+    description:
+      'A toy railway on an oval diorama board with wooden sides. A red steam engine pulls a blue and a yellow carriage round the track, through a tunnel in a hill and past a little station, easing almost to a stop at the platform each lap. Smoke puffs trail from the chimney, rising and fading where the engine left them, and the striped gate at the level crossing lowers as the train comes and lifts once it has passed. A cottage, a pond, trees and a slowly drifting camera finish the scene. three.js.',
+    animated: true,
+    theme: toyRailwayTheme,
+    file: 'toy-railway-3d',
+    Component: ToyRailway3D as ThreeEntry['Component'],
   },
 ];
 

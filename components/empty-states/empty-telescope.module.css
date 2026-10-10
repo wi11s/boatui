@@ -1,0 +1,30 @@
+/* The telescope sweeps slowly back and forth across the sky; stars twinkle on their own beats; a
+   shooting star crosses the upper left once every 6s and is hidden the rest of the time. */
+.scan { animation: scan 8s ease-in-out infinite alternate; }
+
+.star {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: twinkle 2.6s ease-in-out infinite;
+}
+
+.shoot {
+  opacity: 0;
+  animation: shoot 6s ease-in infinite;
+  animation-delay: -4s;
+}
+
+@keyframes scan {
+  from { transform: rotate(-10deg); }
+  to   { transform: rotate(12deg); }
+}
+@keyframes twinkle {
+  0%, 100% { transform: scale(0.6); opacity: 0.45; }
+  50%      { transform: scale(1); opacity: 1; }
+}
+@keyframes shoot {
+  0%, 70%  { transform: translate(92px, 40px); opacity: 0; }
+  74%      { opacity: 1; }
+  86%      { opacity: 1; }
+  92%, 100% { transform: translate(132px, 56px); opacity: 0; }
+}

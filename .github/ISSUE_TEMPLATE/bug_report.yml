@@ -26,6 +26,9 @@ body:
         - EmptySprout
         - EmptyHammock
         - EmptyBalloon
+        - EmptyBasket
+        - EmptyTelescope
+        - EmptySnail
         - Shared empty-state files
         - BoatLoader
         - TeaLoader
@@ -40,6 +43,9 @@ body:
         - TinyPlanet3D
         - Lagoon3D
         - Campfire3D
+        - SnowGlobe3D
+        - KoiPond3D
+        - ToyRailway3D
         - Shared 3D files
         - Documentation site
         - llms.txt / markdown docs

@@ -13,6 +13,8 @@
   animation: sway 7s ease-in-out infinite alternate;
 }
 
+.lantern { animation: flicker 3s ease-in-out infinite alternate; }
+
 .bokeh { animation: float ease-in-out infinite alternate; }
 
 /* Petals ride a breeze: down past the bottom and 110 units left, relative to each petal's
@@ -37,6 +39,10 @@
 @keyframes sway {
   from { transform: rotate(-1.2deg); }
   to   { transform: rotate(1deg); }
+}
+@keyframes flicker {
+  from { opacity: 0.55; }
+  to   { opacity: 1; }
 }
 @keyframes float {
   from { transform: translate(0, 0); opacity: 0.45; }
