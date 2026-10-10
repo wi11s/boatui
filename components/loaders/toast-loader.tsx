@@ -17,8 +17,8 @@ export type ToastLoaderTheme = typeof toastLoaderTheme;
 function Slice({ x, className }: { x: number; className: string }) {
   return (
     <g className={className}>
-      <path d={`M${x} 56 V36 c0 -7 4 -9 9 -9 c5 0 9 2 9 9 V56 Z`} fill="var(--crust)" />
-      <path d={`M${x + 2.5} 56 V37 c0 -5 3 -6.5 6.5 -6.5 c3.5 0 6.5 1.5 6.5 6.5 V56 Z`} fill="var(--bread)" />
+      <path d={`M${x} 64 V44 c0 -7 4 -9 9 -9 c5 0 9 2 9 9 V64 Z`} fill="var(--crust)" />
+      <path d={`M${x + 2.5} 64 V45 c0 -5 3 -6.5 6.5 -6.5 c3.5 0 6.5 1.5 6.5 6.5 V64 Z`} fill="var(--bread)" />
     </g>
   );
 }
