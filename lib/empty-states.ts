@@ -1,12 +1,18 @@
 import type { ComponentType } from 'react';
 import {
   EmptyBalloon,
+  EmptyBasket,
+  EmptySnail,
+  EmptyTelescope,
   EmptyFishing,
   EmptyHammock,
   EmptySprout,
   EmptyMailbox,
   EmptyNap,
   emptyBalloonTheme,
+  emptyBasketTheme,
+  emptySnailTheme,
+  emptyTelescopeTheme,
   emptyFishingTheme,
   emptyHammockTheme,
   emptySproutTheme,
@@ -101,6 +107,42 @@ export const emptyStates: EmptyStateEntry[] = [
     theme: emptyBalloonTheme,
     file: 'empty-balloon',
     Component: EmptyBalloon as EmptyStateEntry['Component'],
+  },
+  {
+    slug: 'basket',
+    name: 'EmptyBasket',
+    title: 'Basket',
+    blurb: 'An empty shopping basket with a ladybird on the handle. For an empty cart.',
+    description:
+      'An empty wicker shopping basket with a spotted cloth tucked over the rim, its corner stirring. A ladybird walks up and over the handle, turns round and walks back, and a butterfly flutters round the top. For an empty cart, bag, wishlist or order history.',
+    animated: true,
+    theme: emptyBasketTheme,
+    file: 'empty-basket',
+    Component: EmptyBasket as EmptyStateEntry['Component'],
+  },
+  {
+    slug: 'telescope',
+    name: 'EmptyTelescope',
+    title: 'Telescope',
+    blurb: 'A telescope scanning a quiet night sky. For "no notifications".',
+    description:
+      'A telescope on a hilltop slowly sweeping a round patch of night sky. Stars twinkle on their own beats, the moon hangs to one side, and every 6 seconds a shooting star streaks across. For "no notifications", "nothing new" and empty activity feeds.',
+    animated: true,
+    theme: emptyTelescopeTheme,
+    file: 'empty-telescope',
+    Component: EmptyTelescope as EmptyStateEntry['Component'],
+  },
+  {
+    slug: 'snail',
+    name: 'EmptySnail',
+    title: 'Snail',
+    blurb: 'A snail with a flag, crawling along at its own pace. For "coming soon".',
+    description:
+      'A snail carrying a little blue flag on its shell, crawling along at its own pace: its foot stretches and gathers, the shell rides a beat behind, its eye stalks bob and the flag waves. Grass tufts and pebbles pass slowly behind it over a glistening trail. For "coming soon", features on their way and long-running jobs.',
+    animated: true,
+    theme: emptySnailTheme,
+    file: 'empty-snail',
+    Component: EmptySnail as EmptyStateEntry['Component'],
   },
 ];
 

@@ -1,0 +1,43 @@
+/* One 9s loop for the ladybird: it walks up and over the handle (rotating about the handle's
+   centre), pauses and turns round, then walks back. */
+.walk { animation: walk 9s ease-in-out infinite; }
+.turn { animation: turn 9s ease-in-out infinite; }
+
+.cloth {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: stir 2.6s ease-in-out infinite alternate;
+}
+
+/* The butterfly wanders a loop round the top right of the basket, flapping as it goes. */
+.flutter { animation: flutter 7s ease-in-out infinite; }
+.wings {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: flap 0.22s ease-in-out infinite alternate;
+}
+
+@keyframes walk {
+  0%, 4%    { transform: rotate(-68deg); }
+  44%, 54%  { transform: rotate(68deg); }
+  94%, 100% { transform: rotate(-68deg); }
+}
+@keyframes turn {
+  0%, 44%   { transform: scaleX(1); }
+  49%, 94%  { transform: scaleX(-1); }
+  99%, 100% { transform: scaleX(1); }
+}
+@keyframes stir {
+  from { transform: skewX(-3deg); }
+  to   { transform: skewX(4deg); }
+}
+@keyframes flutter {
+  0%, 100% { transform: translate(196px, 58px) rotate(-8deg); }
+  25%      { transform: translate(170px, 34px) rotate(6deg); }
+  50%      { transform: translate(206px, 22px) rotate(-4deg); }
+  75%      { transform: translate(216px, 48px) rotate(8deg); }
+}
+@keyframes flap {
+  from { transform: scaleX(1); }
+  to   { transform: scaleX(0.3); }
+}

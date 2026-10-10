@@ -4,4 +4,7 @@ export { EmptyMailbox, emptyMailboxTheme, type EmptyMailboxTheme } from './empty
 export { EmptySprout, emptySproutTheme, type EmptySproutTheme } from './empty-sprout';
 export { EmptyHammock, emptyHammockTheme, type EmptyHammockTheme } from './empty-hammock';
 export { EmptyBalloon, emptyBalloonTheme, type EmptyBalloonTheme } from './empty-balloon';
+export { EmptyBasket, emptyBasketTheme, type EmptyBasketTheme } from './empty-basket';
+export { EmptyTelescope, emptyTelescopeTheme, type EmptyTelescopeTheme } from './empty-telescope';
+export { EmptySnail, emptySnailTheme, type EmptySnailTheme } from './empty-snail';
 export type { EmptyStateProps } from './empty-state';

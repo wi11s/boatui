@@ -1,0 +1,58 @@
+/* One 2.4s stride: the foot stretches forward, then gathers up, and the shell and head ride along
+   a beat behind. Tufts and pebbles pass slowly behind, each crossing the frame in 40s. */
+.stretch {
+  transform-box: fill-box;
+  transform-origin: 0% 100%;
+  animation: stretch 2.4s ease-in-out infinite;
+}
+.ride { animation: ride 2.4s ease-in-out infinite; animation-delay: -0.2s; }
+.head { animation: head 2.4s ease-in-out infinite; }
+.stalk {
+  transform-box: fill-box;
+  transform-origin: 0% 100%;
+  animation: bob 1.6s ease-in-out infinite alternate;
+}
+.stalk2 { animation-delay: -0.8s; }
+
+.flag {
+  transform-box: fill-box;
+  transform-origin: 0% 50%;
+  animation: wave 1.2s ease-in-out infinite alternate;
+}
+
+.pass {
+  opacity: 0;
+  animation: pass 40s linear infinite;
+}
+.trail { animation: shine 2.4s ease-in-out infinite alternate; }
+
+@keyframes stretch {
+  0%, 100% { transform: scaleX(1); }
+  50%      { transform: scaleX(1.08); }
+}
+@keyframes ride {
+  0%, 100% { transform: translate(0, 0); }
+  50%      { transform: translate(2.5px, -1px); }
+}
+@keyframes head {
+  0%, 100% { transform: translate(0, 0); }
+  50%      { transform: translate(5px, 0); }
+}
+@keyframes bob {
+  from { transform: rotate(-6deg); }
+  to   { transform: rotate(6deg); }
+}
+@keyframes wave {
+  from { transform: skewY(-6deg) scaleX(1); }
+  to   { transform: skewY(5deg) scaleX(0.9); }
+}
+@keyframes pass {
+  0%   { transform: translateX(0); opacity: 0; }
+  6%   { opacity: 1; }
+  94%  { opacity: 1; }
+  100% { transform: translateX(-212px); opacity: 0; }
+}
+@keyframes shine {
+  from { opacity: 0.4; }
+  to   { opacity: 0.9; }
+}
